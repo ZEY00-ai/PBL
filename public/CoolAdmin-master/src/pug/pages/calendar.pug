@@ -1,0 +1,18 @@
+extends ../layouts/_default
+
+block variables
+  - var pageMeta = { "title": "Calendar", "description": "Event calendar built with FullCalendar 6.1.20 and Bootstrap 5 styling." }
+  - var activePage = 'calendar.html'
+
+block extra_head
+  include ../partials/content/calendar.styles.html
+
+block content
+  include ../partials/content/calendar.html
+
+block vendor_scripts
+  script(src='vendor/chartjs/chart.umd.js-4.5.1.min.js')
+  script(src='vendor/fullcalendar-6.1.20/fullcalendar.min.js')
+
+block extra_scripts
+  include ../partials/content/calendar.scripts.html

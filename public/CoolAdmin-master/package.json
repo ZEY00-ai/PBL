@@ -1,0 +1,23 @@
+{
+  "name": "cooladmin",
+  "version": "3.3.0",
+  "private": true,
+  "description": "CoolAdmin — Bootstrap 5 admin dashboard template",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n pug,sass,vite -c blue,magenta,green \"npm:dev:pug\" \"npm:dev:sass\" \"npm:dev:vite\"",
+    "dev:pug": "node scripts/build-pug.js --watch",
+    "dev:sass": "sass --watch src/scss/theme.scss:css/theme.css src/scss/app.scss:css/app.css --no-source-map --style=expanded",
+    "dev:vite": "vite",
+    "build": "npm run build:pug && npm run build:sass",
+    "build:pug": "node scripts/build-pug.js",
+    "build:sass": "sass src/scss/theme.scss:css/theme.css src/scss/app.scss:css/app.css --no-source-map --style=expanded"
+  },
+  "devDependencies": {
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.1.2",
+    "pug": "^3.0.3",
+    "sass": "^1.83.4",
+    "vite": "^7.0.0"
+  }
+}
