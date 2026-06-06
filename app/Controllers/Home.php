@@ -28,7 +28,7 @@ class Home extends BaseController
     {
         $data = [
             'judul' => 'Forgot Password',
-            'page' => 'auth/v_forget_password',
+            'page' => 'awth/v_forget_password',
             
         ];
         return view('auth/v_forget_password', $data);

@@ -14,11 +14,19 @@
             <h1 class="auth-title">Welcome back</h1>
             <p class="auth-subtitle">Sign in to continue to your dashboard.</p>
 
-            <form class="login-form" action="" method="post" onsubmit="return false">
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+
+            <form class="login-form" action="<?= base_url('login') ?>" method="post">
+                <?= csrf_field() ?>
                 <div class="form-group">
                     <label for="email">Email address</label>
                     <input id="email" class="au-input" type="email" name="email"
-                        placeholder="you@example.com" autocomplete="email" required>
+                        placeholder="you@example.com" autocomplete="email" 
+                        value="<?= old('email') ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -32,10 +40,7 @@
                     </label>
                     <a href="<?= base_url('forget_password') ?>">Forgot password?</a>
                 </div>
-                <!-- <button class="au-btn au-btn--green" type="submit">Sign in</button> -->
-                <a href="<?= base_url('dashboard') ?>" class="au-btn au-btn--green">
-                    Sign in
-                </a>
+                <button class="au-btn au-btn--green" type="submit">Sign in</button>
             </form>
 
             <div class="register-link">
