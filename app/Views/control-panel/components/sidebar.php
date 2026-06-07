@@ -5,60 +5,94 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                 <li class="active has-sub"><a href="calendar.html"><i class="fa-solid fa-home   mb-2"></i>Dashboard</a></li>
-                </li>
-                <!-- fa-solid fa-tachometer-alt -->
-                <li><a href="chart.html"><i class="fa-solid fa-chart-bar"></i>Charts</a></li>
-                <li class="has-sub"><a class="js-arrow" href="#"><i class="fa-solid fa-table"></i>Tables</a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li><a href="table.html">Tables</a></li>
-                        <li><a href="data-table.html">Data table</a></li>
-                    </ul>
-                </li>
-                <li class="has-sub"><a class="js-arrow" href="#"><i class="fa-regular fa-square-check"></i>Forms</a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li><a href="form.html">Forms</a></li>
-                        <li><a href="wizard.html">Setup wizard</a></li>
-                    </ul>
-                </li>
-                <li><a href="calendar.html"><i class="fa-solid fa-calendar-alt"></i>Calendar</a></li>
-                <li><a href="map.html"><i class="fa-solid fa-map-marker-alt"></i>Maps</a></li>
-                <li><a href="inbox.html"><i class="fa-solid fa-inbox"></i>Inbox</a></li>
-                <li><a href="kanban.html"><i class="fa-solid fa-columns"></i>Kanban</a></li>
-                <li><a href="notifications.html"><i class="fa-regular fa-bell"></i>Notifications</a></li>
-                <li><a href="docs.html"><i class="fa-regular fa-file-lines"></i>Documentation</a></li>
-                <li class="has-sub"><a class="js-arrow" href="#"><i class="fa-solid fa-user-gear"></i>Account</a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li><a href="profile.html">Profile &amp; settings</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="invoice.html">Invoice</a></li>
-                    </ul>
-                </li>
-                <li class="has-sub"><a class="js-arrow" href="#"><i class="fa-solid fa-copy"></i>Pages</a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="forget-pass.html">Forgot password</a></li>
-                        <li><a href="404.html">404 not found</a></li>
-                        <li><a href="500.html">500 server error</a></li>
-                        <li><a href="maintenance.html">Maintenance</a></li>
-                    </ul>
-                </li>
-                <li class="has-sub"><a class="js-arrow" href="#"><i class="fa-solid fa-desktop"></i>UI Elements</a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li><a href="button.html">Buttons</a></li>
-                        <li><a href="badge.html">Badges</a></li>
-                        <li><a href="tab.html">Tabs</a></li>
-                        <li><a href="card.html">Cards</a></li>
-                        <li><a href="alert.html">Alerts</a></li>
-                        <li><a href="progress-bar.html">Progress bars</a></li>
-                        <li><a href="modal.html">Modals</a></li>
-                        <li><a href="switch.html">Switches</a></li>
-                        <li><a href="grid.html">Grid system</a></li>
-                        <li><a href="fontawesome.html">Font Awesome</a></li>
-                        <li><a href="typo.html">Typography</a></li>
-                    </ul>
-                </li>
+
+                <!-- admin sistem -->
+                <?php if (session()->get('user_role') === 'admin_sistem'): ?>
+                    <li class="<?= uri_string() === 'admin/dashboard' ? 'active' : '' ?> has-sub">
+                        <a href="<?= base_url('admin/dashboard') ?>">
+                            <i class="fa-solid fa-home mb-2"></i>Dashboard
+                        </a>
+                    </li>
+                        <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/kelolaUser') ?>">
+                        <i class="fa-solid fa-users mb-2"></i>Kelola User
+                    </a>
+                    </li>
+                    <li class="<?= uri_string() === 'admin/log-aktivitas' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/log-aktivitas') ?>">
+                            <i class="fa-solid fa-chart-bar mb-2"></i>Log Aktivitas
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'admin/konfigurasi' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/konfigurasi') ?>">
+                            <i class="fa-solid fa-cog mb-2"></i>Konfigurasi Sistem
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'admin/profile' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/profile') ?>">
+                            <i class="fa-solid fa-user mb-2"></i>Profile
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+
+                <!-- Operator Maps -->
+
+                <?php if (session()->get('user_role') === 'operator_maps'): ?>
+                    <li class="<?= uri_string() === 'operator-maps/dashboard' ? 'active' : '' ?> has-sub">
+                        <a href="<?= base_url('operator-maps/dashboard') ?>">
+                            <i class="fa-solid fa-home mb-2"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/input-data-sekolah' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/input-data-sekolah') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Input Data Sekolah
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Peta Sekolah
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/profile' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/profile') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Profile
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if (session()->get('user_role') === 'operator_dinas'): ?>
+                    <li class="<?= uri_string() === 'operator-dinas/dashboard' ? 'active' : '' ?> has-sub">
+                        <a href="<?= base_url('operator-dinas/dashboard') ?>">
+                            <i class="fa-solid fa-home mb-2"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-dinas/laporan-penyebaran-sekolah' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-dinas/laporan-penyebaran-sekolah') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Laporan Penyebaran Sekolah
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-dinas/laporan-perkecamatan' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-dinas/laporan-perkecamatan') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Laporan perkecamatan
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-dinas/analisis-data' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-dinas/analisis-data') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>analisis Data
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-dinas/export-data' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-dinas/export-data') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Export Data
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-dinas/profile' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-dinas/profile') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Profile
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </nav>
     </div>

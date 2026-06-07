@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
    protected $table         = 'users';
-   protected $allowedFields = ['nama', 'email', 'password'];
+   protected $allowedFields = ['nama', 'email', 'password','role'];
    protected $useTimestamps = true;
 
    public function findByEmail(string $email)

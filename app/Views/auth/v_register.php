@@ -38,6 +38,15 @@
                         value="<?= old('email') ?>" required>
                 </div>
                 <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" class="au-input" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="admin_sistem" <?= old('role') === 'admin_sistem' ? 'selected' : '' ?>>Admin Sistem</option>
+                        <option value="operator_dinas" <?= old('role') === 'operator_dinas' ? 'selected' : '' ?>>Operator Dinas</option>
+                        <option value="operator_maps" <?= old('role') === 'operator_maps' ? 'selected' : '' ?>>Operator Maps</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="password">Password</label>
                     <input id="password" class="au-input" type="password" name="password"
                         placeholder="At least 8 characters" autocomplete="new-password" minlength="6" required>

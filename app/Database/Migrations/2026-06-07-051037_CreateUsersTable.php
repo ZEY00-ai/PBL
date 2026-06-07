@@ -11,6 +11,8 @@ class CreateUsersTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'nama' => [
@@ -25,11 +27,23 @@ class CreateUsersTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'created_at' => ['type' => 'DATETIME', 'null' => true],
-            'updated_at' => ['type' => 'DATETIME', 'null' => true],
+            'role' => [
+                'type'       => 'ENUM',
+                'constraint' => ['admin_sistem', 'operator_dinas', 'operator_maps'],
+                'default'    => 'operator_maps',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addUniqueKey('email');
         $this->forge->createTable('users');
     }
 
