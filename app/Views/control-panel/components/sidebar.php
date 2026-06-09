@@ -13,10 +13,10 @@
                             <i class="fa-solid fa-home mb-2"></i>Dashboard
                         </a>
                     </li>
-                        <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
-                    <a href="<?= base_url('admin/kelolaUser') ?>">
-                        <i class="fa-solid fa-users mb-2"></i>Kelola User
-                    </a>
+                    <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/kelolaUser') ?>">
+                            <i class="fa-solid fa-users mb-2"></i>Kelola User
+                        </a>
                     </li>
                     <li class="<?= uri_string() === 'admin/log-aktivitas' ? 'active' : '' ?>">
                         <a href="<?= base_url('admin/log-aktivitas') ?>">
@@ -54,12 +54,19 @@
                             <i class="fa-solid fa-calendar-alt"></i>Peta Sekolah
                         </a>
                     </li>
+                    <li class="<?= uri_string() === 'operator-maps/sekolah' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/sekolah') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>List Sekolah
+                        </a>
+                    </li>
                     <li class="<?= uri_string() === 'operator-maps/profile' ? 'active' : '' ?>">
                         <a href="<?= base_url('operator-maps/profile') ?>">
                             <i class="fa-solid fa-calendar-alt"></i>Profile
                         </a>
                     </li>
                 <?php endif; ?>
+
+                <!-- operator dinas -->
 
                 <?php if (session()->get('user_role') === 'operator_dinas'): ?>
                     <li class="<?= uri_string() === 'operator-dinas/dashboard' ? 'active' : '' ?> has-sub">

@@ -15,7 +15,7 @@
                             <p class="subtitle">Halaman manajemen pengguna untuk admin sistem</p>
                         </div>
                     </div>
-                    <form action="<?= base_url('admin/sekolah/simpan') ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('operator-maps/sekolah/simpan') ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
 
                         <div class="form-group">

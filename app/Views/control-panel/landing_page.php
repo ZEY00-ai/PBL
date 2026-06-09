@@ -249,10 +249,9 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Jenjang Pendidikan</label>
                             <select class="form-select">
-                                <option>Semua Jenjang (SD, SMP, SMA)</option>
+                                <option>Semua Jenjang (SD, SMP)</option>
                                 <option>SD Negeri / Swasta</option>
                                 <option>SMP Negeri</option>
-                                <option>SMA / SMK Negeri</option>
                             </select>
                         </div>
 
@@ -312,22 +311,41 @@
                         </div>
 
                         <script>
-                            var streets = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                                attribution: '&copy; OpenStreetMap & CartoDB'
+                            const sekolah = <?= json_encode($sekolah ?? []) ?>;
+                            const maptilerKey = '<?= esc($maptilerKey ?? '') ?>';
+
+                            const tileLayerUrl = maptilerKey
+                                ? `https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=${maptilerKey}`
+                                : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+                            const tileLayerAttribution = maptilerKey
+                                ? '© MapTiler © OpenStreetMap contributors'
+                                : '&copy; OpenStreetMap contributors';
+
+                            const streets = L.tileLayer(tileLayerUrl, {
+                                attribution: tileLayerAttribution,
+                                maxZoom: 19
                             });
 
-                            var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                                attribution: '&copy; OpenStreetMap & CartoDB'
+                            const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                                attribution: '&copy; OpenStreetMap & CartoDB',
+                                maxZoom: 19
                             });
 
-                            var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                                attribution: 'Tiles © Esri'
-                            });
+                            const satellite = maptilerKey
+                                ? L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.png?key=${maptilerKey}`, {
+                                    attribution: '© MapTiler © OpenStreetMap contributors',
+                                    maxZoom: 19
+                                })
+                                : L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                                    attribution: 'Tiles © Esri',
+                                    maxZoom: 19
+                                });
 
                             const map = L.map('map', {
                                 center: [-0.2733009989610224, 100.48442111207578],
-                                zoom: 13,
-                                layers: [streets] // Layer default yang ditampilkan saat peta dimuat
+                                zoom: 12,
+                                layers: [streets]
                             });
 
                             const baseLayers = {
@@ -335,9 +353,41 @@
                                 'Dark': dark,
                                 'Satellite': satellite
                             };
-                            const layerControl = L.control.layers(baseLayers, null, {
+
+                            L.control.layers(baseLayers, null, {
                                 collapsed: false
                             }).addTo(map);
+
+                            const bounds = [];
+                            sekolah.forEach(function (s) {
+                                if (!s.latitude || !s.longitude) {
+                                    return;
+                                }
+
+                                const lat = parseFloat(s.latitude);
+                                const lng = parseFloat(s.longitude);
+                                if (Number.isNaN(lat) || Number.isNaN(lng)) {
+                                    return;
+                                }
+
+                                const marker = L.marker([lat, lng]).addTo(map);
+                                const popupContent = `
+                                    <div style="min-width:200px;">
+                                        <strong>${s.nama_sekolah}</strong><br>
+                                        <small>${s.kecamatan || ''}</small><br>
+                                        <p class="small mb-1">${s.alamat || ''}</p>
+                                        ${s.foto ? `<img src="<?= base_url('uploads/sekolah') ?>/${s.foto}" alt="Foto sekolah" style="width:100%; height:100px; object-fit:cover; border-radius:6px;">` : ''}
+                                    </div>
+                                `;
+                                marker.bindPopup(popupContent);
+                                bounds.push([lat, lng]);
+                            });
+
+                            if (bounds.length) {
+                                map.fitBounds(bounds, {
+                                    padding: [40, 40]
+                                });
+                            }
                         </script>
 
                     </div>
@@ -355,13 +405,13 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="stat-item">
-                            <h3>342</h3>
+                            <h3><?= esc((string) ($totalSekolah ?? 0)) ?></h3>
                             <p>Total Sekolah Terdata</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="stat-item">
-                            <h3 style="color:#10b981;">318</h3>
+                            <h3 style="color:#10b981;"><?= esc((string) ($totalTerverifikasi ?? 0)) ?></h3>
                             <p>Terverifikasi Spasial</p>
                         </div>
                     </div>

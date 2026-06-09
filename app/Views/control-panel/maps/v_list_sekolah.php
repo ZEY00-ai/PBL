@@ -12,7 +12,7 @@
                         <p class="subtitle">Daftar seluruh sekolah di Kabupaten Tanah Datar</p>
                     </div>
                     <div class="page-header__actions">
-                        <a href="<?= base_url('admin/sekolah/tambah') ?>" class="m-btn m-btn--primary">
+                        <a href="<?= base_url('operator-maps/sekolah/tambah') ?>" class="m-btn m-btn--primary">
                             <i class="fa-solid fa-plus"></i> Tambah Sekolah
                         </a>
                     </div>
@@ -66,11 +66,11 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <a href="<?= base_url('admin/sekolah/edit/' . $s['id']) ?>"
+                                                <a href="<?= base_url('operator-maps/sekolah/edit/' . $s['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
                                                     <i class="fa-solid fa-pen"></i> Edit
                                                 </a>
-                                                <a href="<?= base_url('admin/sekolah/hapus/' . $s['id']) ?>"
+                                                <a href="<?= base_url('operator-maps/sekolah/hapus/' . $s['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px; color:red;"
                                                     onclick="return confirm('Yakin hapus data ini?')">
                                                     <i class="fa-solid fa-trash"></i> Hapus

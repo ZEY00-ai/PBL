@@ -1,0 +1,108 @@
+CRITICAL - 2026-06-09 03:09:22 --> ErrorException: Undefined array key "nama"
+[Method: GET, Route: operator-maps/profile]
+in APPPATH\Views\control-panel\maps\profile\v_account.php on line 55.
+ 1 APPPATH\Views\control-panel\maps\profile\v_account.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php', 55)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_account', [], true)
+ 5 APPPATH\Views\control-panel\maps\v_profile.php(45): view('control-panel/maps/profile/v_account', [...])
+ 6 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\v_profile.php')
+ 7 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/v_profile', [], true)
+ 9 APPPATH\Controllers\controlpanel\OperatorMapsController.php(33): view('control-panel/maps/v_profile', [...])
+10 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\OperatorMapsController->profile()
+11 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\OperatorMapsController))
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 04:49:21 --> ErrorException: Undefined array key "nama"
+[Method: GET, Route: operator-maps/profile]
+in APPPATH\Views\control-panel\maps\profile\v_account.php on line 55.
+ 1 APPPATH\Views\control-panel\maps\profile\v_account.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php', 55)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_account', [], true)
+ 5 APPPATH\Views\control-panel\maps\v_profile.php(45): view('control-panel/maps/profile/v_account', [...])
+ 6 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\v_profile.php')
+ 7 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/v_profile', [], true)
+ 9 APPPATH\Controllers\controlpanel\OperatorMapsController.php(33): view('control-panel/maps/v_profile', [...])
+10 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\OperatorMapsController->profile()
+11 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\OperatorMapsController))
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 05:20:09 --> ErrorException: Undefined array key "nama"
+[Method: GET, Route: operator-maps/profile]
+in APPPATH\Views\control-panel\maps\profile\v_account.php on line 55.
+ 1 APPPATH\Views\control-panel\maps\profile\v_account.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php', 55)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_account', [], true)
+ 5 APPPATH\Views\control-panel\maps\v_profile.php(45): view('control-panel/maps/profile/v_account', [...])
+ 6 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\v_profile.php')
+ 7 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/v_profile', [], true)
+ 9 APPPATH\Controllers\controlpanel\OperatorMapsController.php(33): view('control-panel/maps/v_profile', [...])
+10 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\OperatorMapsController->profile()
+11 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\OperatorMapsController))
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 05:26:13 --> ErrorException: Undefined array key "nama"
+[Method: GET, Route: operator-maps/profile]
+in APPPATH\Views\control-panel\maps\profile\v_account.php on line 55.
+ 1 APPPATH\Views\control-panel\maps\profile\v_account.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php', 55)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\profile\\v_account.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_account', [], true)
+ 5 APPPATH\Views\control-panel\maps\v_profile.php(45): view('control-panel/maps/profile/v_account', [...])
+ 6 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\maps\\v_profile.php')
+ 7 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/v_profile', [], true)
+ 9 APPPATH\Controllers\controlpanel\OperatorMapsController.php(33): view('control-panel/maps/v_profile', [...])
+10 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\OperatorMapsController->profile()
+11 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\OperatorMapsController))
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 05:28:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "control-panel/maps/profile/v_profile.php"
+[Method: GET, Route: operator-maps/profile]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('control-panel/maps/profile/v_profile.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_profile', [], true)
+ 3 APPPATH\Controllers\controlpanel\OperatorMapsController.php(38): view('control-panel/maps/profile/v_profile', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\OperatorMapsController->profile()
+ 5 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\OperatorMapsController))
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 05:29:39 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "control-panel/maps/profile/v_profile.php"
+[Method: GET, Route: operator-maps/profile]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('control-panel/maps/profile/v_profile.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_profile', [], true)
+ 3 APPPATH\Controllers\controlpanel\ProfileController.php(30): view('control-panel/maps/profile/v_profile', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\ProfileController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\ProfileController))
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-09 05:29:41 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "control-panel/maps/profile/v_profile.php"
+[Method: GET, Route: operator-maps/profile]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('control-panel/maps/profile/v_profile.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/profile/v_profile', [], true)
+ 3 APPPATH\Controllers\controlpanel\ProfileController.php(30): view('control-panel/maps/profile/v_profile', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\ProfileController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\ProfileController))
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

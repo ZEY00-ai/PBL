@@ -2,15 +2,27 @@
 
 namespace App\Controllers;
 
+use App\Models\SekolahModel;
+
 class Home extends BaseController
 {
     public function index()
     {
+        $sekolahModel = new SekolahModel();
+        $sekolah = $sekolahModel->select('id,nama_sekolah,alamat,latitude,longitude,kecamatan,foto')->findAll();
+        $validCoordinates = array_filter($sekolah, function ($item) {
+            return ! empty($item['latitude']) && ! empty($item['longitude']);
+        });
+
         $data = [
             'judul' => 'Landing Page',
             'page' => 'control-panel/landing_page',
-
+            'sekolah' => $sekolah,
+            'totalSekolah' => count($sekolah),
+            'totalTerverifikasi' => count($validCoordinates),
+            'maptilerKey' => getenv('MAPTILER_KEY') ?: null,
         ];
+
         return view('control-panel/landing_page', $data);
     }
 

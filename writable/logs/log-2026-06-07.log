@@ -373,3 +373,7 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-07 17:00:54 --> ErrorException: Cannot redeclare App\Controllers\Controlpanel\SekolahController::index()
+[Method: GET, Route: operator-maps/sekolah/peta]
+in APPPATH\Controllers\controlpanel\SekolahController.php on line 60.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
