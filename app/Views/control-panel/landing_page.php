@@ -511,7 +511,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>             
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>

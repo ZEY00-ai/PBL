@@ -76,6 +76,7 @@ class SekolahController extends BaseController
     public function peta()
     {
         $data['sekolah'] = $this->sekolahModel->findAll();
+        $data['geojson'] = (new \App\Models\GeoJsonModel())->findAll();
         return view('control-panel/maps/v_peta_sekolah', $data);
     }
 

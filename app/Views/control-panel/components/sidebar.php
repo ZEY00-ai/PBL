@@ -33,6 +33,36 @@
                             <i class="fa-solid fa-user mb-2"></i>Profile
                         </a>
                     </li>
+                    <li class="<?= uri_string() === 'operator-maps/dashboard' ? 'active' : '' ?> has-sub">
+                        <a href="<?= base_url('operator-maps/dashboard') ?>">
+                            <i class="fa-solid fa-home mb-2"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/input-data-sekolah' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/input-data-sekolah') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Input Data Sekolah
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/input-geojson' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/input-geojson') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Input GeoJson
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/geojson/list' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/geojson/list') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>List GeoJson
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>maps Sekolah & GeoJson
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/sekolah' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/sekolah') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>List Sekolah
+                        </a>
+                    </li>
                 <?php endif; ?>
 
 
@@ -49,9 +79,19 @@
                             <i class="fa-solid fa-calendar-alt"></i>Input Data Sekolah
                         </a>
                     </li>
+                    <li class="<?= uri_string() === 'operator-maps/input-geojson' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/input-geojson') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>Input GeoJson
+                        </a>
+                    </li>
+                    <li class="<?= uri_string() === 'operator-maps/geojson/list' ? 'active' : '' ?>">
+                        <a href="<?= base_url('operator-maps/geojson/list') ?>">
+                            <i class="fa-solid fa-calendar-alt"></i>List GeoJson
+                        </a>
+                    </li>
                     <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
                         <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>Peta Sekolah
+                            <i class="fa-solid fa-calendar-alt"></i>maps Sekolah & GeoJson
                         </a>
                     </li>
                     <li class="<?= uri_string() === 'operator-maps/sekolah' ? 'active' : '' ?>">

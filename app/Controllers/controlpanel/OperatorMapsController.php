@@ -37,5 +37,10 @@ class OperatorMapsController extends BaseController
 
         return view('control-panel/maps/profile/v_profile', $data);
     }
+
+    public function GeoJson()
+    {
+        return view('control-panel/maps/input/v_geoJson');
+    }
     
 }

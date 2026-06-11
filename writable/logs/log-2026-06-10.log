@@ -1,0 +1,26 @@
+CRITICAL - 2026-06-10 04:56:17 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "control-panel/maps/peta/v_peta.php"
+[Method: GET, Route: operator-maps/maps]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('control-panel/maps/peta/v_peta.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/maps/peta/v_peta', [], true)
+ 3 APPPATH\Controllers\controlpanel\GeoJsonController.php(50): view('control-panel/maps/peta/v_peta', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\GeoJsonController->peta()
+ 5 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\GeoJsonController))
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-10 08:52:28 --> ErrorException: Undefined array key "nama_kecamatan"
+[Method: GET, Route: admin/kelolaUser]
+in APPPATH\Views\control-panel\admin\v_kelolaUser.php on line 62.
+ 1 APPPATH\Views\control-panel\admin\v_kelolaUser.php(62): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama_kecamatan"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\v_kelolaUser.php', 62)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\v_kelolaUser.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/v_kelolaUser', [], true)
+ 5 APPPATH\Controllers\controlpanel\admin\KelolaUserController.php(26): view('control-panel/admin/v_kelolaUser', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\Admin\KelolaUserController->list()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\Admin\KelolaUserController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
