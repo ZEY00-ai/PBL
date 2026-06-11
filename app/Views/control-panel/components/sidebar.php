@@ -6,69 +6,42 @@
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
 
-                <!-- admin sistem -->
-                <?php if (session()->get('user_role') === 'admin_sistem'): ?>
-                    <li class="<?= uri_string() === 'admin/dashboard' ? 'active' : '' ?> has-sub">
-                        <a href="<?= base_url('admin/dashboard') ?>">
-                            <i class="fa-solid fa-home mb-2"></i>Dashboard
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
-                        <a href="<?= base_url('admin/kelolaUser') ?>">
-                            <i class="fa-solid fa-users mb-2"></i>Kelola User
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'admin/log-aktivitas' ? 'active' : '' ?>">
-                        <a href="<?= base_url('admin/log-aktivitas') ?>">
-                            <i class="fa-solid fa-chart-bar mb-2"></i>Log Aktivitas
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'admin/konfigurasi' ? 'active' : '' ?>">
-                        <a href="<?= base_url('admin/konfigurasi') ?>">
-                            <i class="fa-solid fa-cog mb-2"></i>Konfigurasi Sistem
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'admin/profile' ? 'active' : '' ?>">
-                        <a href="<?= base_url('admin/profile') ?>">
-                            <i class="fa-solid fa-user mb-2"></i>Profile
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/dashboard' ? 'active' : '' ?> has-sub">
-                        <a href="<?= base_url('operator-maps/dashboard') ?>">
-                            <i class="fa-solid fa-home mb-2"></i>Dashboard
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/input-data-sekolah' ? 'active' : '' ?>">
-                        <a href="<?= base_url('operator-maps/input-data-sekolah') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>Input Data Sekolah
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/input-geojson' ? 'active' : '' ?>">
-                        <a href="<?= base_url('operator-maps/input-geojson') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>Input GeoJson
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/geojson/list' ? 'active' : '' ?>">
-                        <a href="<?= base_url('operator-maps/geojson/list') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>List GeoJson
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
-                        <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>maps Sekolah & GeoJson
-                        </a>
-                    </li>
-                    <li class="<?= uri_string() === 'operator-maps/sekolah' ? 'active' : '' ?>">
-                        <a href="<?= base_url('operator-maps/sekolah') ?>">
-                            <i class="fa-solid fa-calendar-alt"></i>List Sekolah
-                        </a>
-                    </li>
-                <?php endif; ?>
+
+                <li class="<?= uri_string() === 'admin/dashboard' ? 'active' : '' ?> has-sub">
+                    <a href="<?= base_url('admin/dashboard') ?>">
+                        <i class="fa-solid fa-home mb-1"></i>Dashboard
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/kelolaUser') ?>">
+                        <i class="fa-solid fa-users mb-1"></i>Kelola User
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'admin/sekolah' ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/sekolah') ?>">
+                        <i class="fa-solid fa-chart-bar   mb-1"></i>Data Sekolah
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'operator-maps/geojson/list' ? 'active' : '' ?>">
+                    <a href="<?= base_url('operator-maps/geojson/list') ?>">
+                        <i class="fa-solid fa-calendar-alt"></i>List GeoJson
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
+                    <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
+                        <i class="fa-solid fa-calendar-alt"></i>maps Sekolah & GeoJson
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'admin/profile' ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/profile') ?>">
+                        <i class="fa-solid fa-user mb-2"></i>Profile
+                    </a>
+                </li>
 
 
                 <!-- Operator Maps -->
 
-                <?php if (session()->get('user_role') === 'operator_maps'): ?>
+                <!-- <?php if (session()->get('user_role') === 'operator_maps'): ?>
                     <li class="<?= uri_string() === 'operator-maps/dashboard' ? 'active' : '' ?> has-sub">
                         <a href="<?= base_url('operator-maps/dashboard') ?>">
                             <i class="fa-solid fa-home mb-2"></i>Dashboard
@@ -106,8 +79,6 @@
                     </li>
                 <?php endif; ?>
 
-                <!-- operator dinas -->
-
                 <?php if (session()->get('user_role') === 'operator_dinas'): ?>
                     <li class="<?= uri_string() === 'operator-dinas/dashboard' ? 'active' : '' ?> has-sub">
                         <a href="<?= base_url('operator-dinas/dashboard') ?>">
@@ -139,7 +110,7 @@
                             <i class="fa-solid fa-calendar-alt"></i>Profile
                         </a>
                     </li>
-                <?php endif; ?>
+                <?php endif; ?> -->
             </ul>
         </nav>
     </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Controlpanel;
+namespace App\Controllers\Controlpanel\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\GeoJsonModel;

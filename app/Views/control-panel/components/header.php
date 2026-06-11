@@ -21,6 +21,8 @@
       <link href="<?= base_url('CoolAdmin-master/vendor/css-hamburgers/hamburgers.min.css') ?>" rel="stylesheet" media="all" />
       <link href="<?= base_url('CoolAdmin-master/css/theme.css') ?>" rel="stylesheet" media="all" />
       <link href="<?= base_url('CoolAdmin-master/css/app.css') ?>" rel="stylesheet" media="all" />
+      <!-- Leaflet CSS -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin="" />

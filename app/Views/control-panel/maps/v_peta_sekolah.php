@@ -1,7 +1,6 @@
 <?php echo view('control-panel/components/header'); ?>
 
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 
 <body class="app">
     <div class="page-container">

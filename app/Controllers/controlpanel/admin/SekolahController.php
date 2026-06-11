@@ -1,32 +1,33 @@
 <?php
 
-namespace App\Controllers\Controlpanel;
+namespace App\Controllers\Controlpanel\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\SekolahModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SekolahController extends BaseController
 {
 
-    protected $sekolahModel;
+    protected SekolahModel $SekolahModel;
     
     public function __construct()
     {
-        $this->sekolahModel = new \App\Models\SekolahModel();
+        $this->SekolahModel = new SekolahModel();
     }
 
     public function index()
     {
-        $data['sekolah'] = $this->sekolahModel->findAll();
-        return view('control-panel/maps/v_list_sekolah', $data);
+        $data['sekolah'] = $this->SekolahModel->findAll();
+        return view('control-panel/admin/sekolah/v_index', $data);
     }
 
-    public function tambah()
+    public function create()
     {
-        return view('control-panel/maps/v_input');
+        return view('control-panel/admin/sekolah/v_create');
     }
 
-    public function simpan()
+    public function store()
     {
         if (!$this->validate([
             'nama_sekolah'  => 'required',
@@ -36,7 +37,7 @@ class SekolahController extends BaseController
             'kecamatan'     => 'required',
             'foto'          => 'uploaded[foto]|max_size[foto,2048]|is_image[foto]',
         ])) {
-            return redirect()->to('/operator-maps/dashboard')->withInput()->with('error', $this->validator->getErrors());
+            return redirect()->to('/admin/v_index ')->withInput()->with('error', $this->validator->getErrors());
         }
 
         $fotoName = null;
@@ -46,7 +47,7 @@ class SekolahController extends BaseController
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
 
-        $this->sekolahModel->insert([
+        $this->SekolahModel->insert([
             'nama_sekolah' => $this->request->getPost('nama_sekolah'),
             'alamat'       => $this->request->getPost('alamat'),
             'latitude'     => $this->request->getPost('latitude'),
@@ -60,7 +61,7 @@ class SekolahController extends BaseController
 
     public function hapus($id)
     {
-        $sekolah = $this->sekolahModel->find($id);
+        $sekolah = $this->SekolahModel->find($id);
 
         if ($sekolah && ! empty($sekolah['foto'])) {
             $fotoPath = ROOTPATH . 'public/uploads/sekolah/' . $sekolah['foto'];
@@ -69,20 +70,20 @@ class SekolahController extends BaseController
             }
         }
 
-        $this->sekolahModel->delete($id);
+        $this->SekolahModel->delete($id);
         return redirect()->to('control-panel/maps/v_list_sekolah')->with('success', 'Data sekolah berhasil dihapus');
     }
 
     public function peta()
     {
-        $data['sekolah'] = $this->sekolahModel->findAll();
+        $data['sekolah'] = $this->SekolahModel->findAll();
         $data['geojson'] = (new \App\Models\GeoJsonModel())->findAll();
         return view('control-panel/maps/v_peta_sekolah', $data);
     }
 
     public function edit($id)
     {
-        $data['sekolah'] = $this->sekolahModel->find($id);
+        $data['sekolah'] = $this->SekolahModel->find($id);
 
         if (!$data['sekolah']) {
             return redirect()->to('/operator-maps/sekolah')->with('error', 'Data sekolah tidak ditemukan');
@@ -93,7 +94,7 @@ class SekolahController extends BaseController
 
     public function update($id)
     {
-        $sekolah = $this->sekolahModel->find($id);
+        $sekolah = $this->SekolahModel->find($id);
 
         if (!$sekolah) {
             return redirect()->to('/operator-maps/sekolah')->with('error', 'Data sekolah tidak ditemukan');
@@ -122,7 +123,7 @@ class SekolahController extends BaseController
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
-        $this->sekolahModel->update($id, [
+        $this->SekolahModel->update($id, [
             'nama_sekolah' => $this->request->getPost('nama_sekolah'),
             'alamat'       => $this->request->getPost('alamat'),
             'latitude'     => $this->request->getPost('latitude'),
