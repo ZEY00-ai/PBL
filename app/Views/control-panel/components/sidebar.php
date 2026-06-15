@@ -7,33 +7,38 @@
             <ul class="list-unstyled navbar__list">
 
 
-                <li class="<?= uri_string() === 'admin/dashboard' ? 'active' : '' ?> has-sub">
-                    <a href="<?= base_url('admin/dashboard') ?>">
+                <li class="<?= uri_string() === 'dashboard' ? 'active' : '' ?> has-sub">
+                    <a href="<?= base_url('dashboard') ?>">
                         <i class="fa-solid fa-home mb-1"></i>Dashboard
                     </a>
                 </li>
-                <li class="<?= uri_string() === 'admin/kelolaUser' ? 'active' : '' ?>">
-                    <a href="<?= base_url('admin/kelolaUser') ?>">
-                        <i class="fa-solid fa-users mb-1"></i>Kelola User
+                <li class="<?= strpos(uri_string(), 'user') === 0 ? 'active' : '' ?>">
+                    <a href="<?= base_url('user/list') ?>">
+                        <i class="fa-solid fa-users mb-1"></i>Data User
                     </a>
                 </li>
-                <li class="<?= uri_string() === 'admin/sekolah' ? 'active' : '' ?>">
+                <li class="<?= strpos(uri_string(), 'admin/sekolah') === 0 ? 'active' : '' ?>">
                     <a href="<?= base_url('admin/sekolah') ?>">
                         <i class="fa-solid fa-chart-bar   mb-1"></i>Data Sekolah
                     </a>
                 </li>
-                <li class="<?= uri_string() === 'operator-maps/geojson/list' ? 'active' : '' ?>">
-                    <a href="<?= base_url('operator-maps/geojson/list') ?>">
-                        <i class="fa-solid fa-calendar-alt"></i>List GeoJson
+                <li class="<?= strpos(uri_string(), 'geojson') === 0 ? 'active' : '' ?>">
+                    <a href="<?= base_url('geojson/list') ?>">
+                        <i class="fa-solid fa-calendar-alt"></i>Data GeoJson
                     </a>
                 </li>
-                <li class="<?= uri_string() === 'operator-maps/sekolah/peta' ? 'active' : '' ?>">
-                    <a href="<?= base_url('operator-maps/sekolah/peta') ?>">
+                <li class="<?= uri_string() === 'maps/index' ? 'active' : '' ?>">
+                    <a href="<?= base_url('maps/index') ?>">
                         <i class="fa-solid fa-calendar-alt"></i>maps Sekolah & GeoJson
                     </a>
                 </li>
-                <li class="<?= uri_string() === 'admin/profile' ? 'active' : '' ?>">
-                    <a href="<?= base_url('admin/profile') ?>">
+                <li class="<?= uri_string() === 'laporan/dashboard' ? 'active' : '' ?>">
+                    <a href="<?= base_url('laporan/dashboard') ?>">
+                        <i class="fa-solid fa-calendar-alt"></i>Laporan
+                    </a>
+                </li>
+                <li class="<?= uri_string() === 'profile/dashboard' ? 'active' : '' ?>">
+                    <a href="<?= base_url('profile/dashboard') ?>">
                         <i class="fa-solid fa-user mb-2"></i>Profile
                     </a>
                 </li>

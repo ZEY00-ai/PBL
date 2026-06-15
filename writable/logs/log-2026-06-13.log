@@ -1,0 +1,60 @@
+CRITICAL - 2026-06-13 07:39:11 --> ParseError: syntax error, unexpected variable "$routes"
+[Method: GET, Route: admin/dashboard]
+in APPPATH\Config\Routes.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(841): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 2 SYSTEMPATH\CodeIgniter.php(464): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-13 09:36:16 --> ParseError: syntax error, unexpected token "}"
+[Method: GET, Route: geojson/list]
+in APPPATH\Config\Routes.php on line 59.
+ 1 SYSTEMPATH\CodeIgniter.php(841): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 2 SYSTEMPATH\CodeIgniter.php(464): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-13 09:49:34 --> ErrorException: Undefined array key "nama_kecamatan"
+[Method: GET, Route: user/list]
+in APPPATH\Views\control-panel\admin\user\v_index.php on line 65.
+ 1 APPPATH\Views\control-panel\admin\user\v_index.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nama_kecamatan"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php', 65)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/user/v_index', [], true)
+ 5 APPPATH\Controllers\controlpanel\admin\UserController.php(22): view('control-panel/admin/user/v_index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\Admin\UserController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\Admin\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-13 09:49:55 --> ErrorException: Undefined array key "#"
+[Method: GET, Route: user/list]
+in APPPATH\Views\control-panel\admin\user\v_index.php on line 65.
+ 1 APPPATH\Views\control-panel\admin\user\v_index.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "#"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php', 65)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/user/v_index', [], true)
+ 5 APPPATH\Controllers\controlpanel\admin\UserController.php(22): view('control-panel/admin/user/v_index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\Admin\UserController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\Admin\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-06-13 10:13:43 --> ErrorException: Undefined array key "role"
+[Method: GET, Route: user/list]
+in APPPATH\Views\control-panel\admin\user\v_index.php on line 53.
+ 1 APPPATH\Views\control-panel\admin\user\v_index.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "role"', 'C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php', 53)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\user\\v_index.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/user/v_index', [], true)
+ 5 APPPATH\Controllers\controlpanel\admin\UserController.php(22): view('control-panel/admin/user/v_index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Controlpanel\Admin\UserController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Controlpanel\Admin\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

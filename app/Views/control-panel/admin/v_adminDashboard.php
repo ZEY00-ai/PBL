@@ -1,192 +1,188 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php echo view('control-panel/components/header'); ?>
 
-<body class="app"><a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
+<body class="app">
+    <a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
     <div class="page-container">
+
+        <?php echo view('control-panel/components/sidebar'); ?>
+
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <!-- Page header -->
+
+                    <!-- Page Header -->
                     <div class="page-header">
                         <div>
-                            <h1>Dashboard admin</h1>
-                            <p class="subtitle">Welcome back, Admin! <?= session()->get('user_nama') ?></p>
-                        </div>
-                        <div class="page-header__actions">
-                            <button type="button" class="date-chip" aria-label="Date range: last 30 days">
-                                <i class="fa-regular fa-calendar"></i>
-                                Last 30 days
-                                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="m-btn m-btn--ghost" id="dash-refresh-btn" aria-label="Refresh dashboard data">
-                                <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-                                Refresh
-                            </button>
-                            <button type="button" class="m-btn m-btn--ghost">
-                                <i class="fa-solid fa-download" aria-hidden="true"></i>
-                                Export
-                            </button>
-                            <button type="button" class="m-btn m-btn--primary">
-                                <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                                New project
-                            </button>
+                            <h1>Dashboard Admin</h1>
+                            <p class="subtitle">Welcome back, Admin! <?= esc(session()->get('user_nama')) ?></p>
                         </div>
                     </div>
+
+                    <!-- Stat Cards -->
+                    <div class="row row-tight" style="margin-bottom:24px;">
+                        <div class="col-sm-6 col-lg-3">
+                            <article class="stat-card">
+                                <div class="stat-card__head">
+                                    <p class="stat-card__label">Total Sekolah</p>
+                                    <span class="stat-card__icon stat-card__icon--c1">
+                                        <i class="fa-solid fa-school"></i>
+                                    </span>
+                                </div>
+                                <p class="stat-card__value"><?= $totalSekolah ?></p>
+                                <p class="stat-card__delta stat-card__delta--up">
+                                    <i class="fa-solid fa-arrow-up"></i> Data terdaftar
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <article class="stat-card">
+                                <div class="stat-card__head">
+                                    <p class="stat-card__label">Total Kecamatan</p>
+                                    <span class="stat-card__icon stat-card__icon--c2">
+                                        <i class="fa-solid fa-map"></i>
+                                    </span>
+                                </div>
+                                <p class="stat-card__value"><?= $totalKecamatan ?></p>
+                                <p class="stat-card__delta stat-card__delta--up">
+                                    <i class="fa-solid fa-arrow-up"></i> Wilayah terdaftar
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <article class="stat-card">
+                                <div class="stat-card__head">
+                                    <p class="stat-card__label">Total GeoJSON</p>
+                                    <span class="stat-card__icon stat-card__icon--c3">
+                                        <i class="fa-solid fa-map-location-dot"></i>
+                                    </span>
+                                </div>
+                                <p class="stat-card__value"><?= $totalGeoJson ?></p>
+                                <p class="stat-card__delta stat-card__delta--up">
+                                    <i class="fa-solid fa-arrow-up"></i> Wilayah dipetakan
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <article class="stat-card">
+                                <div class="stat-card__head">
+                                    <p class="stat-card__label">Total Akun</p>
+                                    <span class="stat-card__icon stat-card__icon--c4">
+                                        <i class="fa-solid fa-users"></i>
+                                    </span>
+                                </div>
+                                <p class="stat-card__value"><?= $totalAkun ?></p>
+                                <p class="stat-card__delta stat-card__delta--up">
+                                    <i class="fa-solid fa-arrow-up"></i> Admin terdaftar
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+
                     <div class="row row-tight">
-                        <div class="col-sm-6 col-lg-3">
-                            <article class="stat-card">
-                                <div class="stat-card__head">
-                                    <p class="stat-card__label">Visitors</p>
-                                    <span class="stat-card__icon stat-card__icon--c1"><i class="fa-solid fa-users" aria-hidden="true"></i></span>
-                                </div>
-                                <p class="stat-card__value">84,290</p>
-                                <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>18.2% <span class="stat-card__delta-period">vs prev 28d</span>
-                                </p>
-                            </article>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <article class="stat-card">
-                                <div class="stat-card__head">
-                                    <p class="stat-card__label">Sessions</p>
-                                    <span class="stat-card__icon stat-card__icon--c2"><i class="fa-solid fa-eye" aria-hidden="true"></i></span>
-                                </div>
-                                <p class="stat-card__value">142,180</p>
-                                <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>22.4% <span class="stat-card__delta-period">vs prev 28d</span>
-                                </p>
-                            </article>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <article class="stat-card">
-                                <div class="stat-card__head">
-                                    <p class="stat-card__label">Bounce rate</p>
-                                    <span class="stat-card__icon stat-card__icon--c3"><i class="fa-solid fa-arrow-trend-down" aria-hidden="true"></i></span>
-                                </div>
-                                <p class="stat-card__value">38.4%</p>
-                                <p class="stat-card__delta stat-card__delta--down">
-                                    <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>2.1pp <span class="stat-card__delta-period">vs prev 28d</span>
-                                </p>
-                            </article>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <article class="stat-card">
-                                <div class="stat-card__head">
-                                    <p class="stat-card__label">Avg session</p>
-                                    <span class="stat-card__icon stat-card__icon--c4"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
-                                </div>
-                                <p class="stat-card__value">4m 12s</p>
-                                <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>14s <span class="stat-card__delta-period">vs prev 28d</span>
-                                </p>
-                            </article>
-                        </div>
-                        <div class="row row-tight" style="margin-top: 16px;">
-                            <div class="col-lg-8">
-                                <section class="m-card" aria-labelledby="projects-title">
-                                    <header class="m-card__header">
-                                        <div>
-                                            <h2 class="m-card__title" id="projects-title">Active projects</h2>
-                                            <p class="m-card__subtitle">Currently in progress, by completion.</p>
-                                        </div>
-                                        <a href="#" class="m-btn m-btn--ghost" style="height:30px; padding:0 10px; font-size:12.5px;">View all</a>
-                                    </header>
-                                    <ul class="project-list">
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">Acme dashboard redesign</p>
-                                                <span class="project-list__meta">Due May 18 · 12 tasks · <span class="status--process">on track</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-01.jpg" alt="">
-                                                <img src="images/icon/avatar-04.jpg" alt="">
-                                                <img src="images/icon/avatar-06.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar" style="--pct: 78%;"></span>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">Q2 marketing campaign</p>
-                                                <span class="project-list__meta">Due May 24 · 8 tasks · <span class="status--process">on track</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-02.jpg" alt="">
-                                                <img src="images/icon/avatar-05.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar project-list__bar--success" style="--pct: 64%;"></span>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">Mobile app v3 release</p>
-                                                <span class="project-list__meta">Due Jun 02 · 24 tasks · <span class="status--approved">in review</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-01.jpg" alt="">
-                                                <img src="images/icon/avatar-03.jpg" alt="">
-                                                <img src="images/icon/avatar-05.jpg" alt="">
-                                                <img src="images/icon/avatar-06.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar" style="--pct: 52%;"></span>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">API v2 documentation</p>
-                                                <span class="project-list__meta">Due May 20 · 6 tasks · <span class="status--process">on track</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-04.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar project-list__bar--success" style="--pct: 88%;"></span>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">Customer onboarding flow</p>
-                                                <span class="project-list__meta">Due May 28 · 14 tasks · <span class="status--denied">at risk</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-02.jpg" alt="">
-                                                <img src="images/icon/avatar-04.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar project-list__bar--warning" style="--pct: 32%;"></span>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p class="project-list__title">Pricing page A/B test</p>
-                                                <span class="project-list__meta">Due Jun 10 · 4 tasks · <span class="status--approved">planning</span></span>
-                                            </div>
-                                            <div class="project-list__avatars">
-                                                <img src="images/icon/avatar-05.jpg" alt="">
-                                                <img src="images/icon/avatar-03.jpg" alt="">
-                                            </div>
-                                            <span class="project-list__bar" style="--pct: 18%;"></span>
-                                        </li>
-                                    </ul>
-                                </section>
-                            </div>
-                            <div class="col-lg-4">
-                                <section class="m-card" aria-labelledby="sources-donut-title">
-                                    <header class="m-card__header">
-                                        <div>
-                                            <h2 class="m-card__title" id="sources-donut-title">Traffic sources</h2>
-                                            <p class="m-card__subtitle">Share of incoming traffic.</p>
-                                        </div>
-                                    </header>
-                                    <div class="donut-wrap">
-                                        <canvas id="traffic-sources"></canvas>
+
+                        <!-- Daftar Sekolah Terbaru -->
+                        <div class="col-lg-8">
+                            <section class="m-card" aria-labelledby="sekolah-title">
+                                <header class="m-card__header">
+                                    <div>
+                                        <h2 class="m-card__title" id="sekolah-title">Sekolah Terbaru</h2>
+                                        <p class="m-card__subtitle">Data sekolah yang baru ditambahkan</p>
                                     </div>
-                                </section>
-                            </div>
+                                    <a href="<?= base_url('admin/sekolah') ?>" class="m-btn m-btn--ghost"
+                                        style="height:30px; padding:0 10px; font-size:12.5px;">View all</a>
+                                </header>
+                                <ul class="project-list">
+                                    <?php if (!empty($sekolahTerbaru)): ?>
+                                        <?php foreach ($sekolahTerbaru as $s): ?>
+                                            <li>
+                                                <div>
+                                                    <p class="project-list__title"><?= esc($s['nama_sekolah']) ?></p>
+                                                    <span class="project-list__meta">
+                                                        <?= esc($s['kecamatan']) ?> ·
+                                                        <?= $s['npsn'] ? 'NPSN: ' . esc($s['npsn']) : 'NPSN: -' ?> ·
+                                                        <span class="status--process">terdaftar</span>
+                                                    </span>
+                                                </div>
+                                                <a href="<?= base_url('admin/sekolah/detail/' . $s['id']) ?>"
+                                                    class="m-btn m-btn--ghost"
+                                                    style="height:28px; padding:0 10px; font-size:12px;">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <li style="padding:16px; color:var(--m-text-muted); text-align:center;">
+                                            Belum ada data sekolah.
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </section>
                         </div>
+
+                        <!-- Sekolah per Kecamatan -->
+                        <div class="col-lg-4">
+                            <section class="m-card" aria-labelledby="kecamatan-title">
+                                <header class="m-card__header">
+                                    <div>
+                                        <h2 class="m-card__title" id="kecamatan-title">Sekolah per Kecamatan</h2>
+                                        <p class="m-card__subtitle">Jumlah sekolah tiap kecamatan</p>
+                                    </div>
+                                </header>
+                                <div class="donut-wrap">
+                                    <canvas id="chart-kecamatan"></canvas>
+                                </div>
+                                <ul style="list-style:none; padding:0; margin:12px 0 0;">
+                                    <?php foreach ($sekolahPerKecamatan as $kec): ?>
+                                        <li style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--m-divider); font-size:13px;">
+                                            <span><?= esc($kec['kecamatan']) ?></span>
+                                            <strong><?= $kec['total'] ?></strong>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </section>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+        </main>
     </div>
-    </div>
-    </main>
-    </div>
-    </div>
-    <?php echo view('control-panel/components/footer'); ?>
-</body>
 
-</html>
+    <script>
+        // Chart sekolah per kecamatan
+        const labels = <?= json_encode(array_column($sekolahPerKecamatan, 'kecamatan')) ?>;
+        const values = <?= json_encode(array_column($sekolahPerKecamatan, 'total')) ?>;
+        const colors = ['#4272d7', '#7c3aed', '#0d9488', '#e11d48', '#d97706', '#334155', '#06b6d4', '#84cc16', '#f43f5e', '#8b5cf6'];
+
+        const ctx = document.getElementById('chart-kecamatan');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors.slice(0, labels.length),
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <?php echo view('control-panel/components/footer'); ?>
+    <style>
+        .theme-switcher {
+            display: none !important;
+        }
+    </style>
+</body>

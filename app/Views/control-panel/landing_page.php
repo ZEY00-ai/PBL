@@ -186,51 +186,125 @@
     <!-- ══ NAVBAR ══ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
         <div class="container-fluid">
+
             <a class="navbar-brand fw-bold text-primary" href="#">
                 <i class="fa-solid fa-map-location-dot me-2"></i>
                 <span class="d-none d-md-inline">SIG Sekolah Tanah Datar</span>
                 <span class="d-md-none">SIG Sekolah</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pencarian">Pencarian</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#statistik">Statistik</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
-                </ul>
-                <div class="d-flex gap-2 mt-2 mt-lg-0">
-                    <a href="<?= base_url('login') ?>" class="btn btn-primary btn-sm px-4">
-                        <i class="fa-solid fa-right-to-bracket me-1"></i>Login
-                    </a>
-                    <a href="<?= base_url('register') ?>" class="btn btn-outline-primary btn-sm px-4">
-                        <i class="fa-solid fa-user-plus me-1"></i>Register
-                    </a>
+                <div class="d-flex w-100 justify-content-between align-items-center flex-column flex-lg-row">
+
+                    <div style="width: 600px;" class="d-none d-lg-block"></div>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pencarian">Pencarian</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#statistik">Statistik</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
+                    </ul>
+
+                    <div style="width: 100px;" class="text-lg-end w-100 w-lg-auto mt-2 mt-lg-0">
+                        <a href="<?= base_url('login') ?>" class="btn btn-primary btn-sm px-4">
+                            <i class="fa-solid fa-right-to-bracket me-1"></i>Panel Admin
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ══ HERO ══ -->
+
     <header id="beranda" class="landing-header text-center">
         <div class="container">
-            <h1 class="mb-2">Temukan &amp; Petakan Sekolah</h1>
-            <p class="mb-1 fw-semibold" style="font-size:1.2rem;">Kabupaten Tanah Datar</p>
+            <h1 class="mb-2">Jelajahi Sekolah di Kabupaten Tanah Datar</h1>
+            <p class="mb-1 fw-semibold" style="font-size:1.2rem;">Temukan Sekolah dengan Mudah</p>
             <p style="font-size:0.95rem; opacity:0.85; max-width:560px; margin: 0 auto;">
-                Akses informasi spasial data pokok sekolah, sarana prasarana, peta zonasi PPDB, dan rute navigasi akurat
+                Akses informasi lokasi, fasilitas, dan profil sekolah melalui peta digital yang interaktif dan mudah digunakan.
             </p>
-            <div class="hero-cta">
-                <a href="<?= base_url('auth/login') ?>" class="btn btn-light btn-lg px-5 fw-bold">
-                    <i class="fa-solid fa-right-to-bracket me-2"></i>Masuk Sistem
-                </a>
-                <a href="<?= base_url('auth/register') ?>" class="btn btn-outline-light btn-lg px-5 fw-bold">
-                    <i class="fa-solid fa-user-plus me-2"></i>Daftar Sekarang
-                </a>
-            </div>
         </div>
     </header>
+
+    <!-- Statistik -->
+    <section id="statistik" class="stats-section">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Ringkasan Data Spasial</h2>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <article class="stat-card text-center py-4">
+                        <div class="mb-3">
+                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width:70px;height:70px;">
+                                <i class="fa-solid fa-school fa-2x text-primary"></i>
+                            </span>
+                        </div>
+                        <h1 class="fw-bold mb-1">
+                            <?= esc((string) ($totalSekolah ?? 0)) ?>
+                        </h1>
+                        <p class="text-secondary mb-0 fw-medium">
+                            Total Sekolah Terdata
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <article class="stat-card text-center py-4">
+                        <div class="mb-3">
+                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width:70px;height:70px;">
+                                <i class="fa-solid fas fa-child fa-2x text-primary"></i>
+                            </span>
+                        </div>
+                        <h1 class="fw-bold mb-1">
+                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                        </h1>
+                        <p class="text-secondary mb-0 fw-medium">
+                            Total Taman Kanak-Kanak (TK)
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <article class="stat-card text-center py-4">
+                        <div class="mb-3">
+                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width:70px;height:70px;">
+                                <i class="fa-solid fa-pencil fa-2x text-primary"></i>
+                            </span>
+                        </div>
+                        <h1 class="fw-bold mb-1">
+                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                        </h1>
+                        <p class="text-secondary mb-0 fw-medium">
+                            Total Sekolah Dasar (SD)
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <article class="stat-card text-center py-4">
+                        <div class="mb-3">
+                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width:70px;height:70px;">
+                                <i class="fa-solid fa-book-open fa-2x text-primary"></i>
+                            </span>
+                        </div>
+                        <h1 class="fw-bold mb-1">
+                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                        </h1>
+                        <p class="text-secondary mb-0 fw-medium">
+                            Total Sekolah Menengah (SMP)
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ══ MAIN CONTENT ══ -->
     <main id="main-content">
@@ -247,20 +321,26 @@
                         </h5>
 
                         <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary small text-uppercase">
+                                Pencarian Sekolah
+                            </label>
+
+                            <div class="input-group">
+                                <input
+                                    type="search"
+                                    id="dt-search-input"
+                                    class="form-control"
+                                    placeholder="Cari nama sekolah..."
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Jenjang Pendidikan</label>
                             <select class="form-select">
-                                <option>Semua Jenjang (SD, SMP)</option>
-                                <option>SD Negeri / Swasta</option>
-                                <option>SMP Negeri</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold text-secondary small text-uppercase">Radius Jarak</label>
-                            <select class="form-select">
-                                <option>Dalam Radius 1 KM</option>
-                                <option>Dalam Radius 3 KM</option>
-                                <option>Dalam Radius 5 KM</option>
+                                <option>Semua Jenjang (TK,SD, SMP)</option>
+                                <option>Teman Kanak-Kanak (TK)</option>
+                                <option>Sekolah Dasar Negeri (SDN)</option>
+                                <option>Sekolah Menengah Pertama Negeri (SMPN)</option>
                             </select>
                         </div>
 
@@ -268,28 +348,30 @@
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Wilayah Kecamatan</label>
                             <select class="form-select">
                                 <option>Semua Kecamatan</option>
-                                <option>Kecamatan Lima Kaum</option>
-                                <option>Kecamatan Tanjung Emas</option>
                                 <option>Kecamatan Lintau Buo</option>
-                                <option>Kecamatan Batipuh</option>
-                                <option>Kecamatan Pariangan</option>
+                                <option>Kecamatan Padang Gantiang</option>
+                                <option>Kecamatan Tanjung Ameh</option>
                             </select>
                         </div>
 
-                        <button class="btn btn-outline-primary w-100 fw-bold mb-2 py-2">
-                            <i class="fa-solid fa-layer-group me-2"></i>Peta Zonasi PPDB
-                        </button>
-                        <button class="btn btn-success w-100 fw-bold mb-3 py-2">
-                            <i class="fa-solid fa-calculator me-2"></i>Cek Kelayakan
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary small text-uppercase">Akreditasi</label>
+                            <select class="form-select">
+                                <option>Semua Akreditasi</option>
+                                <option>Akreditasi A</option>
+                                <option>Akreditasi B</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary w-100 fw-bold mb-2 py-2">
+                            <i class="fa-solid fa-search"></i>Cek Sekolah
                         </button>
 
                         <hr>
-                        <p class="small text-muted mb-2">Akses fitur lengkap sistem:</p>
+                        <p class="small text-muted mb-2">Eksplorasi Peta</p>
                         <a href="<?= base_url('auth/login') ?>" class="btn btn-primary w-100 fw-bold mb-2 py-2">
-                            <i class="fa-solid fa-right-to-bracket me-2"></i>Login ke Sistem
-                        </a>
-                        <a href="<?= base_url('auth/register') ?>" class="btn btn-outline-primary w-100 fw-bold py-2">
-                            <i class="fa-solid fa-user-plus me-2"></i>Buat Akun Baru
+                            <i class="fas fa-map-marked-alt"></i>Peta Interaktif
                         </a>
                     </div>
                 </div>
@@ -314,13 +396,13 @@
                             const sekolah = <?= json_encode($sekolah ?? []) ?>;
                             const maptilerKey = '<?= esc($maptilerKey ?? '') ?>';
 
-                            const tileLayerUrl = maptilerKey
-                                ? `https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=${maptilerKey}`
-                                : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                            const tileLayerUrl = maptilerKey ?
+                                `https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=${maptilerKey}` :
+                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-                            const tileLayerAttribution = maptilerKey
-                                ? '© MapTiler © OpenStreetMap contributors'
-                                : '&copy; OpenStreetMap contributors';
+                            const tileLayerAttribution = maptilerKey ?
+                                '© MapTiler © OpenStreetMap contributors' :
+                                '&copy; OpenStreetMap contributors';
 
                             const streets = L.tileLayer(tileLayerUrl, {
                                 attribution: tileLayerAttribution,
@@ -332,12 +414,12 @@
                                 maxZoom: 19
                             });
 
-                            const satellite = maptilerKey
-                                ? L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.png?key=${maptilerKey}`, {
+                            const satellite = maptilerKey ?
+                                L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.png?key=${maptilerKey}`, {
                                     attribution: '© MapTiler © OpenStreetMap contributors',
                                     maxZoom: 19
-                                })
-                                : L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                                }) :
+                                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                                     attribution: 'Tiles © Esri',
                                     maxZoom: 19
                                 });
@@ -359,7 +441,7 @@
                             }).addTo(map);
 
                             const bounds = [];
-                            sekolah.forEach(function (s) {
+                            sekolah.forEach(function(s) {
                                 if (!s.latitude || !s.longitude) {
                                     return;
                                 }
@@ -398,123 +480,26 @@
         </div>
         </div>
 
-        <!-- Statistik -->
-        <section id="statistik" class="stats-section">
+        <!-- ══ FOOTER ══ -->
+        <footer class="bg-dark text-white py-4">
             <div class="container">
-                <h2 class="text-center fw-bold mb-5">Ringkasan Data Spasial</h2>
-                <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-item">
-                            <h3><?= esc((string) ($totalSekolah ?? 0)) ?></h3>
-                            <p>Total Sekolah Terdata</p>
-                        </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-1 fw-bold">
+                            <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
+                            SIG Pemetaan Sekolah Kabupaten Tanah Datar
+                        </p>
+                        <small class="text-muted">Sistem Informasi Geografis untuk manajemen data spasial sekolah</small>
                     </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-item">
-                            <h3 style="color:#10b981;"><?= esc((string) ($totalTerverifikasi ?? 0)) ?></h3>
-                            <p>Terverifikasi Spasial</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-item">
-                            <h3 style="color:#0ea5e9;">91.4%</h3>
-                            <p>Rasio Kelayakan Zonasi</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-item">
-                            <h3 style="color:#f59e0b;">B+</h3>
-                            <p>Rata-rata Sarpras</p>
-                        </div>
+                    <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                        <small class="text-muted">&copy; 2026 Dinas Pendidikan Kabupaten Tanah Datar. All rights reserved.</small>
                     </div>
                 </div>
             </div>
-        </section>
+        </footer>
 
-        <!-- Fitur Utama -->
-        <div class="container my-5" id="fitur">
-            <h2 class="text-center fw-bold mb-5">Fitur Utama Sistem</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-map-pin fa-3x text-primary mb-3"></i>
-                        <h6 class="fw-bold">Pemetaan Lokasi</h6>
-                        <p class="small text-muted">Visualisasi spasial data sekolah dengan GPS presisi tinggi</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-chart-bar fa-3x text-success mb-3"></i>
-                        <h6 class="fw-bold">Analitik Data</h6>
-                        <p class="small text-muted">Dashboard statistik lengkap sarana prasarana sekolah</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-file-pdf fa-3x text-danger mb-3"></i>
-                        <h6 class="fw-bold">Export Laporan</h6>
-                        <p class="small text-muted">Cetak dan ekspor data dalam format PDF profesional</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-shield-halved fa-3x text-warning mb-3"></i>
-                        <h6 class="fw-bold">Keamanan Data</h6>
-                        <p class="small text-muted">Sistem akses terkontrol dengan enkripsi data maksimal</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-arrows-to-dot fa-3x text-info mb-3"></i>
-                        <h6 class="fw-bold">Zonasi PPDB</h6>
-                        <p class="small text-muted">Simulasi peta zonasi PPDB berdasarkan jarak tempuh siswa</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-route fa-3x text-secondary mb-3"></i>
-                        <h6 class="fw-bold">Navigasi Rute</h6>
-                        <p class="small text-muted">Rute navigasi akurat dari lokasi siswa ke sekolah pilihan</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-boxes-stacked fa-3x text-primary mb-3"></i>
-                        <h6 class="fw-bold">Inventaris Sarpras</h6>
-                        <p class="small text-muted">Pengelolaan inventaris sarana dan prasarana sekolah secara digital</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card border-0 shadow feature-card text-center p-4">
-                        <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
-                        <h6 class="fw-bold">Verifikasi Lapangan</h6>
-                        <p class="small text-muted">Alur validasi data lapangan oleh surveyor dengan tracking progres</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ══ FOOTER ══ -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-1 fw-bold">
-                        <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
-                        SIG Pemetaan Sekolah Kabupaten Tanah Datar
-                    </p>
-                    <small class="text-muted">Sistem Informasi Geografis untuk manajemen data spasial sekolah</small>
-                </div>
-                <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                    <small class="text-muted">&copy; 2026 Dinas Pendidikan Kabupaten Tanah Datar. All rights reserved.</small>
-                </div>
-            </div>
-        </div>
-    </footer>             
-
-    <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
-    <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>
+        <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
+        <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>
 </body>
 
 </html>

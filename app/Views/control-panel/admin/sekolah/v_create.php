@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <form action="<?= base_url('operator-maps/sekolah/') ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('admin/sekolah/simpan') ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
 
                         <!-- Nama Sekolah -->
@@ -27,6 +27,14 @@
                                 class="form-control"
                                 value="<?= old('nama_sekolah') ?>"
                                 required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>NPSN</label>
+                            <input type="text" name="npsn" class="form-control"
+                                placeholder="Nomor Pokok Sekolah Nasional"
+                                value="<?= old('npsn') ?>">
+                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <!-- Peta Kiri & Koordinat Kanan -->
@@ -116,6 +124,22 @@
                                 required><?= old('alamat') ?></textarea>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label>Tahun Berdiri</label>
+                            <input type="number" name="tahun_berdiri" class="form-control"
+                                placeholder="Contoh: 1995" min="1900" max="<?= date('Y') ?>"
+                                value="<?= old('tahun_berdiri') ?>">
+                            <small class="text-muted">Opsional</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Website</label>
+                            <input type="url" name="website" class="form-control"
+                                placeholder="https://www.sekolah.sch.id"
+                                value="<?= old('website') ?>">
+                            <small class="text-muted">Opsional</small>
+                        </div>
+
                         <!-- Foto Sekolah -->
                         <div class="form-group">
                             <label>Foto Sekolah</label>
@@ -131,7 +155,7 @@
                                 Simpan
                             </button>
 
-                            <a href="<?= base_url('operator-maps/sekolah') ?>"
+                            <a href="<?= base_url('admin/sekolah') ?>"
                                 class="btn btn-secondary">
                                 Batal
                             </a>

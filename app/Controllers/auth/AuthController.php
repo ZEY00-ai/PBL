@@ -32,20 +32,9 @@ class AuthController extends BaseController
             'user_id'    => $user['id'],
             'user_nama'  => $user['nama'],
             'user_email' => $user['email'],
-            'user_role'  => $user['role'],
-            'role'       => $user['role'],
         ]);
 
-        // Redirect berdasarkan role
-        $role = $user['role'];
-
-        if ($role === 'admin_sistem') {
-            return redirect()->to('/admin/dashboard');
-        } elseif ($role === 'operator_dinas') {
-            return redirect()->to('/operator-dinas/dashboard');
-        } else {
-            return redirect()->to('/operator-maps/dashboard');
-        }
+        return redirect()->to('dashboard');
     }
 
     public function register()
@@ -61,7 +50,6 @@ class AuthController extends BaseController
             'nama'      => 'required|min_length[3]',
             'email'     => 'required|valid_email|is_unique[users.email]',
             'password' => 'required|min_length[6]',
-            'role' => 'required',
         ])) {
             return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
         }
@@ -70,7 +58,6 @@ class AuthController extends BaseController
             'nama'      => $this->request->getPost('nama'),
             'email'     => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role' => $this->request->getPost('role'),
         ]);
 
         return redirect()->to('/login')->with('success', 'Registrasi berhasil, silakan login');

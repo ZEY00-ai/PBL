@@ -6,6 +6,12 @@
     </div>
 </div>
 
+<style>
+    .theme-switcher {
+        display: none !important;
+    }
+</style>
+
 <script src="<?= base_url('CoolAdmin-master/js/vanilla-utils.js') ?>"></script>
 <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
 <script src="<?= base_url('CoolAdmin-master/vendor/chartjs/chart.umd.js-4.5.1.min.js') ?>"></script>

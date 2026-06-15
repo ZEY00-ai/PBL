@@ -17,10 +17,16 @@ class GeoJsonController extends BaseController
 
     public function index()
     {
-        return view('control-panel/maps/input/v_geoJson');
+        $data['geojson'] = $this->geoJsonModel->findAll();
+        return view('control-panel/admin/geoJson/v_index', $data);
     }
 
-    public function simpan()
+    public function create()
+    {
+        return view('control-panel/admin/geoJson/v_create');
+    }
+
+    public function store()
     {
         if (!$this->validate([
             'nama_kecamatan' => 'required',
@@ -30,7 +36,7 @@ class GeoJsonController extends BaseController
         }
 
         $geoJsonData = $this->request->getPost('geojson');
-        if(!json_decode($geoJsonData)) {
+        if (!json_decode($geoJsonData)) {
             return redirect()->back()->withInput()->with('error', 'GeoJson tidak valid');
         }
 
@@ -39,27 +45,8 @@ class GeoJsonController extends BaseController
             'warna' => $this->request->getPost('warna'),
             'geojson' => $geoJsonData,
         ]);
-        
+
         return redirect()->back()->with('success', 'GeoJson berhasil disimpan');
-    }
-
-    public function peta()
-    {
-        $data['geojson'] = $this->geoJsonModel->findAll();
-        $data['sekolah'] = (new \App\Models\SekolahModel())->findAll();
-        return view('control-panel/maps/peta/v_peta', $data);
-    }
-
-    public function hapus($id)
-    {
-        $this->geoJsonModel->delete($id);
-        return redirect()->back()->with('success', 'GeoJson berhasil dihapus');
-    }
-
-    public function list()
-    {
-        $data['geojson'] = $this->geoJsonModel->findAll();
-        return view('control-panel/maps/list/v_list_geoJson', $data);
     }
 
     public function edit($id)
@@ -70,9 +57,9 @@ class GeoJsonController extends BaseController
             return redirect()->back()->with('error', 'GeoJson tidak ditemukan');
         }
 
-        return view('control-panel/maps/edit/v_edit_geoJson', $data);
+        return view('control-panel/admin/geoJson/v_edit', $data);
     }
-
+    //belum di kerjakan
     public function update($id)
     {
         if (!$this->validate([
@@ -83,7 +70,7 @@ class GeoJsonController extends BaseController
         }
 
         $geoJsonData = $this->request->getPost('geojson');
-        if(!json_decode($geoJsonData)) {
+        if (!json_decode($geoJsonData)) {
             return redirect()->back()->withInput()->with('error', 'GeoJson tidak valid');
         }
 
@@ -92,7 +79,47 @@ class GeoJsonController extends BaseController
             'warna' => $this->request->getPost('warna'),
             'geojson' => $geoJsonData,
         ]);
-        
-        return redirect()->back()->with('success', 'GeoJson berhasil diperbarui');
+
+        return redirect()->to('geojson/list')->with('success', 'GeoJson berhasil diperbarui');
+    }
+
+
+
+    public function show($id)
+    {
+        $geojson = $this->geoJsonModel->find($id);
+
+        if (!$geojson) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Ambil sekolah berdasarkan kecamatan
+        $sekolahModel = new \App\Models\SekolahModel();
+        $sekolah      = $sekolahModel->where('kecamatan', $geojson['nama_kecamatan'])->findAll();
+
+        $data['geojson'] = $geojson;
+        $data['sekolah'] = $sekolah;
+
+        return view('control-panel/admin/geoJson/v_detail', $data);
+    }
+
+
+    public function destroy($id)
+    {
+        $data = $this->geoJsonModel->find($id);
+
+        if (!$data) {
+            return redirect()->to('geojson/list')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $this->geoJsonModel->delete($id);
+        return redirect()->to('geojson/list')->with('success', 'Data GeoJSON berhasil dihapus.');
+    }
+
+    public function peta()
+    {
+        $data['geojson'] = $this->geoJsonModel->findAll();
+        $data['sekolah'] = (new \App\Models\SekolahModel())->findAll();
+        return view('control-panel/maps/peta/v_peta', $data);
     }
 }

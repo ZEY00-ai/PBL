@@ -8,6 +8,16 @@ class SekolahModel extends Model
 {
     protected $table = 'sekolah';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama_sekolah', 'alamat', 'latitude', 'longitude', 'kecamatan', 'foto'];
+    protected $allowedFields = [
+        'nama_sekolah',
+        'npsn',
+        'tahun_berdiri',
+        'website',
+        'alamat',
+        'latitude',
+        'longitude',
+        'kecamatan',
+        'foto',
+    ];
     protected $useTimestamps = true;
 }
