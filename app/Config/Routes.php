@@ -4,6 +4,7 @@
 
     /** @var RouteCollection $routes */
     $routes->get('/', 'Home::index');
+    $routes->get('peta', 'Home::petaFull');
 
     //login
     $routes->get('/login', 'Auth\AuthController::login');
@@ -13,7 +14,7 @@
     $routes->get('/logout', 'Auth\AuthController::logout');
 
     //dashboard
-    $routes->get('/dashboard','Controlpanel\admin\DashboardController::index');
+    $routes->get('/dashboard', 'Controlpanel\admin\DashboardController::index');
 
 
     $routes->group('admin', function ($routes) {
@@ -34,9 +35,7 @@
         $routes->get('sekolah/hapus/(:num)', 'controlpanel\admin\SekolahController::destroy/$1');
     });
 
-    $routes->group('sekolah',function ($routes){
-
-    });
+    $routes->group('sekolah', function ($routes) {});
 
 
     $routes->group('user', function ($routes) {
@@ -93,7 +92,11 @@
 
         //index
         $routes->get('dashboard', 'controlpanel\admin\ProfileController::index');
-        $routes->get('export', 'controlpanel\admin\LaporanController::export');
+
+        //update
+        $routes->post('update', 'controlpanel\admin\ProfileController::update');
+        $routes->post('foto', 'controlpanel\admin\ProfileController::foto');
+        $routes->post('password', 'controlpanel\admin\ProfileController::password');
     });
 
 

@@ -3,67 +3,34 @@
 namespace App\Controllers;
 
 use App\Models\SekolahModel;
+use App\Models\GeoJsonModel;
 
 class Home extends BaseController
 {
     public function index()
     {
         $sekolahModel = new SekolahModel();
-        $sekolah = $sekolahModel->select('id,nama_sekolah,alamat,latitude,longitude,kecamatan,foto')->findAll();
-        $validCoordinates = array_filter($sekolah, function ($item) {
-            return ! empty($item['latitude']) && ! empty($item['longitude']);
-        });
+        $geoJsonModel = new GeoJsonModel();
 
-        $data = [
-            'judul' => 'Landing Page',
-            'page' => 'control-panel/landing_page',
-            'sekolah' => $sekolah,
-            'totalSekolah' => count($sekolah),
-            'totalTerverifikasi' => count($validCoordinates),
-            'maptilerKey' => getenv('MAPTILER_KEY') ?: null,
-        ];
+        $data['sekolah'] = $sekolahModel->findAll();
+        $data['geojson'] = $geoJsonModel->findAll();
+
+        $data['totalSekolah'] = $sekolahModel->countAllResults();
+        $data['totalTK']      = $sekolahModel->where('tingkatan', 'TK')->countAllResults();
+        $data['totalSD']      = $sekolahModel->where('tingkatan', 'SD')->countAllResults();
+        $data['totalSMP']     = $sekolahModel->where('tingkatan', 'SMP')->countAllResults();
 
         return view('control-panel/landing_page', $data);
     }
 
-    public function login()
+    public function petaFull()
     {
-        $data = [
-            'judul' => 'Login',
-            'page' => 'auth/v_login',
+        $sekolahModel = new \App\Models\SekolahModel();
+        $geoJsonModel = new \App\Models\GeoJsonModel();
 
-        ];
-        return view('auth/v_login', $data);
-    }
+        $data['sekolah'] = $sekolahModel->findAll();
+        $data['geojson'] = $geoJsonModel->findAll();
 
-
-    public function register()
-    {
-        $data = [
-            'judul' => 'Register',
-            'page' => 'auth/v_register',
-
-        ];
-        return view('auth/v_register', $data);
-    }
-
-    public function forget_password()
-    {
-        $data = [
-            'judul' => 'Forgot Password',
-            'page' => 'awth/v_forget_password',
-
-        ];
-        return view('auth/v_forget_password', $data);
-    }
-
-    public function dashboard()
-    {
-        $data = [
-            'judul' => 'Dashboard',
-            'page' => 'control-panel/v_dashboard',
-
-        ];
-        return view('control-panel/v_dashboard', $data);
+        return view('control-panel/peta_full', $data);
     }
 }

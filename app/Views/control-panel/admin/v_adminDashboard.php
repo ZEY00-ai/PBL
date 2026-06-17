@@ -1,5 +1,7 @@
 <?php echo view('control-panel/components/header'); ?>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 <body class="app">
     <a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
     <div class="page-container">
@@ -10,7 +12,6 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
 
-                    <!-- Page Header -->
                     <div class="page-header">
                         <div>
                             <h1>Dashboard Admin</h1>
@@ -30,49 +31,49 @@
                                 </div>
                                 <p class="stat-card__value"><?= $totalSekolah ?></p>
                                 <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up"></i> Data terdaftar
+                                    <i class="fa-solid fa-arrow-up"></i> Semua tingkatan
                                 </p>
                             </article>
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
-                                    <p class="stat-card__label">Total Kecamatan</p>
+                                    <p class="stat-card__label">Total TK</p>
                                     <span class="stat-card__icon stat-card__icon--c2">
-                                        <i class="fa-solid fa-map"></i>
+                                        <i class="fa-solid fa-child"></i>
                                     </span>
                                 </div>
-                                <p class="stat-card__value"><?= $totalKecamatan ?></p>
+                                <p class="stat-card__value"><?= $totalTK ?></p>
                                 <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up"></i> Wilayah terdaftar
+                                    <i class="fa-solid fa-circle" style="color:green; font-size:10px;"></i> Taman Kanak-Kanak
                                 </p>
                             </article>
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
-                                    <p class="stat-card__label">Total GeoJSON</p>
+                                    <p class="stat-card__label">Total SD</p>
                                     <span class="stat-card__icon stat-card__icon--c3">
-                                        <i class="fa-solid fa-map-location-dot"></i>
+                                        <i class="fa-solid fa-book"></i>
                                     </span>
                                 </div>
-                                <p class="stat-card__value"><?= $totalGeoJson ?></p>
+                                <p class="stat-card__value"><?= $totalSD ?></p>
                                 <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up"></i> Wilayah dipetakan
+                                    <i class="fa-solid fa-circle" style="color:red; font-size:10px;"></i> Sekolah Dasar
                                 </p>
                             </article>
                         </div>
                         <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
-                                    <p class="stat-card__label">Total Akun</p>
+                                    <p class="stat-card__label">Total SMP</p>
                                     <span class="stat-card__icon stat-card__icon--c4">
-                                        <i class="fa-solid fa-users"></i>
+                                        <i class="fa-solid fa-graduation-cap"></i>
                                     </span>
                                 </div>
-                                <p class="stat-card__value"><?= $totalAkun ?></p>
+                                <p class="stat-card__value"><?= $totalSMP ?></p>
                                 <p class="stat-card__delta stat-card__delta--up">
-                                    <i class="fa-solid fa-arrow-up"></i> Admin terdaftar
+                                    <i class="fa-solid fa-circle" style="color:navy; font-size:10px;"></i> Sekolah Menengah Pertama
                                 </p>
                             </article>
                         </div>
@@ -80,42 +81,14 @@
 
                     <div class="row row-tight">
 
-                        <!-- Daftar Sekolah Terbaru -->
+                        <!-- Peta -->
                         <div class="col-lg-8">
-                            <section class="m-card" aria-labelledby="sekolah-title">
-                                <header class="m-card__header">
-                                    <div>
-                                        <h2 class="m-card__title" id="sekolah-title">Sekolah Terbaru</h2>
-                                        <p class="m-card__subtitle">Data sekolah yang baru ditambahkan</p>
-                                    </div>
-                                    <a href="<?= base_url('admin/sekolah') ?>" class="m-btn m-btn--ghost"
-                                        style="height:30px; padding:0 10px; font-size:12.5px;">View all</a>
-                                </header>
-                                <ul class="project-list">
-                                    <?php if (!empty($sekolahTerbaru)): ?>
-                                        <?php foreach ($sekolahTerbaru as $s): ?>
-                                            <li>
-                                                <div>
-                                                    <p class="project-list__title"><?= esc($s['nama_sekolah']) ?></p>
-                                                    <span class="project-list__meta">
-                                                        <?= esc($s['kecamatan']) ?> ·
-                                                        <?= $s['npsn'] ? 'NPSN: ' . esc($s['npsn']) : 'NPSN: -' ?> ·
-                                                        <span class="status--process">terdaftar</span>
-                                                    </span>
-                                                </div>
-                                                <a href="<?= base_url('admin/sekolah/detail/' . $s['id']) ?>"
-                                                    class="m-btn m-btn--ghost"
-                                                    style="height:28px; padding:0 10px; font-size:12px;">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <li style="padding:16px; color:var(--m-text-muted); text-align:center;">
-                                            Belum ada data sekolah.
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
+                            <section class="m-card" style="padding:0; overflow:hidden;">
+                                <div style="padding:16px 20px; border-bottom:1px solid var(--m-divider);">
+                                    <h2 class="m-card__title" style="margin:0;">Peta Sebaran Sekolah</h2>
+                                    <p class="m-card__subtitle" style="margin:0;">Lokasi sekolah di Kabupaten Tanah Datar</p>
+                                </div>
+                                <div id="map" style="height:450px; width:100%;"></div>
                             </section>
                         </div>
 
@@ -149,8 +122,73 @@
         </main>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Chart sekolah per kecamatan
+        // ── Peta ──────────────────────────────────────────────────────
+        const map = L.map('map').setView([-0.4558, 100.6162], 11);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // GeoJSON
+        const geojsonData = <?= json_encode($geojson) ?>;
+        geojsonData.forEach(function(item) {
+            try {
+                const geoData = JSON.parse(item.geojson);
+                L.geoJSON(geoData, {
+                    style: {
+                        color: item.warna,
+                        weight: 2,
+                        fillColor: item.warna,
+                        fillOpacity: 0.3,
+                    }
+                }).bindPopup('<strong>' + item.nama_kecamatan + '</strong>').addTo(map);
+            } catch (e) {}
+        });
+
+        // Marker sekolah
+        function getMarkerColor(tingkatan) {
+            switch (tingkatan) {
+                case 'TK':
+                    return 'green';
+                case 'SD':
+                    return 'red';
+                case 'SMP':
+                    return 'navy';
+                default:
+                    return 'blue';
+            }
+        }
+
+        function createIcon(color) {
+            return L.divIcon({
+                className: '',
+                html: `<div style="width:20px;height:20px;background:${color};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
+                iconSize: [20, 20],
+                iconAnchor: [10, 20],
+                popupAnchor: [0, -24],
+            });
+        }
+
+        const sekolah = <?= json_encode($sekolah) ?>;
+        sekolah.forEach(function(s) {
+            if (s.latitude && s.longitude) {
+                const color = getMarkerColor(s.tingkatan);
+                L.marker([s.latitude, s.longitude], {
+                        icon: createIcon(color)
+                    })
+                    .bindPopup(`
+                    <div style="min-width:160px;">
+                        ${s.foto ? `<img src="/uploads/sekolah/${s.foto}" style="width:100%;height:90px;object-fit:cover;border-radius:6px;margin-bottom:6px;">` : ''}
+                        <strong>🏫 ${s.nama_sekolah}</strong><br>
+                        <small>📍 ${s.kecamatan}</small><br>
+                        <span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;background:${color};color:#fff;">${s.tingkatan ?? '-'}</span>
+                    </div>
+                `)
+                    .addTo(map);
+            }
+        });
+
         const labels = <?= json_encode(array_column($sekolahPerKecamatan, 'kecamatan')) ?>;
         const values = <?= json_encode(array_column($sekolahPerKecamatan, 'total')) ?>;
         const colors = ['#4272d7', '#7c3aed', '#0d9488', '#e11d48', '#d97706', '#334155', '#06b6d4', '#84cc16', '#f43f5e', '#8b5cf6'];
@@ -164,7 +202,7 @@
                     datasets: [{
                         data: values,
                         backgroundColor: colors.slice(0, labels.length),
-                        borderWidth: 2,
+                        borderWidth: 2
                     }]
                 },
                 options: {

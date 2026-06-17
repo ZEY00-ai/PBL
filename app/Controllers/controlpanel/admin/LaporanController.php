@@ -48,6 +48,12 @@ class LaporanController extends BaseController
         } elseif ($filter === 'sekolah' && $nilai) {
             $data  = $this->sekolahModel->where('id', $nilai)->findAll();
             $judul = 'Laporan Sekolah ' . ($data[0]['nama_sekolah'] ?? '');
+        } elseif ($filter === 'tingkatan' && $nilai) {
+            $data  = $this->sekolahModel->where('tingkatan', $nilai)->orderBy('nama_sekolah', 'ASC')->findAll();
+            $judul = 'Laporan Sekolah Tingkat ' . $nilai;
+        } elseif ($filter === 'akreditasi' && $nilai) {
+            $data  = $this->sekolahModel->where('akreditasi', $nilai)->orderBy('nama_sekolah', 'ASC')->findAll();
+            $judul = 'Laporan Sekolah Akreditasi ' . $nilai;
         } else {
             $data  = $this->sekolahModel->orderBy('nama_sekolah', 'ASC')->findAll();
             $judul = 'Laporan Semua Sekolah';
@@ -79,6 +85,8 @@ class LaporanController extends BaseController
                         <th>No</th>
                         <th>Nama Sekolah</th>
                         <th>NPSN</th>
+                        <th>Tingkatan</th>
+                        <th>Akreditasi</th>
                         <th>Kecamatan</th>
                         <th>Alamat</th>
                         <th>Tahun Berdiri</th>
@@ -94,6 +102,8 @@ class LaporanController extends BaseController
                 <td class="text-center">' . ($i + 1) . '</td>
                 <td>' . htmlspecialchars($s['nama_sekolah']) . '</td>
                 <td class="text-center">' . ($s['npsn'] ?? '-') . '</td>
+                <td class="text-center">' . ($s['tingkatan'] ?? '-') . '</td>
+                <td class="text-center">' . ($s['akreditasi'] ?? '-') . '</td>
                 <td>' . htmlspecialchars($s['kecamatan']) . '</td>
                 <td>' . htmlspecialchars($s['alamat']) . '</td>
                 <td class="text-center">' . ($s['tahun_berdiri'] ?? '-') . '</td>

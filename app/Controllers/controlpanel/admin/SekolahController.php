@@ -20,6 +20,7 @@ class SekolahController extends BaseController
     public function index()
     {
         $data['sekolah'] = $this->SekolahModel->findAll();
+
         return view('control-panel/admin/sekolah/v_index', $data);
     }
 
@@ -48,6 +49,8 @@ class SekolahController extends BaseController
         }
         $this->SekolahModel->insert([
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
+            'tingkatan'     => $this->request->getPost('tingkatan'),
+            'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
             'npsn'          => $this->request->getPost('npsn') ?: null,
             'tahun_berdiri' => $this->request->getPost('tahun_berdiri') ?: null,
             'website'       => $this->request->getPost('website') ?: null,
@@ -108,8 +111,10 @@ class SekolahController extends BaseController
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
-        $this->SekolahModel->update($id,[
+        $this->SekolahModel->update($id, [
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
+            'tingkatan'     => $this->request->getPost('tingkatan'),
+            'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
             'npsn'          => $this->request->getPost('npsn') ?: null,
             'tahun_berdiri' => $this->request->getPost('tahun_berdiri') ?: null,
             'website'       => $this->request->getPost('website') ?: null,

@@ -56,6 +56,8 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama Sekolah</th>
+                                    <th class="text-center">Tingkatan</th>
+                                    <th class="text-center">Akreditasi</th>
                                     <th class="text-center">Kecamatan</th>
                                     <th class="text-center">Alamat</th>
                                     <th class="text-center">Foto</th>
@@ -71,9 +73,37 @@
 
                                             <td class="text-center"><?= esc($s['nama_sekolah']) ?></td>
 
+                                            <td class="text-center">
+                                                <?php if ($s['tingkatan']): ?>
+                                                    <span style="display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:600; background:var(--m-accent-soft, #eef2ff); color:var(--m-accent);">
+                                                        <?= esc($s['tingkatan']) ?>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="text-muted">-</span>
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <?php if ($s['akreditasi']): ?>
+                                                    <?php
+                                                    $badgeColor = match ($s['akreditasi']) {
+                                                        'A'    => '#16a34a',
+                                                        'B'    => '#2563eb',
+                                                        'C'    => '#d97706',
+                                                        default => '#6b7280',
+                                                    };
+                                                    ?>
+                                                    <span style="display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:600; background:<?= $badgeColor ?>; color:#fff;">
+                                                        <?= esc($s['akreditasi']) ?>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="text-muted">-</span>
+                                                <?php endif; ?>
+                                            </td>
+
                                             <td class="text-center"><?= esc($s['kecamatan']) ?></td>
 
-                                            <td class="text-center"><?= esc($s['alamat']) ?></td>
+                                            <td class="col-alamat text-center" title="<?= esc($s['alamat']) ?>"><?= esc($s['alamat']) ?></td>
 
                                             <td class="text-center">
                                                 <?php if ($s['foto']): ?>
@@ -148,5 +178,22 @@
         .theme-switcher {
             display: none !important;
         }
+
+        .dt-table th {
+            white-space: nowrap;
+        }
+
+        .dt-table td.col-alamat {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .dt-table th:nth-child(6) {
+            text-align: left;
+        }
+
     </style>
 </body>

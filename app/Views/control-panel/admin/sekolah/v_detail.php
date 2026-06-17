@@ -63,6 +63,42 @@
                                     </tr>
                                     <tr style="border-bottom:1px solid var(--m-divider);">
                                         <td style="padding:10px 0; color:var(--m-text-muted);">
+                                            <i class="fa-solid fa-layer-group"></i> Tingkatan
+                                        </td>
+                                        <td style="padding:10px 0;">
+                                            <?php if ($sekolah['tingkatan']): ?>
+                                                <span style="display:inline-block; padding:3px 12px; border-radius:20px; font-size:12px; font-weight:600; background:var(--m-accent-soft, #eef2ff); color:var(--m-accent);">
+                                                    <?= esc($sekolah['tingkatan']) ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="text-muted">-</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--m-divider);">
+                                        <td style="padding:10px 0; color:var(--m-text-muted);">
+                                            <i class="fa-solid fa-star"></i> Akreditasi
+                                        </td>
+                                        <td style="padding:10px 0;">
+                                            <?php if ($sekolah['akreditasi']): ?>
+                                                <?php
+                                                $badgeColor = match ($sekolah['akreditasi']) {
+                                                    'A'    => '#16a34a',
+                                                    'B'    => '#2563eb',
+                                                    'C'    => '#d97706',
+                                                    default => '#6b7280',
+                                                };
+                                                ?>
+                                                <span style="display:inline-block; padding:3px 12px; border-radius:20px; font-size:12px; font-weight:600; background:<?= $badgeColor ?>; color:#fff;">
+                                                    <?= esc($sekolah['akreditasi']) ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="text-muted">-</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--m-divider);">
+                                        <td style="padding:10px 0; color:var(--m-text-muted);">
                                             <i class="fa-solid fa-hashtag"></i> NPSN
                                         </td>
                                         <td style="padding:10px 0;">
@@ -138,7 +174,7 @@
 
                         <!-- Kolom Kanan: Peta -->
                         <div class="col-lg-7">
-                            <div class="m-card" style="padding:0; overflow:hidden; height:100%;">
+                            <div class="m-card" style="padding:0; overflow:hidden; ">
                                 <div style="padding:16px 20px; border-bottom:1px solid var(--m-divider);">
                                     <h2 class="m-card__title" style="margin:0;">Lokasi di Peta</h2>
                                 </div>

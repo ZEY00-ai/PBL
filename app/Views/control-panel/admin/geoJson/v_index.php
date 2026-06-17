@@ -53,26 +53,26 @@
                         <table class="m-table dt-table" id="dt-table">
                             <thead>
                                 <tr class="text-center">
-                                    <th data-sort="no">No</th>
-                                    <th data-sort="kecamatan">Nama Kecamatan</th>
-                                    <th data-sort="warna">Warna</th>
-                                    <th data-sort="dibuat">Dibuat</th>
-                                    <th class="">Aksi</th>
+                                    <th data-sort="no" class="text-center">No</th>
+                                    <th data-sort="kecamatan" class="text-center">Nama Kecamatan</th>
+                                    <th data-sort="warna" class="text-center">Warna</th>
+                                    <th data-sort="dibuat" class="text-center">Dibuat</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="dt-body">
                                 <?php if (!empty($geojson)): ?>
                                     <?php foreach ($geojson as $i => $g): ?>
                                         <tr>
-                                            <td><?= $i + 1 ?></td>
-                                            <td><?= esc($g['nama_kecamatan']) ?></td>
-                                            <td>
+                                            <td class="text-center"><?= $i + 1 ?></td>
+                                            <td class="text-center"><?= esc($g['nama_kecamatan']) ?></td>
+                                            <td class="text-center">
                                                 <div style="display:flex; align-items:center; gap:8px;">
                                                     <div style="width:28px; height:28px; background:<?= esc($g['warna']) ?>; border-radius:6px;"></div>
                                                     <small style="font-family:monospace;"><?= esc($g['warna']) ?></small>
                                                 </div>
                                             </td>
-                                            <td><small><?= $g['created_at'] ?></small></td>
+                                            <td class="text-center"><small><?= $g['created_at'] ?></small></td>
                                             <td class="text-center">
                                                 <a href="<?= base_url('geojson/edit/' . $g['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">

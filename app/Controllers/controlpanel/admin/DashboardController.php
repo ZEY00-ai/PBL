@@ -9,25 +9,23 @@ class DashboardController extends BaseController
 {
     public function index()
     {
+
+
         $sekolahModel = new \App\Models\SekolahModel();
         $geoJsonModel = new \App\Models\GeoJsonModel();
         $userModel    = new \App\Models\UserModel();
 
         $data['totalSekolah']  = $sekolahModel->countAllResults();
+        $data['totalTK']       = $sekolahModel->where('tingkatan', 'TK')->countAllResults();
+        $data['totalSD']       = $sekolahModel->where('tingkatan', 'SD')->countAllResults();
+        $data['totalSMP']      = $sekolahModel->where('tingkatan', 'SMP')->countAllResults();
         $data['totalGeoJson']  = $geoJsonModel->countAllResults();
         $data['totalAkun']     = $userModel->countAllResults();
-        $data['totalKecamatan'] = $sekolahModel
-            ->select('kecamatan')
-            ->distinct()
-            ->countAllResults();
+        $data['totalKecamatan'] = $sekolahModel->select('kecamatan')->distinct()->countAllResults();
 
-        // 5 sekolah terbaru
-        $data['sekolahTerbaru'] = $sekolahModel
-            ->orderBy('created_at', 'DESC')
-            ->limit(5)
-            ->findAll();
+        $data['sekolah'] = $sekolahModel->findAll();
+        $data['geojson'] = $geoJsonModel->findAll();
 
-        // Sekolah per kecamatan
         $data['sekolahPerKecamatan'] = $sekolahModel
             ->select('kecamatan, COUNT(*) as total')
             ->groupBy('kecamatan')

@@ -30,6 +30,27 @@
                         </div>
 
                         <div class="form-group mb-3">
+                            <label class="fw-semibold">Tingkatan Sekolah</label>
+                            <select name="tingkatan" class="form-select" required>
+                                <option value="" disabled selected>-- Pilih Tingkatan --</option>
+                                <option value="TK" <?= old('tingkatan') === 'TK'  ? 'selected' : '' ?>>TK</option>
+                                <option value="SD" <?= old('tingkatan') === 'SD'  ? 'selected' : '' ?>>SD</option>
+                                <option value="SMP" <?= old('tingkatan') === 'SMP' ? 'selected' : '' ?>>SMP</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="fw-semibold">Akreditasi</label>
+                            <select name="akreditasi" class="form-select">
+                                <option value="" disabled selected>-- Pilih Akreditasi --</option>
+                                <option value="A" <?= old('akreditasi') === 'A'                   ? 'selected' : '' ?>>A</option>
+                                <option value="B" <?= old('akreditasi') === 'B'                   ? 'selected' : '' ?>>B</option>
+                                <option value="C" <?= old('akreditasi') === 'C'                   ? 'selected' : '' ?>>C</option>
+                                <option value="Belum Terakreditasi" <?= old('akreditasi') === 'Belum Terakreditasi' ? 'selected' : '' ?>>Belum Terakreditasi</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
                             <label>NPSN</label>
                             <input type="text" name="npsn" class="form-control"
                                 placeholder="Nomor Pokok Sekolah Nasional"

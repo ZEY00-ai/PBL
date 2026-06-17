@@ -97,8 +97,16 @@ class GeoJsonController extends BaseController
         $sekolahModel = new \App\Models\SekolahModel();
         $sekolah      = $sekolahModel->where('kecamatan', $geojson['nama_kecamatan'])->findAll();
 
+        $totalTK  = $sekolahModel->where('kecamatan', $geojson['nama_kecamatan'])->where('tingkatan', 'TK')->countAllResults();
+        $totalSD  = $sekolahModel->where('kecamatan', $geojson['nama_kecamatan'])->where('tingkatan', 'SD')->countAllResults();
+        $totalSMP = $sekolahModel->where('kecamatan', $geojson['nama_kecamatan'])->where('tingkatan', 'SMP')->countAllResults();
+
+
         $data['geojson'] = $geojson;
         $data['sekolah'] = $sekolah;
+        $data['totalTK']  = $totalTK;
+        $data['totalSD']  = $totalSD;
+        $data['totalSMP'] = $totalSMP;
 
         return view('control-panel/admin/geoJson/v_detail', $data);
     }

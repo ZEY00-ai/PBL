@@ -66,6 +66,8 @@
                                             <option value="">-- Semua Sekolah --</option>
                                             <option value="kecamatan">Per Kecamatan</option>
                                             <option value="sekolah">Per Sekolah</option>
+                                            <option value="tingkatan">Per Tingkatan</option>
+                                            <option value="akreditasi">Per Akreditasi</option>
                                         </select>
                                     </div>
                                 </div>
@@ -95,6 +97,31 @@
                                                         <?= esc($s['nama_sekolah']) ?> - <?= esc($s['kecamatan']) ?>
                                                     </option>
                                                 <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Filter Tingkatan -->
+                                    <div id="filter-tingkatan" style="display:none;">
+                                        <div class="form-group">
+                                            <label class="fw-semibold">Pilih Tingkatan</label>
+                                            <select name="nilai" class="form-select">
+                                                <option value="">-- Pilih Tingkatan --</option>
+                                                <option value="TK">TK</option>
+                                                <option value="SD">SD</option>
+                                                <option value="SMP">SMP</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Filter Akreditasi -->
+                                    <div id="filter-akreditasi" style="display:none;">
+                                        <div class="form-group">
+                                            <label class="fw-semibold">Pilih Akreditasi</label>
+                                            <select name="nilai" class="form-select">
+                                                <option value="">-- Pilih Akreditasi --</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="Belum Terakreditasi">Belum Terakreditasi</option>
                                             </select>
                                         </div>
                                     </div>
@@ -194,6 +221,8 @@
             const filter = document.getElementById('filter').value;
             document.getElementById('filter-kecamatan').style.display = filter === 'kecamatan' ? 'block' : 'none';
             document.getElementById('filter-sekolah').style.display = filter === 'sekolah' ? 'block' : 'none';
+            document.getElementById('filter-tingkatan').style.display = filter === 'tingkatan' ? 'block' : 'none';
+            document.getElementById('filter-akreditasi').style.display = filter === 'akreditasi' ? 'block' : 'none';s   
         }
     </script>
     <style>

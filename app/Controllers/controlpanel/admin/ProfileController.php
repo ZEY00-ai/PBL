@@ -14,86 +14,153 @@ class ProfileController extends BaseController
         $this->userModel = new UserModel();
     }
 
+    /**
+     * GET /profile/dashboard
+     * Menampilkan halaman Account & Settings.
+     */
     public function index()
     {
-        $data['user'] = $this->userModel->find(session()->get('user_id'));
+        $userId = session()->get('user_id');
 
-        if (!$data['user']) {
-            return redirect()->to('/login')->with('error', 'Session tidak valid.');
+        if (! $userId) {
+            return redirect()->to('/login');
         }
 
-        return view('control-panel/admin/profile/v_index', $data);
+        $user = $this->userModel->find($userId);
+
+        if (! $user) {
+            return redirect()->to('/login')->with('error', 'User tidak ditemukan, silakan login ulang.');
+        }
+
+        return view('control-panel/admin/profile/v_index', [
+            'user' => $user,
+        ]);
     }
 
-    public function updateProfile()
+    /**
+     * POST /profile/update
+     * Update nama & email.
+     */
+    public function update()
     {
-        $id = session()->get('user_id');
+        $userId = session()->get('user_id');
 
-        if (!$this->validate([
-            'nama'  => 'required|min_length[3]',
-            'email' => 'required|valid_email|is_unique[users.email,id,' . $id . ']',
-        ])) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        if (! $userId) {
+            return redirect()->to('/login');
         }
 
-        $this->userModel->update($id, [
+        $rules = [
+            'nama'  => 'required|min_length[3]|max_length[100]',
+            'email' => "required|valid_email|max_length[150]|is_unique[users.email,id,{$userId}]",
+        ];
+
+        if (! $this->validate($rules, [
+            'nama'  => ['required' => 'Nama wajib diisi.'],
+            'email' => ['required' => 'Email wajib diisi.', 'is_unique' => 'Email sudah dipakai akun lain.'],
+        ])) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $this->userModel->update($userId, [
             'nama'  => $this->request->getPost('nama'),
             'email' => $this->request->getPost('email'),
         ]);
 
-        session()->set('user_nama', $this->request->getPost('nama'));
-        session()->set('user_email', $this->request->getPost('email'));
-
-        return redirect()->back()->with('success', 'Profile berhasil diupdate.');
+        return redirect()->to(base_url('profile/dashboard'))
+            ->with('success', 'Profil berhasil diperbarui.');
     }
 
-    public function updateFoto()
+    /**
+     * POST /profile/foto
+     * Upload / ganti foto profil. Dipanggil otomatis lewat JS saat file dipilih.
+     */
+    public function foto()
     {
-        $id   = session()->get('user_id');
-        $user = $this->userModel->find($id);
+        $userId = session()->get('user_id');
 
-        if (!$this->validate([
-            'foto_profil' => 'uploaded[foto_profil]|max_size[foto_profil,2048]|is_image[foto_profil]',
-        ])) {
-            return redirect()->back()->with('errors', $this->validator->getErrors());
+        if (! $userId) {
+            return redirect()->to('/login');
         }
 
-        $foto = $this->request->getFile('foto_profil');
+        $rules = [
+            'foto_profil' => 'uploaded[foto_profil]'
+                . '|max_size[foto_profil,2048]'
+                . '|is_image[foto_profil]'
+                . '|mime_in[foto_profil,image/jpg,image/jpeg,image/png,image/gif]',
+        ];
 
-        if (!empty($user['foto_profil'])) {
-            $fotoLama = ROOTPATH . 'public/uploads/profil/' . $user['foto_profil'];
-            if (file_exists($fotoLama)) unlink($fotoLama);
+        if (! $this->validate($rules)) {
+            return redirect()->to(base_url('profile/dashboard'))
+                ->with('errors', $this->validator->getErrors());
         }
 
-        $fotoName = $foto->getRandomName();
-        $foto->move(ROOTPATH . 'public/uploads/profil', $fotoName);
+        $file = $this->request->getFile('foto_profil');
 
-        $this->userModel->update($id, ['foto_profil' => $fotoName]);
+        if (! $file->isValid() || $file->hasMoved()) {
+            return redirect()->to(base_url('profile/dashboard'))
+                ->with('errors', ['Upload foto gagal, silakan coba lagi.']);
+        }
 
-        return redirect()->back()->with('success_foto', 'Foto profil berhasil diupdate.');
+        // Sama seperti path yang dipakai destroy() di UserController kamu.
+        $uploadPath = ROOTPATH . 'public/uploads/profil/';
+
+        if (! is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        $newName = $file->getRandomName();
+        $file->move($uploadPath, $newName);
+
+        $user = $this->userModel->find($userId);
+
+        // Hapus foto lama biar tidak menumpuk file sampah.
+        if (! empty($user['foto_profil']) && is_file($uploadPath . $user['foto_profil'])) {
+            unlink($uploadPath . $user['foto_profil']);
+        }
+
+        $this->userModel->update($userId, ['foto_profil' => $newName]);
+
+        return redirect()->to(base_url('profile/dashboard'))
+            ->with('success_foto', 'Foto profil berhasil diperbarui.');
     }
 
-    public function updatePassword()
+    /**
+     * POST /profile/password
+     * Ganti password.
+     */
+    public function password()
     {
-        $id   = session()->get('user_id');
-        $user = $this->userModel->find($id);
+        $userId = session()->get('user_id');
 
-        if (!$this->validate([
+        if (! $userId) {
+            return redirect()->to('/login');
+        }
+
+        $rules = [
             'current_password' => 'required',
             'new_password'     => 'required|min_length[6]',
             'confirm_password' => 'required|matches[new_password]',
-        ])) {
-            return redirect()->back()->with('errors_password', $this->validator->getErrors());
+        ];
+
+        if (! $this->validate($rules)) {
+            return redirect()->back()
+                ->with('errors_password', $this->validator->getErrors());
         }
 
-        if (!password_verify($this->request->getPost('current_password'), $user['password'])) {
-            return redirect()->back()->with('error_password', 'Password lama tidak sesuai.');
+        $user = $this->userModel->find($userId);
+
+        if (! $user || ! password_verify($this->request->getPost('current_password'), $user['password'])) {
+            return redirect()->back()
+                ->with('error_password', 'Password lama yang kamu masukkan salah.');
         }
 
-        $this->userModel->update($id, [
+        $this->userModel->update($userId, [
             'password' => password_hash($this->request->getPost('new_password'), PASSWORD_DEFAULT),
         ]);
 
-        return redirect()->back()->with('success_password', 'Password berhasil diubah.');
+        return redirect()->to(base_url('profile/dashboard'))
+            ->with('success_password', 'Password berhasil diperbarui.');
     }
 }

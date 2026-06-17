@@ -14,11 +14,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin="" />
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
-
 
     <link href="<?= base_url('CoolAdmin-master/css/font-face.css') ?>" rel="stylesheet" media="all">
     <link rel="preconnect" href="https://rsms.me/">
@@ -28,166 +26,16 @@
     <link href="<?= base_url('CoolAdmin-master/vendor/css-hamburgers/hamburgers.min.css') ?>" rel="stylesheet" media="all">
     <link href="<?= base_url('CoolAdmin-master/css/theme.css') ?>" rel="stylesheet" media="all">
     <link href="<?= base_url('CoolAdmin-master/css/app.css') ?>" rel="stylesheet" media="all">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/landing/style.css'); ?>">
 
-    <style>
-        /* Hanya override minimal yang diperlukan untuk layout landing */
-        .landing-header {
-            background: linear-gradient(135deg, #4272d7 0%, #2d5aa6 100%);
-            padding: 80px 0;
-        }
-
-        .landing-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .landing-header p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .feature-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-        }
-
-        .map-canvas-mock {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-            border: 2px dashed #0284c7;
-            color: #0284c7;
-            min-height: 520px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        .map-canvas-mock::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(2, 132, 199, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(2, 132, 199, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .map-canvas-mock>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .map-canvas-mock #map {
-            width: 100%;
-            flex: 1;
-            min-height: 420px;
-        }
-
-        .map-canvas-caption {
-            padding: 1rem 1.25rem 1.25rem;
-            text-align: center;
-        }
-
-        /* Pulse marker animasi di peta */
-        .map-pulse {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #4272d7;
-            z-index: 2;
-        }
-
-        .map-pulse::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            border: 2px solid #4272d7;
-            animation: mapPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes mapPulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(2.8);
-                opacity: 0;
-            }
-        }
-
-        .map-pulse:nth-child(1) {
-            top: 32%;
-            left: 28%;
-        }
-
-        .map-pulse:nth-child(2) {
-            top: 55%;
-            left: 58%;
-            animation-delay: 0.8s;
-        }
-
-        .map-pulse:nth-child(3) {
-            top: 38%;
-            left: 72%;
-            animation-delay: 1.5s;
-        }
-
-        .stats-section {
-            background: #f8fafc;
-            padding: 60px 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: #4272d7;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: #64748b;
-            font-size: 1.05rem;
-        }
-
-        /* Hero CTA buttons */
-        .hero-cta {
-            margin-top: 2rem;
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-    </style>
 </head>
 
 <body class="app">
-    <a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- ══ NAVBAR ══ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
         <div class="container-fluid">
 
-            <a class="navbar-brand fw-bold text-primary" href="#">
+            <a class="navbar-brand fw-bold text-primary" href="#beranda">
                 <i class="fa-solid fa-map-location-dot me-2"></i>
                 <span class="d-none d-md-inline">SIG Sekolah Tanah Datar</span>
                 <span class="d-md-none">SIG Sekolah</span>
@@ -206,9 +54,9 @@
 
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#pencarian">Pencarian</a></li>
                         <li class="nav-item"><a class="nav-link" href="#statistik">Statistik</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pencarian">Temukan Sekolah</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#fitur">Tentang</a></li>
                     </ul>
 
                     <div style="width: 100px;" class="text-lg-end w-100 w-lg-auto mt-2 mt-lg-0">
@@ -263,7 +111,7 @@
                             </span>
                         </div>
                         <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                            <?= esc((string) ($totalTK ?? 0)) ?>
                         </h1>
                         <p class="text-secondary mb-0 fw-medium">
                             Total Taman Kanak-Kanak (TK)
@@ -279,7 +127,7 @@
                             </span>
                         </div>
                         <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                            <?= esc((string) ($totalSD ?? 0)) ?>
                         </h1>
                         <p class="text-secondary mb-0 fw-medium">
                             Total Sekolah Dasar (SD)
@@ -295,7 +143,7 @@
                             </span>
                         </div>
                         <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalTerverifikasi ?? 0)) ?>
+                            <?= esc((string) ($totalSMP ?? 0)) ?>
                         </h1>
                         <p class="text-secondary mb-0 fw-medium">
                             Total Sekolah Menengah (SMP)
@@ -306,18 +154,16 @@
         </div>
     </section>
 
-    <!-- ══ MAIN CONTENT ══ -->
     <main id="main-content">
 
         <!-- Pencarian Spasial + Peta -->
         <div class="container my-5" id="pencarian">
             <div class="row g-4">
 
-                <!-- Filter Panel -->
                 <div class="col-lg-4">
                     <div class="card border-0 shadow feature-card p-4">
                         <h5 class="fw-bold text-dark mb-4">
-                            <i class="fa-solid fa-sliders text-primary me-2"></i>Pencarian Spasial
+                            <i class="fa-solid fa-sliders text-primary me-2"></i>Temukan Sekolah
                         </h5>
 
                         <div class="mb-3">
@@ -336,47 +182,57 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Jenjang Pendidikan</label>
-                            <select class="form-select">
-                                <option>Semua Jenjang (TK,SD, SMP)</option>
-                                <option>Teman Kanak-Kanak (TK)</option>
-                                <option>Sekolah Dasar Negeri (SDN)</option>
-                                <option>Sekolah Menengah Pertama Negeri (SMPN)</option>
+                            <select id="filter-jenjang" class="form-select">
+                                <option value="">Semua Jenjang (TK,SD, SMP)</option>
+                                <option value="TK">Taman Kanak-Kanak (TK)</option>
+                                <option value="SD">Sekolah Dasar Negeri (SDN)</option>
+                                <option value="SMP">Sekolah Menengah Pertama Negeri (SMPN)</option>
                             </select>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Wilayah Kecamatan</label>
-                            <select class="form-select">
-                                <option>Semua Kecamatan</option>
-                                <option>Kecamatan Lintau Buo</option>
-                                <option>Kecamatan Padang Gantiang</option>
-                                <option>Kecamatan Tanjung Ameh</option>
+                            <select id="filter-kecamatan" class="form-select">
+                                <option value="">Semua Kecamatan</option>
+                                <?php
+                                $daftarKecamatan = array_unique(array_column($sekolah ?? [], 'kecamatan'));
+                                ?>
+                                <?php foreach ($daftarKecamatan as $kec): ?>
+                                    <?php if ($kec): ?>
+                                        <option value="<?= esc($kec) ?>"><?= esc($kec) ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
 
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Akreditasi</label>
-                            <select class="form-select">
-                                <option>Semua Akreditasi</option>
-                                <option>Akreditasi A</option>
-                                <option>Akreditasi B</option>
+                            <select id="filter-akreditasi" class="form-select">
+                                <option value="">Semua Akreditasi</option>
+                                <option value="A">Akreditasi A</option>
+                                <option value="B">Akreditasi B</option>
+                                <option value="C">Akreditasi C</option>
                             </select>
                         </div>
 
-                        <button class="btn btn-primary w-100 fw-bold mb-2 py-2">
-                            <i class="fa-solid fa-search"></i>Cek Sekolah
+                        <button id="btn-cari-sekolah" class="btn btn-primary w-100 fw-bold mb-2 py-2">
+                            <i class="fa-solid fa-search"></i> Cek Sekolah
                         </button>
+                        <button id="btn-reset-filter" type="button" class="btn btn-outline-secondary w-100 fw-bold mb-2 py-2">
+                            <i class="fa-solid fa-rotate-left"></i> Reset Filter
+                        </button>
+
+                        <div id="search-result-info" class="search-result-info"></div>
 
                         <hr>
                         <p class="small text-muted mb-2">Eksplorasi Peta</p>
-                        <a href="<?= base_url('auth/login') ?>" class="btn btn-primary w-100 fw-bold mb-2 py-2">
+                        <a href="<?= base_url('peta') ?>" class="btn btn-primary w-100 fw-bold mb-2 py-2">
                             <i class="fas fa-map-marked-alt"></i>Peta Interaktif
                         </a>
                     </div>
                 </div>
 
-                <!-- Peta Interaktif -->
                 <div class="col-lg-8">
                     <div class="card border-0 shadow feature-card p-3 h-100">
                         <div class="d-flex align-items-center justify-content-between mb-3 px-1">
@@ -392,114 +248,158 @@
                             <div id="map"></div>
                         </div>
 
+                        <!-- Legenda Peta -->
+                        <div class="map-legend">
+                            <div class="map-legend__group">
+                                <p>Tingkatan Sekolah</p>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:green;"></span> TK</div>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:red;"></span> SD</div>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:navy;"></span> SMP</div>
+                            </div>
+                            <div class="map-legend__group">
+                                <p>Akreditasi</p>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">A</span> Akreditasi A</div>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">B</span> Akreditasi B</div>
+                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">C</span> Akreditasi C</div>
+                            </div>
+                            <?php if (!empty($geojson)): ?>
+                                <div class="map-legend__group">
+                                    <p>Wilayah Kecamatan</p>
+                                    <?php foreach ($geojson as $g): ?>
+                                        <div class="map-legend__item">
+                                            <span style="width:14px; height:14px; border-radius:4px; background:<?= esc($g['warna']) ?>; opacity:0.7; display:inline-block;"></span>
+                                            <?= esc($g['nama_kecamatan']) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
                         <script>
-                            const sekolah = <?= json_encode($sekolah ?? []) ?>;
-                            const maptilerKey = '<?= esc($maptilerKey ?? '') ?>';
-
-                            const tileLayerUrl = maptilerKey ?
-                                `https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=${maptilerKey}` :
-                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-                            const tileLayerAttribution = maptilerKey ?
-                                '© MapTiler © OpenStreetMap contributors' :
-                                '&copy; OpenStreetMap contributors';
-
-                            const streets = L.tileLayer(tileLayerUrl, {
-                                attribution: tileLayerAttribution,
-                                maxZoom: 19
-                            });
-
-                            const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                                attribution: '&copy; OpenStreetMap & CartoDB',
-                                maxZoom: 19
-                            });
-
-                            const satellite = maptilerKey ?
-                                L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.png?key=${maptilerKey}`, {
-                                    attribution: '© MapTiler © OpenStreetMap contributors',
-                                    maxZoom: 19
-                                }) :
-                                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                                    attribution: 'Tiles © Esri',
-                                    maxZoom: 19
-                                });
-
-                            const map = L.map('map', {
-                                center: [-0.2733009989610224, 100.48442111207578],
-                                zoom: 12,
-                                layers: [streets]
-                            });
-
-                            const baseLayers = {
-                                'Streets': streets,
-                                'Dark': dark,
-                                'Satellite': satellite
-                            };
-
-                            L.control.layers(baseLayers, null, {
-                                collapsed: false
-                            }).addTo(map);
-
-                            const bounds = [];
-                            sekolah.forEach(function(s) {
-                                if (!s.latitude || !s.longitude) {
-                                    return;
-                                }
-
-                                const lat = parseFloat(s.latitude);
-                                const lng = parseFloat(s.longitude);
-                                if (Number.isNaN(lat) || Number.isNaN(lng)) {
-                                    return;
-                                }
-
-                                const marker = L.marker([lat, lng]).addTo(map);
-                                const popupContent = `
-                                    <div style="min-width:200px;">
-                                        <strong>${s.nama_sekolah}</strong><br>
-                                        <small>${s.kecamatan || ''}</small><br>
-                                        <p class="small mb-1">${s.alamat || ''}</p>
-                                        ${s.foto ? `<img src="<?= base_url('uploads/sekolah') ?>/${s.foto}" alt="Foto sekolah" style="width:100%; height:100px; object-fit:cover; border-radius:6px;">` : ''}
-                                    </div>
-                                `;
-                                marker.bindPopup(popupContent);
-                                bounds.push([lat, lng]);
-                            });
-
-                            if (bounds.length) {
-                                map.fitBounds(bounds, {
-                                    padding: [40, 40]
-                                });
-                            }
+                            window.SEKOLAH_DATA = <?= json_encode($sekolah ?? []) ?>;
+                            window.GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
+                            window.MAPTILER_KEY = '<?= esc($maptilerKey ?? '') ?>';
+                            window.FOTO_SEKOLAH_URL = '<?= base_url('uploads/sekolah') ?>';
                         </script>
+                        <script src="<?= base_url('assets/js/landing/script.js') ?>"></script>
 
                     </div>
                 </div>
             </div>
         </div>
 
-        </div>
-        </div>
-
-        <!-- ══ FOOTER ══ -->
-        <footer class="bg-dark text-white py-4">
+        <!--  Tentang  -->
+        <section id="tentang-kami" class="py-5" style="background:#f9f9f9;">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <p class="mb-1 fw-bold">
-                            <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
-                            SIG Pemetaan Sekolah Kabupaten Tanah Datar
-                        </p>
-                        <small class="text-muted">Sistem Informasi Geografis untuk manajemen data spasial sekolah</small>
-                    </div>
-                    <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                        <small class="text-muted">&copy; 2026 Dinas Pendidikan Kabupaten Tanah Datar. All rights reserved.</small>
+                <div class="row g-5">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="fw-bold mb-4">Tentang Kami</h2>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <!-- Anggota Kelompok -->
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#anggotaModal">
+                                👥 Anggota Kelompok → Lihat Anggota
+                            </button>
+                            <!-- GitHub Project -->
+                            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#githubModal">
+                                🐙 GitHub Project → Lihat Project
+                            </button>
+                            <!-- Email Kami -->
+                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#emailModal">
+                                ✉️ Email Kami → Lihat Email
+                            </button>
+                            <!-- Instagram Kami -->
+                            <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#instagramModal">
+                                📸 Instagram Kami → Lihat Instagram
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </section>
 
-        <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
-        <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>
+        <!-- Modal Anggota -->
+        <div class="modal fade" id="anggotaModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Anggota Kelompok</h5>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li>Nama 1</li>
+                            <li>Nama 2</li>
+                            <li>Nama 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal GitHub -->
+        <div class="modal fade" id="githubModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">GitHub Project</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Kunjungi project kami di <a href="https://github.com/username/project" target="_blank">GitHub</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Email -->
+        <div class="modal fade" id="emailModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Email Kami</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Instagram -->
+        <div class="modal fade" id="instagramModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Instagram Kami</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-1 fw-bold">
+                        <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
+                        SIG Pemetaan Sekolah Kabupaten Tanah Datar
+                    </p>
+                    <small class="text-muted">Sistem Informasi Geografis untuk manajemen data spasial sekolah</small>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <small class="text-muted">&copy; 2026 Dinas Pendidikan Kabupaten Tanah Datar. All rights reserved.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>
 </body>
 
 </html>

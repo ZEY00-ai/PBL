@@ -7,7 +7,7 @@
     <div class="page-container">
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
-                <form action="<?= base_url('operator-maps/input-geojson/simpan') ?>" method="post">
+                <form action="<?= base_url('geojson/simpan') ?>" method="post">
                     <?= csrf_field() ?>
 
                     <?php if (session()->getFlashdata('success')): ?>

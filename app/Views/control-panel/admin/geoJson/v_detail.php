@@ -34,6 +34,27 @@
                                     <h2 class="m-card__title">Informasi Wilayah</h2>
                                 </div>
                                 <table style="width:100%; border-collapse:collapse;">
+                                    <!-- Stat Tingkatan -->
+                                    <div style="display:flex; gap:8px; margin-top:16px;">
+                                        <div style="flex:1; background:var(--m-success-soft, #f0fdf4); border-radius:10px; padding:12px; text-align:center;">
+                                            <div style="font-size:22px; font-weight:700; color:green;"><?= $totalTK ?></div>
+                                            <div style="font-size:11px; color:var(--m-text-muted); margin-top:2px;">
+                                                <i class="fa-solid fa-circle" style="color:green; font-size:8px;"></i> TK
+                                            </div>
+                                        </div>
+                                        <div style="flex:1; background:#fff5f5; border-radius:10px; padding:12px; text-align:center;">
+                                            <div style="font-size:22px; font-weight:700; color:red;"><?= $totalSD ?></div>
+                                            <div style="font-size:11px; color:var(--m-text-muted); margin-top:2px;">
+                                                <i class="fa-solid fa-circle" style="color:red; font-size:8px;"></i> SD
+                                            </div>
+                                        </div>
+                                        <div style="flex:1; background:#f0f4ff; border-radius:10px; padding:12px; text-align:center;">
+                                            <div style="font-size:22px; font-weight:700; color:navy;"><?= $totalSMP ?></div>
+                                            <div style="font-size:11px; color:var(--m-text-muted); margin-top:2px;">
+                                                <i class="fa-solid fa-circle" style="color:navy; font-size:8px;"></i> SMP
+                                            </div>
+                                        </div>
+                                    </div>
                                     <tr style="border-bottom:1px solid var(--m-divider);">
                                         <td style="padding:10px 0; color:var(--m-text-muted); width:45%;">
                                             <i class="fa-solid fa-map"></i> Kecamatan
