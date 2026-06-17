@@ -1,0 +1,122 @@
+.menu-sidebar {
+    background: #18243d;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, .2);
+    border-right: 1px solid rgba(255, 255, 255, .05);
+}
+
+.logo {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-mark {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    border-radius: 12px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-text {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 12px;
+}
+
+.user-panel {
+    text-align: center;
+    padding: 20px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.user-panel img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4e73df;
+}
+
+.user-name {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.user-role {
+    color: #9fb0d0;
+    font-size: 12px;
+}
+
+.sidebar-title {
+    color: #8a9ab8;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 15px 25px 8px;
+    letter-spacing: 1px;
+}
+
+.navbar-sidebar ul li {
+    margin: 5px 12px;
+}
+
+.navbar-sidebar ul li a {
+    color: #dbe5ff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    transition: .3s;
+    font-weight: 500;
+}
+
+.navbar-sidebar ul li a i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.navbar-sidebar ul li a:hover {
+    background: rgba(255, 255, 255, .08);
+    color: white;
+    padding-left: 22px;
+}
+
+.navbar-sidebar ul li.active a {
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    color: white;
+    box-shadow: 0 4px 15px rgba(78, 115, 223, .35);
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    padding: 0 12px;
+}
+
+.sidebar-footer a {
+    display: block;
+    padding: 13px 16px;
+    border-radius: 12px;
+    color: #ff7676;
+    transition: .3s;
+}
+
+.sidebar-footer a:hover {
+    background: rgba(255, 255, 255, .08);
+}
