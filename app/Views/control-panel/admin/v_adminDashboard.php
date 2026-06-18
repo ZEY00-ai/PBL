@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <body class="app">
-    <a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
     <div class="page-container">
 
         <?php echo view('control-panel/components/sidebar'); ?>
