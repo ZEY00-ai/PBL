@@ -56,11 +56,9 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama Sekolah</th>
-                                    <th class="text-center">Tingkatan</th>
                                     <th class="text-center">Akreditasi</th>
                                     <th class="text-center">Kecamatan</th>
                                     <th class="text-center">Alamat</th>
-                                    <th class="text-center">Foto</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -72,16 +70,6 @@
                                             <td class="text-center"><?= $i + 1 ?></td>
 
                                             <td class="text-center"><?= esc($s['nama_sekolah']) ?></td>
-
-                                            <td class="text-center">
-                                                <?php if ($s['tingkatan']): ?>
-                                                    <span style="display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:600; background:var(--m-accent-soft, #eef2ff); color:var(--m-accent);">
-                                                        <?= esc($s['tingkatan']) ?>
-                                                    </span>
-                                                <?php else: ?>
-                                                    <span class="text-muted">-</span>
-                                                <?php endif; ?>
-                                            </td>
 
                                             <td class="text-center">
                                                 <?php if ($s['akreditasi']): ?>
@@ -106,28 +94,17 @@
                                             <td class="col-alamat text-center" title="<?= esc($s['alamat']) ?>"><?= esc($s['alamat']) ?></td>
 
                                             <td class="text-center">
-                                                <?php if ($s['foto']): ?>
-                                                    <img src="<?= base_url('uploads/sekolah/' . $s['foto']) ?>"
-                                                        width="100"
-                                                        height="100"
-                                                        style="object-fit:cover; border-radius:6px;"
-                                                        alt="<?= esc($s['nama_sekolah']) ?>">
-                                                <?php else: ?>
-                                                    <span class="text-muted">-</span>
-                                                <?php endif; ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <a href="<?= base_url('admin/sekolah/detail/' . $s['id']) ?>"
-                                                    class="m-btn m-btn--ghost"
-                                                    style="padding:4px 10px; font-size:12px;">
-                                                    <i class="fa-solid fa-eye"></i> Detail
-                                                </a>
 
                                                 <a href="<?= base_url('admin/sekolah/edit/' . $s['id']) ?>"
                                                     class="m-btn m-btn--ghost"
                                                     style="padding:4px 10px; font-size:12px;">
                                                     <i class="fa-solid fa-pen"></i> Edit
+                                                </a>
+
+                                                <a href="<?= base_url('admin/sekolah/detail/' . $s['id']) ?>"
+                                                    class="m-btn m-btn--ghost"
+                                                    style="padding:4px 10px; font-size:12px;">
+                                                    <i class="fa-solid fa-eye"></i> Detail
                                                 </a>
 
                                                 <a href="<?= base_url('admin/sekolah/hapus/' . $s['id']) ?>"
@@ -194,6 +171,5 @@
         .dt-table th:nth-child(6) {
             text-align: left;
         }
-
     </style>
 </body>

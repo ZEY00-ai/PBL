@@ -10,186 +10,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link href="<?= base_url('CoolAdmin-master/vendor/fontawesome-7.2.0/css/all.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/css/fullmaps/style.css') ?>" />
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-
-        .peta-wrap {
-            display: flex;
-            height: 100vh;
-            width: 100%;
-        }
-
-        /* Side Panel */
-        .side-panel {
-            width: 340px;
-            background: #fff;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .side-panel__header {
-            padding: 18px 20px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .side-panel__header .btn-back {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1e293b;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .side-panel__header .btn-back:hover {
-            background: #e2e8f0;
-        }
-
-        .side-panel__header h5 {
-            font-size: 15px;
-            font-weight: 700;
-            margin: 0;
-            color: #1e293b;
-        }
-
-        .side-panel__header p {
-            font-size: 11.5px;
-            color: #64748b;
-            margin: 0;
-        }
-
-        .side-panel__body {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .form-label-sm {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #64748b;
-            letter-spacing: 0.4px;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .legend-box {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 14px 16px;
-            margin-top: 16px;
-        }
-
-        .legend-box p {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin-bottom: 8px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12.5px;
-            margin-bottom: 6px;
-        }
-
-        .legend-dot {
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-            flex-shrink: 0;
-        }
-
-        .result-list {
-            margin-top: 16px;
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
-        .result-item {
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .result-item:hover {
-            background: #f1f5f9;
-        }
-
-        .result-item__title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .result-item__sub {
-            font-size: 11.5px;
-            color: #64748b;
-            margin-top: 2px;
-        }
-
-        .result-info {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 12px;
-            padding: 8px 10px;
-            background: #eef2ff;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .result-info.show {
-            display: block;
-        }
-
-        /* Map */
-        .map-container {
-            flex: 1;
-            position: relative;
-        }
-
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .side-panel {
-                position: absolute;
-                height: 100%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -287,12 +109,13 @@
 
         const map = L.map('map', {
             center: [-0.2733009989610224, 100.48442111207578],
-            zoom: 12
+            zoom: 10
         });
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors',
-            maxZoom: 19
+            maxZoom:12,
+            maxNativeZoom: 19
         }).addTo(map);
 
         // GeoJSON Kecamatan
@@ -342,13 +165,13 @@
             return L.divIcon({
                 className: '',
                 html: `<div style="
-                width:22px; height:22px;
-                background:${color};
-                border-radius:50% 50% 50% 0;
-                transform:rotate(-45deg);
-                border:3px solid #fff;
-                box-shadow:0 2px 8px rgba(0,0,0,0.3);
-            "></div>`,
+                    width:22px; height:22px;
+                    background:${color};
+                    border-radius:50% 50% 50% 0;
+                    transform:rotate(-45deg);
+                    border:3px solid #fff;
+                    box-shadow:0 2px 8px rgba(0,0,0,0.3);
+                "></div>`,
                 iconSize: [22, 22],
                 iconAnchor: [11, 22],
                 popupAnchor: [0, -26],
@@ -357,17 +180,17 @@
 
         function popupSekolah(s, color) {
             return `
-            <div style="min-width:200px;">
-                <strong>${s.nama_sekolah}</strong><br>
-                <small>${s.kecamatan || ''}</small><br>
-                <p style="font-size:12px; margin:4px 0;">${s.alamat || ''}</p>
-                ${s.foto ? `<img src="<?= base_url('uploads/sekolah') ?>/${s.foto}" style="width:100%; height:90px; object-fit:cover; border-radius:6px;">` : ''}
-                <div style="display:flex; gap:6px; margin-top:6px;">
-                    <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${color}; color:#fff;">${s.tingkatan ?? '-'}</span>
-                    ${s.akreditasi ? `<span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:#475569; color:#fff;">Akreditasi ${s.akreditasi}</span>` : ''}
+                <div style="min-width:200px;">
+                    <strong>${s.nama_sekolah}</strong><br>
+                    <small>${s.kecamatan || ''}</small><br>
+                    <p style="font-size:12px; margin:4px 0;">${s.alamat || ''}</p>
+                    ${s.foto ? `<img src="<?= base_url('uploads/sekolah') ?>/${s.foto}" style="width:100%; height:90px; object-fit:cover; border-radius:6px;">` : ''}
+                    <div style="display:flex; gap:6px; margin-top:6px;">
+                        <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${color}; color:#fff;">${s.tingkatan ?? '-'}</span>
+                        ${s.akreditasi ? `<span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:#475569; color:#fff;">Akreditasi ${s.akreditasi}</span>` : ''}
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
         }
 
         let markerLayer = L.layerGroup().addTo(map);
@@ -391,7 +214,7 @@
             markerRefs = {};
             const bounds = [];
 
-            list.forEach(function(item, idx) {
+            list.forEach(function(item) {
                 const s = item.data;
                 const color = getMarkerColor(s.tingkatan);
                 const marker = L.marker([item.lat, item.lng], {
@@ -404,7 +227,7 @@
             });
 
             if (bounds.length) map.fitBounds(bounds, {
-                padding: [40, 40]
+                padding: [20, 20]
             });
             renderResultList(list);
         }
@@ -418,9 +241,9 @@
                 const div = document.createElement('div');
                 div.className = 'result-item';
                 div.innerHTML = `
-                <div class="result-item__title">🏫 ${s.nama_sekolah}</div>
-                <div class="result-item__sub">${s.kecamatan || ''} · ${s.tingkatan || '-'}</div>
-            `;
+                    <div class="result-item__title">🏫 ${s.nama_sekolah}</div>
+                    <div class="result-item__sub">${s.kecamatan || ''} · ${s.tingkatan || '-'}</div>
+                `;
                 div.addEventListener('click', function() {
                     map.setView([item.lat, item.lng], 16);
                     if (markerRefs[s.id]) markerRefs[s.id].openPopup();
@@ -458,6 +281,10 @@
             renderMarkers(hasil);
             resultInfo.classList.add('show');
             resultInfo.innerHTML = `<i class="fa-solid fa-circle-info"></i> Ditemukan <strong>${hasil.length}</strong> sekolah.`;
+
+            if (hasil.length === 0) {
+                map.setView([-0.2733009989610224, 100.48442111207578], 14);
+            }
         }
 
         function resetFilter() {

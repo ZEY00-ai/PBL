@@ -5,6 +5,7 @@
     /** @var RouteCollection $routes */
     $routes->get('/', 'Home::index');
     $routes->get('peta', 'Home::petaFull');
+    
 
     //login
     $routes->get('/login', 'Auth\AuthController::login');
@@ -17,87 +18,155 @@
     $routes->get('/dashboard', 'Controlpanel\admin\DashboardController::index');
 
 
-    $routes->group('admin', function ($routes) {
-        // $routes->get('dashboard', 'Controlpanel\AdminController::dashboard');
+    $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 
-        //index
-        $routes->get('sekolah', 'controlpanel\admin\SekolahController::index');
-        //create 
-        $routes->get('sekolah/tambah', 'Controlpanel\admin\SekolahController::create');
-        $routes->post('sekolah/simpan', 'Controlpanel\admin\SekolahController::store');
-        //edit
-        $routes->get('sekolah/edit/(:num)', 'controlpanel\admin\SekolahController::edit/$1');
-        $routes->post('sekolah/update/(:num)', 'controlpanel\admin\SekolahController::update/$1');
+        // Bisa diakses Admin & Super Admin
 
-        //show
-        $routes->get('sekolah/detail/(:num)', 'controlpanel\admin\SekolahController::show/$1');
-        //destroy
-        $routes->get('sekolah/hapus/(:num)', 'controlpanel\admin\SekolahController::destroy/$1');
-    });
+        //sekolahh index
+        $routes->get('sekolah', 'Controlpanel\Admin\SekolahController::index');
 
-    $routes->group('sekolah', function ($routes) {});
+            //sekolah create
+            $routes->get('sekolah/tambah', 'Controlpanel\Admin\SekolahController::create');
+            $routes->post('sekolah/simpan', 'Controlpanel\Admin\SekolahController::store');
 
+            //sekolah edit
+            $routes->get('sekolah/edit/(:num)', 'Controlpanel\Admin\SekolahController::edit/$1');
+            $routes->post('sekolah/update/(:num)', 'Controlpanel\Admin\SekolahController::update/$1');
 
-    $routes->group('user', function ($routes) {
+            //sekolah detail
+            $routes->get('sekolah/detail/(:num)', 'Controlpanel\Admin\SekolahController::show/$1');
 
-        //index
-        $routes->get('list', 'Controlpanel\admin\UserController::index');
-
-        //create
-        $routes->get('create', 'Controlpanel\admin\UserController::create');
-        $routes->post('store', 'Controlpanel\admin\UserController::store');
-
-        //show
-        $routes->get('detail/(:num)', 'Controlpanel\admin\UserController::show/$1');
-
-        //destroy
-        $routes->get('delete/(:num)', 'Controlpanel\admin\UserController::destroy/$1');
-    });
+            //sekolah destroy
+            $routes->get('sekolah/hapus/(:num)', 'Controlpanel\Admin\SekolahController::destroy/$1');
 
 
-    $routes->group('geojson', function ($routes) {
+        //geojson index
+        $routes->get('geojson/list', 'Controlpanel\Admin\GeoJsonController::index');
 
-        //index
-        $routes->get('list', 'controlpanel\admin\GeoJsonController::index');
+            //geojson create
+            $routes->get('geojson/create', 'Controlpanel\Admin\GeoJsonController::create');
+            $routes->post('geojson/simpan', 'Controlpanel\Admin\GeoJsonController::store');
 
-        //create
-        $routes->get('create', 'controlpanel\admin\GeoJsonController::create');
-        $routes->post('simpan', 'controlpanel\admin\GeoJsonController::store');
+            //geojson edit
+            $routes->get('geojson/edit/(:num)', 'Controlpanel\Admin\GeoJsonController::edit/$1');
+            $routes->post('geojson/update/(:num)', 'Controlpanel\Admin\GeoJsonController::update/$1');
 
-        //edit
-        $routes->get('edit/(:num)', 'controlpanel\admin\GeoJsonController::edit/$1');
-        $routes->post('update/(:num)', 'controlpanel\admin\GeoJsonController::update/$1');
+            //geojson detail
+            $routes->get('geojson/detail/(:num)', 'Controlpanel\Admin\GeoJsonController::show/$1');
 
-        //show
-        $routes->get('detail/(:num)', 'controlpanel\admin\GeoJsonController::show/$1');
+            //geojson destroy
+            $routes->get('geojson/hapus/(:num)', 'Controlpanel\Admin\GeoJsonController::destroy/$1');
 
-        //destoy
-        $routes->get('hapus/(:num)', 'controlpanel\admin\GeoJsonController::destroy/$1');
-    });
+        
+        //maps
+        $routes->get('maps/index', 'controlpanel\admin\MapsController::index');
 
-    $routes->group('maps', function ($routes) {
 
-        //index
-        $routes->get('index', 'controlpanel\admin\MapsController::index');
-    });
+        //profile index
+        $routes->get('profile', 'Controlpanel\Admin\ProfileController::index');
 
-    $routes->group('laporan', function ($routes) {
+            //profile edit
+            $routes->post('profile/update', 'Controlpanel\Admin\ProfileController::update');
+            $routes->post('profile/foto', 'Controlpanel\Admin\ProfileController::foto');
+            $routes->post('profile/password', 'Controlpanel\Admin\ProfileController::password'); 
 
-        //index
-        $routes->get('dashboard', 'controlpanel\admin\LaporanController::index');
-        $routes->get('export', 'controlpanel\admin\LaporanController::export');
-    });
 
-    $routes->group('profile', function ($routes) {
 
-        //index
-        $routes->get('dashboard', 'controlpanel\admin\ProfileController::index');
+        // only Super Admin
+        // $routes->get('dashboard', 'Controlpanel\Admin\AdminController::dashboard', ['filter' => 'role:super_admin']);
 
-        //update
-        $routes->post('update', 'controlpanel\admin\ProfileController::update');
-        $routes->post('foto', 'controlpanel\admin\ProfileController::foto');
-        $routes->post('password', 'controlpanel\admin\ProfileController::password');
-    });
+        //laporan
+        $routes->get('laporan', 'Controlpanel\Admin\LaporanController::index', ['filter' => 'role:super_admin']);
+        $routes->get('laporan/export', 'Controlpanel\Admin\LaporanController::export', ['filter' => 'role:super_admin']);
+
+
+        //user index
+        $routes->get('user/list', 'Controlpanel\Admin\UserController::index', ['filter' => 'role:super_admin']);
+
+            //user create
+            $routes->get('user/create', 'Controlpanel\Admin\UserController::create', ['filter' => 'role:super_admin']);
+            $routes->post('user/store', 'Controlpanel\Admin\UserController::store', ['filter' => 'role:super_admin']);
+
+            //user deatil
+            $routes->get('user/detail/(:num)', 'Controlpanel\admin\UserController::show/$1',['filter' => 'role:super_admin']);
+
+            //detail destroy
+            $routes->get('user/hapus/(:num)', 'Controlpanel\Admin\UserController::destroy/$1', ['filter' => 'role:super_admin']);
+
+
+        //Laporan index
+        $routes->get('laporan/dashboard', 'controlpanel\admin\LaporanController::index');
+            $routes->get('laporan/export', 'controlpanel\admin\LaporanController::export');
+    }); 
+
+
+
+
+
+    
+    // $routes->group('sekolah', function ($routes) {});
+
+
+    // $routes->group('user', function ($routes) {
+
+    //     //index
+    //     $routes->get('list', 'Controlpanel\admin\UserController::index');
+
+    //     //create
+    //     $routes->get('create', 'Controlpanel\admin\UserController::create');
+    //     $routes->post('store', 'Controlpanel\admin\UserController::store');
+
+    //     //show
+    //     $routes->get('detail/(:num)', 'Controlpanel\admin\UserController::show/$1');
+
+    //     //destroy
+    //     $routes->get('delete/(:num)', 'Controlpanel\admin\UserController::destroy/$1');
+    // });
+
+
+    // $routes->group('geojson', function ($routes) {
+
+    //     //index
+    //     $routes->get('list', 'controlpanel\admin\GeoJsonController::index');
+
+    //     //create
+    //     $routes->get('create', 'controlpanel\admin\GeoJsonController::create');
+    //     $routes->post('simpan', 'controlpanel\admin\GeoJsonController::store');
+
+    //     //edit
+    //     $routes->get('edit/(:num)', 'controlpanel\admin\GeoJsonController::edit/$1');
+    //     $routes->post('update/(:num)', 'controlpanel\admin\GeoJsonController::update/$1');
+
+    //     //show
+    //     $routes->get('detail/(:num)', 'controlpanel\admin\GeoJsonController::show/$1');
+
+    //     //destoy
+    //     $routes->get('hapus/(:num)', 'controlpanel\admin\GeoJsonController::destroy/$1');
+    // });
+
+    // $routes->group('maps', function ($routes) {
+
+    //     //index
+    //     $routes->get('index', 'controlpanel\admin\MapsController::index');
+    // });
+
+    // $routes->group('laporan', function ($routes) {
+
+    //     //index
+    //     $routes->get('dashboard', 'controlpanel\admin\LaporanController::index');
+    //     $routes->get('export', 'controlpanel\admin\LaporanController::export');
+    // });
+
+    // $routes->group('profile', function ($routes) {
+
+    //     //index
+    //     $routes->get('dashboard', 'controlpanel\admin\ProfileController::index');
+
+    //     //update
+    //     $routes->post('update', 'controlpanel\admin\ProfileController::update');
+    //     $routes->post('foto', 'controlpanel\admin\ProfileController::foto');
+    //     $routes->post('password', 'controlpanel\admin\ProfileController::password');
+    // });
 
 
 

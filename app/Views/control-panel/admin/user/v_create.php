@@ -16,7 +16,7 @@
                             <p class="subtitle">Tambah akun admin baru</p>
                         </div>
                         <div class="page-header__actions">
-                            <a href="<?= base_url('user/list') ?>" class="m-btn m-btn--ghost">
+                            <a href="<?= base_url('admin/user/list') ?>" class="m-btn m-btn--ghost">
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
                         </div>
@@ -33,7 +33,7 @@
                     <?php endif; ?>
 
                     <div class="m-card p-4">
-                        <form action="<?= base_url('user/store') ?>" method="post">
+                        <form action="<?= base_url('admin/user/store') ?>" method="post">
                             <?= csrf_field() ?>
 
                             <div class="form-group mb-3">
@@ -49,6 +49,17 @@
                                     placeholder="contoh@email.com"
                                     value="<?= old('email') ?>" required>
                             </div>
+
+                            <?php if (session()->get('user_role') === 'super_admin'): ?>
+                                <div class="form-group mb-3">
+                                    <label class="fw-semibold">Role</label>
+                                    <select name="role" class="form-select" required>
+                                        <option value="" disabled selected>-- Pilih Role --</option>
+                                        <option value="super_admin">Super Admin</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
 
                             <div class="form-group mb-3">
                                 <label class="fw-semibold">Password</label>

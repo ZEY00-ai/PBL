@@ -29,11 +29,17 @@ class LaporanController extends BaseController
             ->findAll();
 
         $totalGeoJson = (new \App\Models\GeoJsonModel())->countAllResults();
+        $totalTK      = $this->sekolahModel->where('tingkatan', 'TK')->countAllResults();
+        $totalSD      = $this->sekolahModel->where('tingkatan', 'SD')->countAllResults();
+        $totalSMP     = $this->sekolahModel->where('tingkatan', 'SMP')->countAllResults();
 
         return view('control-panel/admin/laporan/v_index', [
             'kecamatan'    => $kecamatan,
             'sekolah'      => $sekolah,
             'totalGeoJson' => $totalGeoJson,
+            'totalTK'      => $totalTK,
+            'totalSD'      => $totalSD,
+            'totalSMP'     => $totalSMP,
         ]);
     }
 
@@ -61,64 +67,64 @@ class LaporanController extends BaseController
 
         // Buat HTML untuk PDF
         $html = '
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body { font-family: Arial, sans-serif; font-size: 11px; }
-                h2 { text-align: center; margin-bottom: 4px; }
-                p.sub { text-align: center; color: #666; margin-bottom: 16px; font-size: 10px; }
-                table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                th { background: #4272d7; color: #fff; padding: 7px 6px; text-align: center; font-size: 10px; }
-                td { padding: 6px; border: 1px solid #ddd; font-size: 10px; vertical-align: top; }
-                tr:nth-child(even) { background: #f4f6fa; }
-                .text-center { text-align: center; }
-                .footer { margin-top: 20px; font-size: 10px; color: #888; text-align: right; }
-            </style>
-        </head>
-        <body>
-            <h2>' . $judul . '</h2>
-            <p class="sub">Tanggal: ' . date('d F Y') . ' | Kabupaten Tanah Datar</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Sekolah</th>
-                        <th>NPSN</th>
-                        <th>Tingkatan</th>
-                        <th>Akreditasi</th>
-                        <th>Kecamatan</th>
-                        <th>Alamat</th>
-                        <th>Tahun Berdiri</th>
-                        <th>Website</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                    </tr>
-                </thead>
-                <tbody>';
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 11px; }
+        h2 { text-align: center; margin-bottom: 4px; }
+        p.sub { text-align: center; color: #666; margin-bottom: 16px; font-size: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #4272d7; color: #fff; padding: 7px 6px; text-align: center; font-size: 10px; }
+        td { padding: 6px; border: 1px solid #ddd; font-size: 10px; vertical-align: top; }
+        tr:nth-child(even) { background: #f4f6fa; }
+        .text-center { text-align: center; }
+        .footer { margin-top: 20px; font-size: 10px; color: #888; text-align: right; }
+    </style>
+</head>
+<body>
+    <h2>' . $judul . '</h2>
+    <p class="sub">Tanggal: ' . date('d F Y') . ' | Kabupaten Tanah Datar</p>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Sekolah</th>
+                <th>NPSN</th>
+                <th>Tingkatan</th>
+                <th>Akreditasi</th>
+                <th>Kecamatan</th>
+                <th>Alamat</th>
+                <th>Nomor Sekolah</th>
+                <th>Email</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+        </thead>
+        <tbody>';
 
         foreach ($data as $i => $s) {
             $html .= '<tr>
-                <td class="text-center">' . ($i + 1) . '</td>
-                <td>' . htmlspecialchars($s['nama_sekolah']) . '</td>
-                <td class="text-center">' . ($s['npsn'] ?? '-') . '</td>
-                <td class="text-center">' . ($s['tingkatan'] ?? '-') . '</td>
-                <td class="text-center">' . ($s['akreditasi'] ?? '-') . '</td>
-                <td>' . htmlspecialchars($s['kecamatan']) . '</td>
-                <td>' . htmlspecialchars($s['alamat']) . '</td>
-                <td class="text-center">' . ($s['tahun_berdiri'] ?? '-') . '</td>
-                <td>' . ($s['website'] ? htmlspecialchars($s['website']) : '-') . '</td>
-                <td class="text-center">' . $s['latitude'] . '</td>
-                <td class="text-center">' . $s['longitude'] . '</td>
-            </tr>';
+        <td class="text-center">' . ($i + 1) . '</td>
+        <td>' . htmlspecialchars($s['nama_sekolah']) . '</td>
+        <td class="text-center">' . ($s['npsn'] ?? '-') . '</td>
+        <td class="text-center">' . ($s['tingkatan'] ?? '-') . '</td>
+        <td class="text-center">' . ($s['akreditasi'] ?? '-') . '</td>
+        <td>' . htmlspecialchars($s['kecamatan']) . '</td>
+        <td>' . htmlspecialchars($s['alamat']) . '</td>
+        <td>' . ($s['nomor_sekolah'] ? htmlspecialchars($s['nomor_sekolah']) : '-') . '</td>
+        <td>' . ($s['email'] ? htmlspecialchars($s['email']) : '-') . '</td>
+        <td class="text-center">' . $s['latitude'] . '</td>
+        <td class="text-center">' . $s['longitude'] . '</td>
+    </tr>';
         }
 
         $html .= '
-                </tbody>
-            </table>
-            <div class="footer">Total: ' . count($data) . ' sekolah</div>
-        </body>
-        </html>';
+        </tbody>
+    </table>
+    <div class="footer">Total: ' . count($data) . ' sekolah</div>
+</body>
+</html>';
 
         // Generate PDF
         $options = new Options();

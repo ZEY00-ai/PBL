@@ -17,7 +17,7 @@
                                 <p class="subtitle">Daftar data User</p>
                             </div>
                             <div class="page-header__actions">
-                                <a href="<?= base_url('user/create') ?>" class="m-btn m-btn--primary">
+                                <a href="<?= base_url('admin/user/create') ?>" class="m-btn m-btn--primary">
                                     <i class="fa-solid fa-plus"></i> Tambah User
                                 </a>
                             </div>
@@ -39,6 +39,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Email</th>
+                                            <th>Role</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -54,11 +55,11 @@
                                                             class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
                                                             <i class="fa-solid fa-pen"></i> Edit
                                                         </a> -->
-                                                        <a href="<?= base_url('user/detail/' . $g['id']) ?>"
+                                                        <a href="<?= base_url('admin/user/detail/' . $g['id']) ?>"
                                                             class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
                                                             <i class="fa-solid fa-pen"></i> Detail
                                                         </a>
-                                                        <a href="<?= base_url('user/delete/' . $g['id']) ?>"
+                                                        <a href="<?= base_url('admin/user/hapus/' . $g['id']) ?>"
                                                             class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px; color:red;"
                                                             onclick="return confirm('Yakin hapus data kecamatan <?= esc($g['nama']) ?>?')">
                                                             <i class="fa-solid fa-trash"></i> Hapus

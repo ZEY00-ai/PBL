@@ -65,8 +65,7 @@
                             <label>NPSN</label>
                             <input type="text" name="npsn" class="form-control"
                                 placeholder="Nomor Pokok Sekolah Nasional"
-                                value="<?= old('npsn') ?>">
-                            <small class="text-muted">Opsional</small>
+                                value="<?= old('npsn', $sekolah['npsn']) ?>">
                         </div>
 
                         <!-- PETA + KOORDINAT -->
@@ -107,14 +106,16 @@
                                                 required>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Kecamatan</label>
-                                            <input type="text"
-                                                id="kecamatan"
-                                                name="kecamatan"
-                                                class="form-control"
-                                                value="<?= old('kecamatan', $sekolah['kecamatan']) ?>"
-                                                required>
+                                        <div class="form-group mb-3">
+                                            <label class="fw-semibold">Kecamatan</label>
+                                            <select name="geojson_id" class="form-select" required>
+                                                <option value="" disabled>-- Pilih Kecamatan --</option>
+                                                <?php foreach ($geojson as $g): ?>
+                                                    <option value="<?= $g['id'] ?>" <?= $sekolah['geojson_id'] == $g['id'] ? 'selected' : '' ?>>
+                                                        <?= esc($g['nama_kecamatan']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -135,10 +136,16 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label>Tahun Berdiri</label>
-                            <input type="number" name="tahun_berdiri" class="form-control"
-                                placeholder="Contoh: 1995" min="1900" max="<?= date('Y') ?>"
-                                value="<?= old('tahun_berdiri') ?>">
+                            <label>Nomor Sekolah</label>
+                            <input type="text" name="nomor_sekolah" class="form-control"
+                                value="<?= old('nomor_sekolah', $sekolah['nomor_sekolah']) ?>">
+                            <small class="text-muted">Opsional</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Email Sekolah</label>
+                            <input type="email" name="email" class="form-control"
+                                value="<?= old('email', $sekolah['email']) ?>">
                             <small class="text-muted">Opsional</small>
                         </div>
 
@@ -146,7 +153,7 @@
                             <label>Website</label>
                             <input type="url" name="website" class="form-control"
                                 placeholder="https://www.sekolah.sch.id"
-                                value="<?= old('website') ?>">
+                                value="<?= old('website', $sekolah['website']) ?>">
                             <small class="text-muted">Opsional</small>
                         </div>
 
@@ -199,14 +206,20 @@
 
     </div>
 
-    <!-- Data koordinat lama untuk marker -->
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Data koordinat & kecamatan lama untuk marker -->
     <script>
         window.editLatitude = "<?= $sekolah['latitude'] ?>";
         window.editLongitude = "<?= $sekolah['longitude'] ?>";
+        window.editGeojsonId = "<?= $sekolah['geojson_id'] ?>";
+        const geojsonData = <?= json_encode($geojson ?? []) ?>;
     </script>
 
     <!-- Script peta -->
-    <script src="<?= base_url('assets/js/edit_sekolah.js') ?>"></script>
+    <script src="<?= base_url('assets/js/sekolah/edit_sekolah.js') ?>"></script>
 
     <?php echo view('control-panel/components/footer'); ?>
 

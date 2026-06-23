@@ -16,7 +16,7 @@
                             <p class="subtitle">Informasi lengkap akun pengguna</p>
                         </div>
                         <div class="page-header__actions">
-                            <a href="<?= base_url('user/list') ?>" class="m-btn m-btn--ghost">
+                            <a href="<?= base_url('admin/user/list') ?>" class="m-btn m-btn--ghost">
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
                         </div>

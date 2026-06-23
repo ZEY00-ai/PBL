@@ -55,8 +55,8 @@
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
                         <li class="nav-item"><a class="nav-link" href="#statistik">Statistik</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#pencarian">Temukan Sekolah</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#fitur">Tentang</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pencarian">pencarian</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tentang-kami">Tentang</a></li>
                     </ul>
 
                     <div style="width: 100px;" class="text-lg-end w-100 w-lg-auto mt-2 mt-lg-0">
@@ -326,9 +326,11 @@
                     </div>
                     <div class="modal-body">
                         <ul>
-                            <li>Nama 1</li>
-                            <li>Nama 2</li>
-                            <li>Nama 3</li>
+                            <li>Daffa Abrar</li>
+                            <li>Muhammad Rizki</li>
+                            <li>Rafly Al-Razaq</li>
+                            <li>Nabila Putri Asmi</li>
+                            <li>Cici Indriani</li>
                         </ul>
                     </div>
                 </div>
@@ -343,7 +345,7 @@
                         <h5 class="modal-title">GitHub Project</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Kunjungi project kami di <a href="https://github.com/username/project" target="_blank">GitHub</a>.</p>
+                        <p>Kunjungi project kami di <a href="https://github.com/ZEY00-ai/PBL" target="_blank">GitHub</a>.</p>
                     </div>
                 </div>
             </div>
@@ -358,6 +360,10 @@
                     </div>
                     <div class="modal-body">
                         <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
                     </div>
                 </div>
             </div>
@@ -371,6 +377,10 @@
                         <h5 class="modal-title">Instagram Kami</h5>
                     </div>
                     <div class="modal-body">
+                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
+                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
+                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
+                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
                         <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
                     </div>
                 </div>
@@ -400,6 +410,8 @@
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>
+
+
 </body>
 
 </html>

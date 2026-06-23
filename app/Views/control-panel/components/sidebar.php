@@ -34,8 +34,8 @@
                     </a>
                 </li>
 
-                <li class="<?= strpos(uri_string(), 'geojson') === 0 ? 'active' : '' ?>">
-                    <a href="<?= base_url('geojson/list') ?>">
+                <li class="<?= strpos(uri_string(), 'admin/geojson/list') === 0 ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/geojson/list') ?>">
                         <i class="fas fa-draw-polygon"></i>
                         Data GeoJson
                     </a>
@@ -45,34 +45,49 @@
                     VISUALISASI
                 </li>
 
-                <li class="<?= uri_string() === 'maps/index' ? 'active' : '' ?>">
-                    <a href="<?= base_url('maps/index') ?>">
+                <li class="<?= uri_string() === 'admin/maps/index' ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/maps/index') ?>">
                         <i class="fas fa-map-location-dot"></i>
                         Maps Sekolah & GeoJson
                     </a>
                 </li>
 
+                <?php if (session()->get('user_role') === 'super_admin'): ?>
+
+                    <li class="sidebar-title">
+                        LAPORAN
+                    </li>
+
+                    <li class="<?= uri_string() === 'admin/laporan/dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/laporan/dashboard') ?>">
+                            <i class="fas fa-file-alt"></i>
+                            Laporan
+                        </a>
+                    </li>
+
+                    <li class="sidebar-title">
+                        AKUN
+                    </li>
+
+                    <li class="<?= strpos(uri_string(), 'admin/user/list') === 0 ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/user/list') ?>">
+                            <i class="fas fa-users"></i>
+                            Kelola Akun
+                        </a>
+                    </li>
+
+                <?php endif; ?>
+
                 <li class="sidebar-title">
-                    LAPORAN
+                    AKUN SAYA
                 </li>
 
-                <li class="<?= uri_string() === 'laporan/dashboard' ? 'active' : '' ?>">
-                    <a href="<?= base_url('laporan/dashboard') ?>">
-                        <i class="fas fa-file-alt"></i>
-                        Laporan
-                    </a>
-                </li>
-
-                <!-- <li class="sidebar-title">
-                    AKUN
-                </li>
-
-                <li class="<?= uri_string() === 'profile/dashboard' ? 'active' : '' ?>">
-                    <a href="<?= base_url('profile/dashboard') ?>">
+                <li class="<?= strpos(uri_string(), 'admin/profile') === 0 ? 'active' : '' ?>">
+                    <a href="<?= base_url('admin/profile') ?>">
                         <i class="fas fa-user"></i>
                         Profile
                     </a>
-                </li> -->
+                </li>
 
             </ul>
 

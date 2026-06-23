@@ -3,9 +3,6 @@
 <body class="app">
     <a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
     <div class="page-container">
-
-        <?php echo view('control-panel/components/sidebar'); ?>
-
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
@@ -19,7 +16,7 @@
 
                     <!-- Stat Cards -->
                     <div class="row row-tight" style="margin-bottom:20px;">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
                                     <p class="stat-card__label">Total Sekolah</p>
@@ -30,26 +27,37 @@
                                 <p class="stat-card__value"><?= count($sekolah) ?></p>
                             </article>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
-                                    <p class="stat-card__label">Total Kecamatan</p>
+                                    <p class="stat-card__label">Total TK</p>
                                     <span class="stat-card__icon stat-card__icon--c2">
-                                        <i class="fa-solid fa-map"></i>
+                                        <i class="fa-solid fa-child"></i>
                                     </span>
                                 </div>
-                                <p class="stat-card__value"><?= count($kecamatan) ?></p>
+                                <p class="stat-card__value"><?= $totalTK ?? 0 ?></p>
                             </article>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6 col-lg-3">
                             <article class="stat-card">
                                 <div class="stat-card__head">
-                                    <p class="stat-card__label">Total Wilayah GeoJSON</p>
+                                    <p class="stat-card__label">Total SD</p>
                                     <span class="stat-card__icon stat-card__icon--c3">
-                                        <i class="fa-solid fa-map-location-dot"></i>
+                                        <i class="fa-solid fa-book"></i>
                                     </span>
                                 </div>
-                                <p class="stat-card__value"><?= $totalGeoJson ?></p>
+                                <p class="stat-card__value"><?= $totalSD ?? 0 ?></p>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <article class="stat-card">
+                                <div class="stat-card__head">
+                                    <p class="stat-card__label">Total SMP</p>
+                                    <span class="stat-card__icon stat-card__icon--c4">
+                                        <i class="fa-solid fa-graduation-cap"></i>
+                                    </span>
+                                </div>
+                                <p class="stat-card__value"><?= $totalSMP ?? 0 ?></p>
                             </article>
                         </div>
                     </div>
@@ -57,7 +65,7 @@
                     <!-- Filter & Export -->
                     <div class="m-card p-4" style="margin-bottom:20px;">
                         <h2 class="m-card__title" style="margin-bottom:16px;">Filter & Export</h2>
-                        <form action="<?= base_url('laporan/export') ?>" method="get" id="form-export">
+                        <form action="<?= base_url('admin/laporan/export') ?>" method="get" id="form-export">
                             <div class="row row-tight">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -162,9 +170,11 @@
                                     <th>No</th>
                                     <th>NPSN</th>
                                     <th>Nama Sekolah</th>
+                                    <th>Tingkatan</th>
+                                    <th>Akreditasi</th>
                                     <th>Kecamatan</th>
-                                    <th>Alamat</th>
-                                    <th>Tahun Berdiri</th>
+                                    <th>Nomor Sekolah</th>
+                                    <th>Email</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -175,9 +185,11 @@
                                             <td><?= $i + 1 ?></td>
                                             <td><?= $s['npsn'] ? esc($s['npsn']) : '-' ?></td>
                                             <td><?= esc($s['nama_sekolah']) ?></td>
+                                            <td><?= $s['tingkatan'] ? esc($s['tingkatan']) : '-' ?></td>
+                                            <td><?= $s['akreditasi'] ? esc($s['akreditasi']) : '-' ?></td>
                                             <td><?= esc($s['kecamatan']) ?></td>
-                                            <td><?= esc($s['alamat']) ?></td>
-                                            <td><?= $s['tahun_berdiri'] ?? '-' ?></td>
+                                            <td><?= $s['nomor_sekolah'] ? esc($s['nomor_sekolah']) : '-' ?></td>
+                                            <td><?= $s['email'] ? esc($s['email']) : '-' ?></td>
                                             <td>
                                                 <a href="<?= base_url('admin/sekolah/detail/' . $s['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
@@ -188,7 +200,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="7" class="text-center text-muted">Belum ada data sekolah.</td>
+                                        <td colspan="9" class="text-center text-muted">Belum ada data sekolah.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -222,7 +234,7 @@
             document.getElementById('filter-kecamatan').style.display = filter === 'kecamatan' ? 'block' : 'none';
             document.getElementById('filter-sekolah').style.display = filter === 'sekolah' ? 'block' : 'none';
             document.getElementById('filter-tingkatan').style.display = filter === 'tingkatan' ? 'block' : 'none';
-            document.getElementById('filter-akreditasi').style.display = filter === 'akreditasi' ? 'block' : 'none';s   
+            document.getElementById('filter-akreditasi').style.display = filter === 'akreditasi' ? 'block' : 'none';
         }
     </script>
     <style>

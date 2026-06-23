@@ -15,7 +15,7 @@ class RoleFilter implements FilterInterface
         }
 
         if ($arguments && !in_array(session()->get('user_role'), $arguments)) {
-            return redirect()->to('/login')->with('error', 'Anda tidak punya akses ke halaman ini.');
+            return redirect()->to('/admin/sekolah')->with('error', 'Anda tidak punya akses ke halaman ini.');
         }
     }
 

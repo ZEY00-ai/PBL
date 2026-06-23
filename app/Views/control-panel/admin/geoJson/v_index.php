@@ -16,7 +16,7 @@
                             <p class="subtitle">Daftar data wilayah kecamatan</p>
                         </div>
                         <div class="page-header__actions">
-                            <a href="<?= base_url('geojson/create') ?>" class="m-btn m-btn--primary">
+                            <a href="<?= base_url('admin/geojson/create') ?>" class="m-btn m-btn--primary">
                                 <i class="fa-solid fa-plus"></i> Tambah GeoJSON
                             </a>
                         </div>
@@ -48,7 +48,7 @@
                                     rows
                                 </label>
                             </div>
-                        </div> 
+                        </div>
 
                         <table class="m-table dt-table" id="dt-table">
                             <thead>
@@ -74,15 +74,15 @@
                                             </td>
                                             <td class="text-center"><small><?= $g['created_at'] ?></small></td>
                                             <td class="text-center">
-                                                <a href="<?= base_url('geojson/edit/' . $g['id']) ?>"
+                                                <a href="<?= base_url('admin/geojson/edit/' . $g['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
                                                     <i class="fa-solid fa-pen"></i> Edit
                                                 </a>
-                                                <a href="<?= base_url('geojson/detail/' . $g['id']) ?>"
+                                                <a href="<?= base_url('admin/geojson/detail/' . $g['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px;">
-                                                    <i class="fa-solid fa-pen"></i> Detail
+                                                    <i class="fa-solid fa-eye"></i> Detail
                                                 </a>
-                                                <a href="<?= base_url('geojson/hapus/' . $g['id']) ?>"
+                                                <a href="<?= base_url('admin/geojson/hapus/' . $g['id']) ?>"
                                                     class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px; color:red;"
                                                     onclick="return confirm('Yakin hapus data kecamatan <?= esc($g['nama_kecamatan']) ?>?')">
                                                     <i class="fa-solid fa-trash"></i> Hapus

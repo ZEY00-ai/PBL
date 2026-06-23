@@ -13,13 +13,31 @@ class SekolahModel extends Model
         'tingkatan',
         'akreditasi',
         'npsn',
-        'tahun_berdiri',
+        'nomor_sekolah',
+        'email',
         'website',
         'alamat',
         'latitude',
         'longitude',
         'kecamatan',
+        'geojson_id',
         'foto',
     ];
     protected $useTimestamps = true;
+
+    public function getSekolahWithKecamatan()
+    {
+        return $this->select('sekolah.*, geojson.nama_kecamatan, geojson.warna')
+            ->join('geojson', 'geojson.id = sekolah.geojson_id', 'left')
+            ->findAll();
+    }
+
+
+    public function getSekolahDetailWithKecamatan($id)
+    {
+        return $this->select('sekolah.*, geojson.nama_kecamatan, geojson.warna')
+            ->join('geojson', 'geojson.id = sekolah.geojson_id', 'left')
+            ->where('sekolah.id', $id)
+            ->first();
+    }
 }

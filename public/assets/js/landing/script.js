@@ -1,10 +1,3 @@
-// ──────────────────────────────────────────────────────────
-// Script Peta Landing Page
-// Data (sekolah, geojson, maptilerKey, foto url) DIKIRIM dari
-// landing_page.php lewat variabel global window.* sebelum file
-// ini di-load. Lihat <script> kecil di landing_page.php.
-// ──────────────────────────────────────────────────────────
-
 const sekolah = window.SEKOLAH_DATA || [];
 const geojsonData = window.GEOJSON_DATA || [];
 const maptilerKey = window.MAPTILER_KEY || '';
@@ -20,12 +13,12 @@ const tileLayerAttribution = maptilerKey ?
 
 const streets = L.tileLayer(tileLayerUrl, {
     attribution: tileLayerAttribution,
-    maxZoom: 19
+    maxZoom: 12
 });
 
 const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap & CartoDB',
-    maxZoom: 19
+    maxZoom:12
 });
 
 const satellite = maptilerKey ?
@@ -51,7 +44,7 @@ const baseLayers = {
 };
 
 
-// ── GeoJSON Wilayah Kecamatan ──────────────────────
+//GeoJSON Wilayah Kecamatan 
 geojsonData.forEach(function (item) {
     try {
         const geoData = JSON.parse(item.geojson);
@@ -83,7 +76,7 @@ geojsonData.forEach(function (item) {
     }
 });
 
-// ── Warna marker sesuai tingkatan ──────────────────
+//Warna marker sesuai tingkatan
 function getMarkerColor(tingkatan) {
     switch (tingkatan) {
         case 'TK':
@@ -97,30 +90,7 @@ function getMarkerColor(tingkatan) {
     }
 }
 
-// ── Badge akreditasi di sudut marker ───────────────
-function getAkreditasiBadge(akreditasi) {
-    if (!akreditasi || akreditasi === 'Belum Terakreditasi') return '';
-    return `<div style="
-        position:absolute;
-        top:-4px;
-        right:-4px;
-        width:14px;
-        height:14px;
-        background:#fff;
-        border-radius:50%;
-        border:2px solid #475569;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:8px;
-        font-weight:700;
-        color:#1e293b;
-        z-index:10;
-    ">${akreditasi}</div>`;
-}
-
-function createTingkatanIcon(color, akreditasi) {
-    const badge = getAkreditasiBadge(akreditasi);
+function createTingkatanIcon(color) {
     return L.divIcon({
         className: '',
         html: `
@@ -133,7 +103,6 @@ function createTingkatanIcon(color, akreditasi) {
                     border:3px solid #fff;
                     box-shadow:0 2px 8px rgba(0,0,0,0.3);
                 "></div>
-                ${badge}
             </div>
         `,
         iconSize: [26, 26],
@@ -183,7 +152,7 @@ function renderMarkers(list) {
         const s = item.data;
         const markerColor = getMarkerColor(s.tingkatan);
         const marker = L.marker([item.lat, item.lng], {
-            icon: createTingkatanIcon(markerColor, s.akreditasi)
+            icon: createTingkatanIcon(markerColor)
         });
         marker.bindPopup(popupSekolah(s, markerColor));
         marker.addTo(markerLayer);
@@ -262,17 +231,10 @@ searchInput.addEventListener('keypress', function (e) {
     }
 });
 
-// ── Perbaikan ukuran peta ──────────────────────────
-// Leaflet menghitung ukuran container saat L.map() dipanggil.
-// Kalau saat itu layout flex/Bootstrap belum final, ukurannya
-// kebaca 0 dan tile tidak pernah di-request. invalidateSize()
-// memaksa Leaflet menghitung ulang setelah halaman benar-benar selesai render.
 window.addEventListener('load', function () {
     map.invalidateSize();
 });
 
-// Jaga-jaga kalau event 'load' sudah lewat sebelum script ini sempat
-// attach listener, panggil sekali lagi setelah delay singkat.
 setTimeout(function () {
     map.invalidateSize();
 }, 300);

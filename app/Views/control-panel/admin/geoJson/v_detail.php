@@ -94,7 +94,7 @@
                             </div>
 
                             <!-- Daftar Sekolah -->
-                            <div class="m-card">
+                            <!-- <div class="m-card">
                                 <div class="m-card__header">
                                     <h2 class="m-card__title">Daftar Sekolah</h2>
                                 </div>
@@ -129,7 +129,7 @@
                                         Belum ada sekolah di kecamatan ini.
                                     </div>
                                 <?php endif; ?>
-                            </div>
+                            </div> -->
 
                         </div>
 
@@ -175,27 +175,10 @@
             map.fitBounds(layer.getBounds());
         } catch (e) {
             console.error('GeoJSON tidak valid.');
-        }
+        };
 
-        // Marker sekolah
-        const sekolah = <?= json_encode($sekolah) ?>;
-        sekolah.forEach(function(s) {
-            if (s.latitude && s.longitude) {
-                L.marker([s.latitude, s.longitude])
-                    .bindPopup(`
-                    <div style="min-width:160px;">
-                        ${s.foto
-                            ? `<img src="/uploads/sekolah/${s.foto}" style="width:100%; height:90px; object-fit:cover; border-radius:6px; margin-bottom:6px;">`
-                            : ''
-                        }
-                        <strong>🏫 ${s.nama_sekolah}</strong><br>
-                        <small>${s.alamat}</small>
-                    </div>
-                `)
-                    .addTo(map);
-            }
-        });
+        
     </script>
 
     <?php echo view('control-panel/components/footer'); ?>
-</body>
+</body> 

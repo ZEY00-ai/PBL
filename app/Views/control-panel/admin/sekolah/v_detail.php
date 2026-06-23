@@ -3,9 +3,6 @@
 
 <body class="app">
     <div class="page-container">
-
-        <?php echo view('control-panel/components/sidebar'); ?>
-
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
@@ -123,10 +120,18 @@
                                     </tr>
                                     <tr style="border-bottom:1px solid var(--m-divider);">
                                         <td style="padding:10px 0; color:var(--m-text-muted);">
-                                            <i class="fa-solid fa-calendar"></i> Tahun Berdiri
+                                            <i class="fa-solid fa-phone"></i> Nomor Sekolah
                                         </td>
                                         <td style="padding:10px 0;">
-                                            <?= $sekolah['tahun_berdiri'] ? esc($sekolah['tahun_berdiri']) : '<span class="text-muted">-</span>' ?>
+                                            <?= $sekolah['nomor_sekolah'] ? esc($sekolah['nomor_sekolah']) : '<span class="text-muted">-</span>' ?>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--m-divider);">
+                                        <td style="padding:10px 0; color:var(--m-text-muted);">
+                                            <i class="fa-solid fa-envelope"></i> Email
+                                        </td>
+                                        <td style="padding:10px 0;">
+                                            <?= $sekolah['email'] ? esc($sekolah['email']) : '<span class="text-muted">-</span>' ?>
                                         </td>
                                     </tr>
                                     <tr style="border-bottom:1px solid var(--m-divider);">
@@ -219,11 +224,6 @@
             </div>
         `).openPopup();
     </script>
-
+    <script src="<?= base_url('assets/js/sekolah/edit_sekolah.js') ?>"></script>
     <?php echo view('control-panel/components/footer'); ?>
-    <style>
-        .theme-switcher {
-            display: none !important;
-        }
-    </style>
 </body>

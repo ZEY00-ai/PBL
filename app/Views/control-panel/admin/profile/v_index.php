@@ -88,7 +88,7 @@
                                                 <p class="m-card__subtitle">JPG, PNG or GIF, up to 2 MB.</p>
                                             </div>
                                         </header>
-                                        <form action="<?= base_url('profile/foto') ?>" method="post" enctype="multipart/form-data" id="form-foto">
+                                        <form action="<?= base_url('admin/profile/foto') ?>" method="post" enctype="multipart/form-data" id="form-foto">
                                             <?= csrf_field() ?>
                                             <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:8px 0;">
                                                 <img src="<?= (!empty($user['foto_profil']))
@@ -98,7 +98,7 @@
                                                     id="preview-foto"
                                                     style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid var(--m-surface); box-shadow:0 4px 16px rgba(15,23,42,0.10);">
                                                 <div style="display:flex; gap:8px;">
-                                                    <label for="input-foto" class="m-btn m-btn--primary" style="cursor:pointer; margin:0;">
+                                                    <label for="input-foto" class="m-btn m-btn--primary" style="cursor:pointer; margin:0; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
                                                         <i class="fa-solid fa-cloud-arrow-up"></i> Upload
                                                     </label>
                                                     <input type="file" name="foto_profil" id="input-foto" accept="image/*" style="display:none;">
@@ -153,7 +153,7 @@
                                                 <p class="m-card__subtitle">Update nama dan email akun kamu.</p>
                                             </div>
                                         </header>
-                                        <form action="<?= base_url('profile/update') ?>" method="post">
+                                        <form action="<?= base_url('admin/profile/update') ?>" method="post">
                                             <?= csrf_field() ?>
                                             <div class="form-group mb-3">
                                                 <label for="nama">Nama</label>
@@ -190,7 +190,7 @@
                                                 <p class="m-card__subtitle">Use at least 6 characters.</p>
                                             </div>
                                         </header>
-                                        <form action="<?= base_url('profile/password') ?>" method="post">
+                                        <form action="<?= base_url('admin/profile/password') ?>" method="post">
                                             <?= csrf_field() ?>
                                             <div class="form-group mb-3">
                                                 <label for="current_password">Current password</label>

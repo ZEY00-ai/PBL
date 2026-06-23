@@ -26,54 +26,59 @@ class SekolahController extends BaseController
 
     public function create()
     {
-        return view('control-panel/admin/sekolah/v_create');
+        $data['geojson'] = (new GeoJsonModel())->findAll();
+        return view('control-panel/admin/sekolah/v_create', $data);
     }
 
     public function store()
     {
-
         if (!$this->validate([
             'nama_sekolah'  => 'required',
             'alamat'        => 'required',
             'latitude'      => 'required|decimal',
             'longitude'     => 'required|decimal',
-            'kecamatan'     => 'required',
-            'foto'          => 'uploaded[foto]|max_size[foto,2048]|is_image[foto]',
-        ]))
+            'geojson_id'    => 'required',
+            'foto'          => 'max_size[foto,2048]|is_image[foto]',
+        ])) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
 
-            $fotoName = null;
+        $fotoName = null;
         $foto = $this->request->getFile('foto');
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
+
+        $geojsonId = $this->request->getPost('geojson_id');
+        $geo       = (new GeoJsonModel())->find($geojsonId);
+
         $this->SekolahModel->insert([
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
             'tingkatan'     => $this->request->getPost('tingkatan'),
             'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
             'npsn'          => $this->request->getPost('npsn') ?: null,
-            'tahun_berdiri' => $this->request->getPost('tahun_berdiri') ?: null,
+            'nomor_sekolah' => $this->request->getPost('nomor_sekolah') ?: null,
+            'email'         => $this->request->getPost('email') ?: null,
             'website'       => $this->request->getPost('website') ?: null,
             'alamat'        => $this->request->getPost('alamat'),
             'latitude'      => $this->request->getPost('latitude'),
             'longitude'     => $this->request->getPost('longitude'),
-            'kecamatan'     => $this->request->getPost('kecamatan'),
+            'geojson_id'    => $geojsonId,
+            'kecamatan'     => $geo['nama_kecamatan'] ?? null,
             'foto'          => $fotoName,
         ]);
-
 
         return redirect()->to('/admin/sekolah')->with('success', 'Data sekolah berhasil disimpan');
     }
 
     public function edit($id)
     {
-
         $data['sekolah'] = $this->SekolahModel->find($id);
-        $data['geojson'] = $this->SekolahModel->find($id);
-
+        $data['geojson'] = (new GeoJsonModel())->findAll();
 
         if (!$data['sekolah']) {
-            return redirect()->to('admin/v_index')->with('error', 'Data sekolah tidak ditemukan');
+            return redirect()->to('admin/sekolah')->with('error', 'Data sekolah tidak ditemukan');
         }
 
         return view('control-panel/admin/sekolah/v_edit', $data);
@@ -81,7 +86,6 @@ class SekolahController extends BaseController
 
     public function update($id)
     {
-
         $sekolah = $this->SekolahModel->find($id);
 
         if (!$sekolah) {
@@ -93,8 +97,8 @@ class SekolahController extends BaseController
             'alamat'        => 'required',
             'latitude'      => 'required|decimal',
             'longitude'     => 'required|decimal',
-            'kecamatan'     => 'required',
-            'foto'          => 'permit_empty|max_size[foto,2048]|is_image[foto]',
+            'geojson_id'    => 'required',
+            'foto'          => 'max_size[foto,2048]|is_image[foto]',
         ])) {
             return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
         }
@@ -111,30 +115,35 @@ class SekolahController extends BaseController
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
+
+        $geojsonId = $this->request->getPost('geojson_id');
+        $geo       = (new GeoJsonModel())->find($geojsonId);
+
         $this->SekolahModel->update($id, [
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
             'tingkatan'     => $this->request->getPost('tingkatan'),
             'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
             'npsn'          => $this->request->getPost('npsn') ?: null,
-            'tahun_berdiri' => $this->request->getPost('tahun_berdiri') ?: null,
+            'nomor_sekolah' => $this->request->getPost('nomor_sekolah') ?: null,
+            'email'         => $this->request->getPost('email') ?: null,
             'website'       => $this->request->getPost('website') ?: null,
             'alamat'        => $this->request->getPost('alamat'),
             'latitude'      => $this->request->getPost('latitude'),
             'longitude'     => $this->request->getPost('longitude'),
-            'kecamatan'     => $this->request->getPost('kecamatan'),
+            'geojson_id'    => $geojsonId,
+            'kecamatan'     => $geo['nama_kecamatan'] ?? null,
             'foto'          => $fotoName,
         ]);
+
         return redirect()->to('admin/sekolah')->with('success', 'Data sekolah berhasil diperbarui');
     }
 
-
     public function show($id)
     {
-
         $data['sekolah'] = $this->SekolahModel->find($id);
 
         if (!$data['sekolah']) {
-            return redirect()->to('admin/v_index')->with('error', 'Data sekolah tidak ditemukan');
+            return redirect()->to('admin/sekolah')->with('error', 'Data sekolah tidak ditemukan');
         }
 
         return view('control-panel/admin/sekolah/v_detail', $data);
@@ -158,7 +167,7 @@ class SekolahController extends BaseController
     public function peta()
     {
         $data['sekolah'] = $this->SekolahModel->findAll();
-        $data['geojson'] = (new \App\Models\GeoJsonModel())->findAll();
+        $data['geojson'] = (new GeoJsonModel())->findAll();
         return view('control-panel/maps/v_peta_sekolah', $data);
     }
 }

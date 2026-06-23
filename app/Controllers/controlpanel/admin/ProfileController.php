@@ -32,6 +32,9 @@ class ProfileController extends BaseController
             return redirect()->to('/login')->with('error', 'User tidak ditemukan, silakan login ulang.');
         }
 
+        // Sync session dengan data database
+        session()->set('user_foto', $user['foto_profil']);
+
         return view('control-panel/admin/profile/v_index', [
             'user' => $user,
         ]);
@@ -68,7 +71,7 @@ class ProfileController extends BaseController
             'email' => $this->request->getPost('email'),
         ]);
 
-        return redirect()->to(base_url('profile/dashboard'))
+        return redirect()->to(base_url('admin/profile'))
             ->with('success', 'Profil berhasil diperbarui.');
     }
 
@@ -122,7 +125,7 @@ class ProfileController extends BaseController
 
         $this->userModel->update($userId, ['foto_profil' => $newName]);
 
-        return redirect()->to(base_url('profile/dashboard'))
+        return redirect()->to(base_url('admin/profile'))
             ->with('success_foto', 'Foto profil berhasil diperbarui.');
     }
 
@@ -160,7 +163,7 @@ class ProfileController extends BaseController
             'password' => password_hash($this->request->getPost('new_password'), PASSWORD_DEFAULT),
         ]);
 
-        return redirect()->to(base_url('profile/dashboard'))
+        return redirect()->to(base_url('admin/profile'))
             ->with('success_password', 'Password berhasil diperbarui.');
     }
 }

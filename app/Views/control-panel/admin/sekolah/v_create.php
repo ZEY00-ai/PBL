@@ -19,6 +19,16 @@
                     <form action="<?= base_url('admin/sekolah/simpan') ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
 
+                        <?php if (session()->getFlashdata('errors')): ?>
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    <?php foreach (session()->getFlashdata('errors') as $err): ?>
+                                        <li><?= esc($err) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+
                         <!-- Nama Sekolah -->
                         <div class="form-group">
                             <label>Nama Sekolah</label>
@@ -120,14 +130,14 @@
                                                 required>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Kecamatan</label>
-                                            <input type="text"
-                                                id="kecamatan"
-                                                name="kecamatan"
-                                                class="form-control"
-                                                value="<?= old('kecamatan') ?>"
-                                                required>
+                                        <div class="form-group mb-3">
+                                            <label class="fw-semibold">Kecamatan</label>
+                                            <select name="geojson_id" class="form-select" required>
+                                                <option value="" disabled selected>-- Pilih Kecamatan --</option>
+                                                <?php foreach ($geojson as $g): ?>
+                                                    <option value="<?= $g['id'] ?>"><?= esc($g['nama_kecamatan']) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -146,10 +156,18 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label>Tahun Berdiri</label>
-                            <input type="number" name="tahun_berdiri" class="form-control"
-                                placeholder="Contoh: 1995" min="1900" max="<?= date('Y') ?>"
-                                value="<?= old('tahun_berdiri') ?>">
+                            <label>Nomor Sekolah</label>
+                            <input type="text" name="nomor_sekolah" class="form-control"
+                                placeholder="Nomor telepon/kontak sekolah"
+                                value="<?= old('nomor_sekolah') ?>">
+                            <small class="text-muted">Opsional</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Email Sekolah</label>
+                            <input type="email" name="email" class="form-control"
+                                placeholder="contoh@sekolah.sch.id"
+                                value="<?= old('email') ?>">
                             <small class="text-muted">Opsional</small>
                         </div>
 
@@ -189,9 +207,18 @@
         </main>
     </div>
 
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        const geojsonData = <?= json_encode($geojson ?? []) ?>;
+    </script>
+
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
 
     <?php echo view('control-panel/components/footer'); ?>
+
 
 </body>
 

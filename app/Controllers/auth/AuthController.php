@@ -28,10 +28,12 @@ class AuthController extends BaseController
 
         // Simpan session
         session()->set([
-            'logged_in'  => true,
-            'user_id'    => $user['id'],
-            'user_nama'  => $user['nama'],
-            'user_email' => $user['email'],
+            'logged_in'     => true,
+            'user_id'       => $user['id'],
+            'user_nama'     => $user['nama'],
+            'user_email'    => $user['email'],
+            'user_role'     => $user['role'],
+            'foto_profil'   => $user['foto_profil'],
         ]);
 
         return redirect()->to('dashboard');
