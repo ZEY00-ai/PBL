@@ -59,7 +59,7 @@
                                 </div>
                                 <p class="stat-card__value"><?= $totalSMP ?? 0 ?></p>
                             </article>
-                        </div>
+                        </div>  
                     </div>
 
                     <!-- Filter & Export -->

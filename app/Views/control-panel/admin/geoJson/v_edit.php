@@ -8,7 +8,7 @@
     <div class="page-container">
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
-                <form action="<?= base_url('/geojson/update/' . $geojson['id']) ?>" method="post">
+                <form action="<?= base_url('admin/geojson/update/' . $geojson['id']) ?>" method="post">
                     <?= csrf_field() ?>
 
                     <?php if (session()->getFlashdata('success')): ?>
@@ -50,7 +50,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="<?= base_url('geojson/list') ?>" class="btn btn-secondary">Batal</a>
+                    <a href="<?= base_url('admin/geojson/list') ?>" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
         </main>

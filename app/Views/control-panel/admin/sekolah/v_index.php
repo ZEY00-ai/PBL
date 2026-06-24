@@ -75,7 +75,7 @@
                                                 <?php if ($s['akreditasi']): ?>
                                                     <?php
                                                     $badgeColor = match ($s['akreditasi']) {
-                                                        'A'    => '#16a34a',
+                                                        'A'    => '#a31616',
                                                         'B'    => '#2563eb',
                                                         'C'    => '#d97706',
                                                         default => '#6b7280',
@@ -141,9 +141,7 @@
                             <span class="dt-pagination__info" id="dt-info"></span>
                             <div class="dt-pagination__nav" id="dt-nav"></div>
                         </div>
-
                     </section>
-
                 </div>
             </div>
         </main>
