@@ -1,10 +1,10 @@
-<?php echo view('control-panel/components/header'); ?>
+<?php echo view('components/header'); ?>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <body class="app">
     <div class="page-container">
 
-        <?php echo view('control-panel/components/sidebar'); ?>
+        <?php echo view('components/sidebar'); ?>
 
         <main class="main-content" id="main-content">
             <div class="section__content section__content--p30">
@@ -213,7 +213,7 @@
         });
     </script>
 
-    <?php echo view('control-panel/components/footer'); ?>
+    <?php echo view('components/footer'); ?>
     <style>
         .theme-switcher {
             display: none !important;

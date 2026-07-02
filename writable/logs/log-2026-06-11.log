@@ -2,12 +2,12 @@ CRITICAL - 2026-06-11 13:41:50 --> ParseError: syntax error, unexpected token "e
 [Method: GET, Route: admin/dashboard]
 in APPPATH\Views\control-panel\components\sidebar.php on line 45.
  1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/sidebar', [], true)
- 3 APPPATH\Views\control-panel\components\header.php(142): view('control-panel/components/sidebar')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/sidebar', [], true)
+ 3 APPPATH\Views\control-panel\components\header.php(142): view('components/sidebar')
  4 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\components\\header.php')
  5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/header', [], true)
- 7 APPPATH\Views\control-panel\admin\v_adminDashboard.php(4): view('control-panel/components/header')
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/header', [], true)
+ 7 APPPATH\Views\control-panel\admin\v_adminDashboard.php(4): view('components/header')
  8 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\v_adminDashboard.php')
  9 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
 10 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/v_adminDashboard', [], true)
@@ -22,12 +22,12 @@ CRITICAL - 2026-06-11 13:42:01 --> ParseError: syntax error, unexpected token "e
 [Method: GET, Route: admin/dashboard]
 in APPPATH\Views\control-panel\components\sidebar.php on line 64.
  1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/sidebar', [], true)
- 3 APPPATH\Views\control-panel\components\header.php(142): view('control-panel/components/sidebar')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/sidebar', [], true)
+ 3 APPPATH\Views\control-panel\components\header.php(142): view('components/sidebar')
  4 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\components\\header.php')
  5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/header', [], true)
- 7 APPPATH\Views\control-panel\admin\v_adminDashboard.php(4): view('control-panel/components/header')
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/header', [], true)
+ 7 APPPATH\Views\control-panel\admin\v_adminDashboard.php(4): view('components/header')
  8 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\v_adminDashboard.php')
  9 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
 10 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/v_adminDashboard', [], true)

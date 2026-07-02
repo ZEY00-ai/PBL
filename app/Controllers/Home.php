@@ -33,4 +33,16 @@ class Home extends BaseController
 
         return view('control-panel/peta_full', $data);
     }
+
+    public function sekolahDetail($id)
+    {
+        $sekolahModel = new \App\Models\SekolahModel();
+        $sekolah      = $sekolahModel->find($id);
+
+        if (!$sekolah) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Sekolah tidak ditemukan.');
+        }
+
+        return view('control-panel/detail_sekolah', ['sekolah' => $sekolah]);
+    }
 }

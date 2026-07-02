@@ -37,10 +37,10 @@
             <form class="login-form" action="<?= base_url('login') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input id="email" class="au-input" type="email" name="email"
-                        placeholder="you@example.com" autocomplete="email"
-                        value="<?= old('email') ?>" required>
+                    <label for="login_id">Email atau Nama</label>
+                    <input id="login_id" class="au-input" type="text" name="login_id"
+                        placeholder="Email atau Nama" autocomplete="username"
+                        value="<?= old('login_id') ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

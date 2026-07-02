@@ -237,12 +237,12 @@ CRITICAL - 2026-06-14 11:05:29 --> ParseError: syntax error, unexpected token "=
 [Method: GET, Route: geojson/list]
 in APPPATH\Views\control-panel\components\sidebar.php on line 15.
  1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/sidebar', [], true)
- 3 APPPATH\Views\control-panel\components\header.php(144): view('control-panel/components/sidebar')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/sidebar', [], true)
+ 3 APPPATH\Views\control-panel\components\header.php(144): view('components/sidebar')
  4 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\components\\header.php')
  5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/header', [], true)
- 7 APPPATH\Views\control-panel\admin\geoJson\v_index.php(1): view('control-panel/components/header')
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/header', [], true)
+ 7 APPPATH\Views\control-panel\admin\geoJson\v_index.php(1): view('components/header')
  8 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\geoJson\\v_index.php')
  9 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
 10 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/geoJson/v_index', [], true)
@@ -257,12 +257,12 @@ CRITICAL - 2026-06-14 11:06:26 --> ParseError: syntax error, unexpected token "=
 [Method: GET, Route: geojson/list]
 in APPPATH\Views\control-panel\components\sidebar.php on line 20.
  1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/sidebar', [], true)
- 3 APPPATH\Views\control-panel\components\header.php(144): view('control-panel/components/sidebar')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/sidebar', [], true)
+ 3 APPPATH\Views\control-panel\components\header.php(144): view('components/sidebar')
  4 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\components\\header.php')
  5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/components/header', [], true)
- 7 APPPATH\Views\control-panel\admin\geoJson\v_index.php(1): view('control-panel/components/header')
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('components/header', [], true)
+ 7 APPPATH\Views\control-panel\admin\geoJson\v_index.php(1): view('components/header')
  8 SYSTEMPATH\View\View.php(240): include('C:\\wamp64\\www\\pbl_kel_4\\app\\Views\\control-panel\\admin\\geoJson\\v_index.php')
  9 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
 10 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('control-panel/admin/geoJson/v_index', [], true)

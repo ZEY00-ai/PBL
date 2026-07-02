@@ -8,6 +8,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class AuthController extends BaseController
 {
+
+    protected UserModel $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
+
     public function login()
     {
         return view('auth/v_login');
@@ -15,28 +23,44 @@ class AuthController extends BaseController
 
     public function loginProcess()
     {
-        $model = new UserModel();
+        $rules = [
+            'login_id' => 'required',
+            'password' => 'required',
+        ];
 
-        $email    = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-
-        $user = $model->findByEmail($email);
-
-        if (!$user || !password_verify($password, $user['password'])) {
-            return redirect()->back()->with('error', 'Email atau password salah');
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
         }
 
-        // Simpan session
+        $loginId  = $this->request->getPost('login_id');
+        $password = $this->request->getPost('password');
+
+        // Cek apakah input berupa email atau nama
+        if (filter_var($loginId, FILTER_VALIDATE_EMAIL)) {
+            $user = $this->userModel->where('email', $loginId)->first();
+        } else {
+            $user = $this->userModel->where('nama', $loginId)->first();
+        }
+
+        if (!$user || !password_verify($password, $user['password'])) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Email/Nama atau password salah.');
+        }
+
         session()->set([
-            'logged_in'     => true,
-            'user_id'       => $user['id'],
-            'user_nama'     => $user['nama'],
-            'user_email'    => $user['email'],
-            'user_role'     => $user['role'],
-            'foto_profil'   => $user['foto_profil'],
+            'logged_in'  => true,
+            'user_id'    => $user['id'],
+            'user_nama'  => $user['nama'],
+            'user_email' => $user['email'],
+            'user_role'  => $user['role'],
+            'user_foto'  => $user['foto_profil'],
+            'sekolah_id' => $user['sekolah_id'] ?? null,
         ]);
 
-        return redirect()->to('dashboard');
+        return redirect()->to('/dashboard')->with('success', 'Login berhasil.');
     }
 
     public function register()

@@ -27,7 +27,6 @@
     <link href="<?= base_url('CoolAdmin-master/css/theme.css') ?>" rel="stylesheet" media="all">
     <link href="<?= base_url('CoolAdmin-master/css/app.css') ?>" rel="stylesheet" media="all">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/landing/style.css'); ?>">
-
 </head>
 
 <body class="app">
@@ -64,7 +63,6 @@
                             <i class="fa-solid fa-right-to-bracket me-1"></i>Panel Admin
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -81,96 +79,96 @@
         </div>
     </header>
 
-    <!-- Statistik -->
-    <section id="statistik" class="stats-section">
-        <div class="container">
-            <h2 class="text-center fw-bold mb-5">Ringkasan Data Spasial</h2>
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <article class="stat-card text-center py-4">
-                        <div class="mb-3">
-                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                                style="width:70px;height:70px;">
-                                <i class="fa-solid fa-school fa-2x text-primary"></i>
-                            </span>
-                        </div>
-                        <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalSekolah ?? 0)) ?>
-                        </h1>
-                        <p class="text-secondary mb-0 fw-medium">
-                            Total Sekolah Terdata
-                        </p>
-                    </article>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <article class="stat-card text-center py-4">
-                        <div class="mb-3">
-                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                                style="width:70px;height:70px;">
-                                <i class="fa-solid fas fa-child fa-2x text-primary"></i>
-                            </span>
-                        </div>
-                        <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalTK ?? 0)) ?>
-                        </h1>
-                        <p class="text-secondary mb-0 fw-medium">
-                            Total Taman Kanak-Kanak (TK)
-                        </p>
-                    </article>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <article class="stat-card text-center py-4">
-                        <div class="mb-3">
-                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                                style="width:70px;height:70px;">
-                                <i class="fa-solid fa-pencil fa-2x text-primary"></i>
-                            </span>
-                        </div>
-                        <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalSD ?? 0)) ?>
-                        </h1>
-                        <p class="text-secondary mb-0 fw-medium">
-                            Total Sekolah Dasar (SD)
-                        </p>
-                    </article>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <article class="stat-card text-center py-4">
-                        <div class="mb-3">
-                            <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                                style="width:70px;height:70px;">
-                                <i class="fa-solid fa-book-open fa-2x text-primary"></i>
-                            </span>
-                        </div>
-                        <h1 class="fw-bold mb-1">
-                            <?= esc((string) ($totalSMP ?? 0)) ?>
-                        </h1>
-                        <p class="text-secondary mb-0 fw-medium">
-                            Total Sekolah Menengah (SMP)
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <main id="main-content">
 
-        <!-- Pencarian Spasial + Peta -->
+        <!-- ringkasan -->
+        <div id="statistik">
+            <section class="stats-section">
+                <div class="container">
+                    <h2 class="text-center fw-bold mb-5">Ringkasan Data Spasial</h2>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <article class="stat-card text-center py-4">
+                                <div class="mb-3">
+                                    <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                        style="width:70px;height:70px;">
+                                        <i class="fa-solid fa-school fa-2x text-primary"></i>
+                                    </span>
+                                </div>
+                                <h1 class="fw-bold mb-1">
+                                    <?= esc((string) ($totalSekolah ?? 0)) ?>
+                                </h1>
+                                <p class="text-secondary mb-0 fw-medium">
+                                    Total Sekolah Terdata
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <article class="stat-card text-center py-4">
+                                <div class="mb-3">
+                                    <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                        style="width:70px;height:70px;">
+                                        <i class="fa-solid fas fa-child fa-2x text-primary"></i>
+                                    </span>
+                                </div>
+                                <h1 class="fw-bold mb-1">
+                                    <?= esc((string) ($totalTK ?? 0)) ?>
+                                </h1>
+                                <p class="text-secondary mb-0 fw-medium">
+                                    Total Taman Kanak-Kanak (TK)
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <article class="stat-card text-center py-4">
+                                <div class="mb-3">
+                                    <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                        style="width:70px;height:70px;">
+                                        <i class="fa-solid fa-pencil fa-2x text-primary"></i>
+                                    </span>
+                                </div>
+                                <h1 class="fw-bold mb-1">
+                                    <?= esc((string) ($totalSD ?? 0)) ?>
+                                </h1>
+                                <p class="text-secondary mb-0 fw-medium">
+                                    Total Sekolah Dasar (SD)
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <article class="stat-card text-center py-4">
+                                <div class="mb-3">
+                                    <span class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                                        style="width:70px;height:70px;">
+                                        <i class="fa-solid fa-book-open fa-2x text-primary"></i>
+                                    </span>
+                                </div>
+                                <h1 class="fw-bold mb-1">
+                                    <?= esc((string) ($totalSMP ?? 0)) ?>
+                                </h1>
+                                <p class="text-secondary mb-0 fw-medium">
+                                    Total Sekolah Menengah (SMP)
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Pencarian + Peta -->
         <div class="container my-5" id="pencarian">
             <div class="row g-4">
-
                 <div class="col-lg-4">
                     <div class="card border-0 shadow feature-card p-4">
                         <h5 class="fw-bold text-dark mb-4">
                             <i class="fa-solid fa-sliders text-primary me-2"></i>Temukan Sekolah
                         </h5>
-
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">
                                 Pencarian Sekolah
                             </label>
-
                             <div class="input-group">
                                 <input
                                     type="search"
@@ -189,7 +187,6 @@
                                 <option value="SMP">Sekolah Menengah Pertama Negeri (SMPN)</option>
                             </select>
                         </div>
-
                         <div class="mb-4">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Wilayah Kecamatan</label>
                             <select id="filter-kecamatan" class="form-select">
@@ -204,8 +201,6 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
-
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Akreditasi</label>
                             <select id="filter-akreditasi" class="form-select">
@@ -215,16 +210,13 @@
                                 <option value="C">Akreditasi C</option>
                             </select>
                         </div>
-
                         <button id="btn-cari-sekolah" class="btn btn-primary w-100 fw-bold mb-2 py-2">
                             <i class="fa-solid fa-search"></i> Cek Sekolah
                         </button>
                         <button id="btn-reset-filter" type="button" class="btn btn-outline-secondary w-100 fw-bold mb-2 py-2">
                             <i class="fa-solid fa-rotate-left"></i> Reset Filter
                         </button>
-
                         <div id="search-result-info" class="search-result-info"></div>
-
                         <hr>
                         <p class="small text-muted mb-2">Eksplorasi Peta</p>
                         <a href="<?= base_url('peta') ?>" class="btn btn-primary w-100 fw-bold mb-2 py-2">
@@ -232,7 +224,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-lg-8">
                     <div class="card border-0 shadow feature-card p-3 h-100">
                         <div class="d-flex align-items-center justify-content-between mb-3 px-1">
@@ -247,7 +238,6 @@
                         <div class="map-canvas-mock">
                             <div id="map"></div>
                         </div>
-
                         <!-- Legenda Peta -->
                         <div class="map-legend">
                             <div class="map-legend__group">
@@ -255,12 +245,6 @@
                                 <div class="map-legend__item"><span class="map-legend__dot" style="background:green;"></span> TK</div>
                                 <div class="map-legend__item"><span class="map-legend__dot" style="background:red;"></span> SD</div>
                                 <div class="map-legend__item"><span class="map-legend__dot" style="background:navy;"></span> SMP</div>
-                            </div>
-                            <div class="map-legend__group">
-                                <p>Akreditasi</p>
-                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">A</span> Akreditasi A</div>
-                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">B</span> Akreditasi B</div>
-                                <div class="map-legend__item"><span class="map-legend__dot" style="background:#fff; border:2px solid #475569; color:#1e293b; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">C</span> Akreditasi C</div>
                             </div>
                             <?php if (!empty($geojson)): ?>
                                 <div class="map-legend__group">
@@ -274,15 +258,14 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-
                         <script>
                             window.SEKOLAH_DATA = <?= json_encode($sekolah ?? []) ?>;
                             window.GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
                             window.MAPTILER_KEY = '<?= esc($maptilerKey ?? '') ?>';
                             window.FOTO_SEKOLAH_URL = '<?= base_url('uploads/sekolah') ?>';
+                            window.SEKOLAH_DETAIL_URL = '<?= base_url('sekolah/') ?>';
                         </script>
                         <script src="<?= base_url('assets/js/landing/script.js') ?>"></script>
-
                     </div>
                 </div>
             </div>
@@ -359,8 +342,8 @@
                         <h5 class="modal-title">Email Kami</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
-                        <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
+                        <p>Hubungi kami di: <a href="daffaabrar630@gmail.com">daffaabrar630@gmail.com</a></p>
+                        <p>Hubungi kami di: <a href="rizkiemhade300804@gmail.com">@rizkiemhade300804@gmail.com</a></p>
                         <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
                         <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
                         <p>Hubungi kami di: <a href="mailto:info@tanahdatarkab.go.id">info@tanahdatarkab.go.id</a></p>
@@ -377,11 +360,11 @@
                         <h5 class="modal-title">Instagram Kami</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
-                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
-                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
-                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
-                        <p>Ikuti kami di <a href="https://instagram.com/username" target="_blank">@username</a></p>
+                        <p>Ikuti kami di <a href="https://www.instagram.com/zey.15_/" target="_blank">@zey.15_</a></p>
+                        <p>Ikuti kami di <a href="https://www.instagram.com/rizkiemhade_/" target="_blank">@rizkiemhade_</a></p>
+                        <p>Ikuti kami di <a href="https://www.instagram.com/raflyalrazaq_/" target="_blank">@raflyalrazaq_</a></p>
+                        <p>Ikuti kami di <a href="https://www.instagram.com/_nabilaptriasmi/" target="_blank">@_nabilaptriasmi</a></p>
+                        <p>Ikuti kami di <a href="https://www.instagram.com/ciii27.__/" target="_blank">@ciii27.__</a></p>
                     </div>
                 </div>
             </div>

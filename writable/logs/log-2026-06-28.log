@@ -1,0 +1,62 @@
+ERROR - 2026-06-28 09:54:19 --> Column 'alamat' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (:nama_sekolah:, :tingkatan:, :npsn:, :kecamatan:, :geojson_id:, :akreditasi:, :nomor_sekolah:, :email:, :website:, :alamat:, :latitude:, :longitude:, :foto:)', [...], false)
+ 5 APPPATH\Database\Seeds\SekolahSeeder.php(113): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\SekolahSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\SekolahSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-06-28 09:56:01 --> Column 'alamat' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (:nama_sekolah:, :tingkatan:, :npsn:, :kecamatan:, :geojson_id:, :akreditasi:, :nomor_sekolah:, :email:, :website:, :alamat:, :latitude:, :longitude:, :foto:)', [...], false)
+ 5 APPPATH\Database\Seeds\SekolahSeeder.php(113): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\SekolahSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\SekolahSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-06-28 09:56:59 --> Column 'alamat' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (\'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO\', \'SD\', \'70032483\', \'Lintau Buo\', \'10\', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sekolah` (`nama_sekolah`, `tingkatan`, `npsn`, `kecamatan`, `geojson_id`, `akreditasi`, `nomor_sekolah`, `email`, `website`, `alamat`, `latitude`, `longitude`, `foto`) VALUES (:nama_sekolah:, :tingkatan:, :npsn:, :kecamatan:, :geojson_id:, :akreditasi:, :nomor_sekolah:, :email:, :website:, :alamat:, :latitude:, :longitude:, :foto:)', [...], false)
+ 5 APPPATH\Database\Seeds\SekolahSeeder.php(113): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\SekolahSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\SekolahSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+DEBUG - 2026-06-28 18:20:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:20:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:20:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:20:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:20:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:24:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:28:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:28:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:28:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:30:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-28 18:37:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

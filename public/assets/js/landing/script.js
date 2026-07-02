@@ -2,6 +2,7 @@ const sekolah = window.SEKOLAH_DATA || [];
 const geojsonData = window.GEOJSON_DATA || [];
 const maptilerKey = window.MAPTILER_KEY || '';
 const fotoSekolahUrl = window.FOTO_SEKOLAH_URL || '';
+const sekolahDetailUrl = window.SEKOLAH_DETAIL_URL || '';
 
 const tileLayerUrl = maptilerKey ?
     `https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=${maptilerKey}` :
@@ -13,12 +14,12 @@ const tileLayerAttribution = maptilerKey ?
 
 const streets = L.tileLayer(tileLayerUrl, {
     attribution: tileLayerAttribution,
-    maxZoom: 12
+    maxZoom: 19
 });
 
 const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap & CartoDB',
-    maxZoom:12
+    maxZoom: 19
 });
 
 const satellite = maptilerKey ?
@@ -43,11 +44,10 @@ const baseLayers = {
     'Satellite': satellite
 };
 
-
-//GeoJSON Wilayah Kecamatan 
+// GeoJSON Wilayah Kecamatan
 geojsonData.forEach(function (item) {
     try {
-        const geoData = JSON.parse(item.geojson);
+        const geoData = typeof item.geojson === 'string' ? JSON.parse(item.geojson) : item.geojson;
         L.geoJSON(geoData, {
             style: {
                 color: item.warna,
@@ -60,14 +60,10 @@ geojsonData.forEach(function (item) {
                     layer.bindPopup('<strong>📍 ' + item.nama_kecamatan + '</strong>').openPopup();
                 });
                 layer.on('mouseover', function () {
-                    layer.setStyle({
-                        fillOpacity: 0.6
-                    });
+                    layer.setStyle({ fillOpacity: 0.6 });
                 });
                 layer.on('mouseout', function () {
-                    layer.setStyle({
-                        fillOpacity: 0.3
-                    });
+                    layer.setStyle({ fillOpacity: 0.3 });
                 });
             }
         }).addTo(map);
@@ -76,17 +72,13 @@ geojsonData.forEach(function (item) {
     }
 });
 
-//Warna marker sesuai tingkatan
+// Warna marker sesuai tingkatan
 function getMarkerColor(tingkatan) {
     switch (tingkatan) {
-        case 'TK':
-            return 'green';
-        case 'SD':
-            return 'red';
-        case 'SMP':
-            return 'navy';
-        default:
-            return 'blue';
+        case 'TK': return 'green';
+        case 'SD': return 'red';
+        case 'SMP': return 'navy';
+        default: return 'blue';
     }
 }
 
@@ -124,11 +116,17 @@ function popupSekolah(s, markerColor) {
                 </span>
                 ${s.akreditasi ? `<span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:#475569; color:#fff;">Akreditasi ${s.akreditasi}</span>` : ''}
             </div>
+                <div style="margin-top:10px; padding-top:8px; border-top:1px solid #e2e8f0;">
+            <a href="${sekolahDetailUrl}${s.id}" target="_blank"
+                style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#4272d7; text-decoration:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Lihat profil sekolah
+            </a>
+        </div>
         </div>
     `;
 }
 
-// Simpan semua marker valid ke array
 let markerLayer = L.layerGroup().addTo(map);
 const allMarkers = [];
 
@@ -137,17 +135,12 @@ sekolah.forEach(function (s) {
     const lat = parseFloat(s.latitude);
     const lng = parseFloat(s.longitude);
     if (Number.isNaN(lat) || Number.isNaN(lng)) return;
-    allMarkers.push({
-        data: s,
-        lat: lat,
-        lng: lng
-    });
+    allMarkers.push({ data: s, lat: lat, lng: lng });
 });
 
+// renderMarkers: hanya render marker, TANPA zoom
 function renderMarkers(list) {
     markerLayer.clearLayers();
-    const fitBoundsArr = [];
-
     list.forEach(function (item) {
         const s = item.data;
         const markerColor = getMarkerColor(s.tingkatan);
@@ -156,18 +149,14 @@ function renderMarkers(list) {
         });
         marker.bindPopup(popupSekolah(s, markerColor));
         marker.addTo(markerLayer);
-        fitBoundsArr.push([item.lat, item.lng]);
     });
-
-    if (fitBoundsArr.length) {
-        map.fitBounds(fitBoundsArr, {
-            padding: [40, 40]
-        });
-    }
 }
 
-// Render semua marker pertama kali
+// Render awal + zoom ke semua marker
 renderMarkers(allMarkers);
+if (allMarkers.length) {
+    map.fitBounds(allMarkers.map(m => [m.lat, m.lng]), { padding: [40, 40] });
+}
 
 // ── Pencarian & Filter ─────────────────────────────
 const searchInput = document.getElementById('dt-search-input');
@@ -179,57 +168,69 @@ const btnReset = document.getElementById('btn-reset-filter');
 const resultInfo = document.getElementById('search-result-info');
 
 function filterSekolah() {
-    const keyword = (searchInput.value || '').toLowerCase().trim();
-    const jenjang = jenjangSelect.value;
-    const kecamatan = kecamatanSelect.value;
-    const akreditasi = akreditasiSelect.value;
+    const keyword = (searchInput ? searchInput.value : '').toLowerCase().trim();
+    const jenjang = jenjangSelect ? jenjangSelect.value : '';
+    const kecamatan = kecamatanSelect ? kecamatanSelect.value : '';
+    const akreditasi = akreditasiSelect ? akreditasiSelect.value : '';
 
     const hasil = allMarkers.filter(function (item) {
         const s = item.data;
-
         const matchKeyword = !keyword || s.nama_sekolah.toLowerCase().includes(keyword);
         const matchJenjang = !jenjang || s.tingkatan === jenjang;
         const matchKecamatan = !kecamatan || s.kecamatan === kecamatan;
         const matchAkreditasi = !akreditasi || s.akreditasi === akreditasi;
-
         return matchKeyword && matchJenjang && matchKecamatan && matchAkreditasi;
     });
 
+    // Render marker dulu
     renderMarkers(hasil);
 
-    resultInfo.classList.add('show');
-    resultInfo.innerHTML = `<i class="fa-solid fa-circle-info"></i> Ditemukan <strong>${hasil.length}</strong> sekolah sesuai filter.`;
-
+    // Zoom berdasarkan jumlah hasil
     if (hasil.length === 0) {
-        map.setView([-0.2733009989610224, 100.48442111207578], 12);
+        map.setView([-0.2733009989610224, 100.48442111207578], 11);
+    } else if (hasil.length === 1) {
+        map.setView([hasil[0].lat, hasil[0].lng], 16);
+    } else {
+        map.fitBounds(hasil.map(m => [m.lat, m.lng]), { padding: [40, 40], maxZoom: 14 });
+    }
+
+    if (resultInfo) {
+        resultInfo.innerHTML = `<i class="fa-solid fa-circle-info"></i> Ditemukan <strong>${hasil.length}</strong> sekolah sesuai filter.`;
     }
 }
 
 function resetFilter() {
-    searchInput.value = '';
-    jenjangSelect.value = '';
-    kecamatanSelect.value = '';
-    akreditasiSelect.value = '';
-    resultInfo.classList.remove('show');
+    if (searchInput) searchInput.value = '';
+    if (jenjangSelect) jenjangSelect.value = '';
+    if (kecamatanSelect) kecamatanSelect.value = '';
+    if (akreditasiSelect) akreditasiSelect.value = '';
+    if (resultInfo) resultInfo.innerHTML = '';
     renderMarkers(allMarkers);
+    map.fitBounds(allMarkers.map(m => [m.lat, m.lng]), { padding: [40, 40] });
 }
 
-btnCari.addEventListener('click', function (e) {
-    e.preventDefault();
-    filterSekolah();
-});
-
-btnReset.addEventListener('click', function (e) {
-    e.preventDefault();
-    resetFilter();
-});
-
-searchInput.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
+if (btnCari) {
+    btnCari.addEventListener('click', function (e) {
         e.preventDefault();
         filterSekolah();
-    }
-});
+    });
+}
+
+if (btnReset) {
+    btnReset.addEventListener('click', function (e) {
+        e.preventDefault();
+        resetFilter();
+    });
+}
+
+if (searchInput) {
+    searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterSekolah();
+        }
+    });
+}
 
 window.addEventListener('load', function () {
     map.invalidateSize();

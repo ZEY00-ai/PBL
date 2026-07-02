@@ -1,10 +1,10 @@
 (function () {
-    const tbody    = document.getElementById('dt-body');
-    const empty    = document.getElementById('dt-empty');
-    const search   = document.getElementById('dt-search-input');
+    const tbody = document.getElementById('dt-body');
+    const empty = document.getElementById('dt-empty');
+    const search = document.getElementById('dt-search-input');
     const pageSize = document.getElementById('dt-page-size');
-    const info     = document.getElementById('dt-info');
-    const nav      = document.getElementById('dt-nav');
+    const info = document.getElementById('dt-info');
+    const nav = document.getElementById('dt-nav');
     const clearBtn = document.getElementById('dt-clear-search');
 
     if (!tbody) return;
@@ -12,9 +12,9 @@
     const allRows = Array.from(tbody.querySelectorAll('tr'));
 
     // Ambil state dari localStorage
-    let page    = parseInt(localStorage.getItem('dt_page') || '1', 10);
+    let page = parseInt(localStorage.getItem('dt_page') || '1', 10);
     let perPage = parseInt(localStorage.getItem('dt_perpage') || '10', 10);
-    let query   = '';
+    let query = '';
 
     // Set dropdown sesuai localStorage
     if (pageSize) pageSize.value = perPage;
@@ -31,14 +31,14 @@
             ? allRows.filter(r => r.textContent.toLowerCase().includes(q))
             : allRows.slice();
 
-        const total      = filtered.length;
+        const total = filtered.length;
         const totalPages = Math.max(1, Math.ceil(total / perPage));
 
         if (page > totalPages) page = totalPages;
         if (page < 1) page = 1;
 
         const start = (page - 1) * perPage;
-        const end   = start + perPage;
+        const end = start + perPage;
 
         allRows.forEach(r => r.style.display = 'none');
 
@@ -62,7 +62,7 @@
         function btn(label, toPage, active, disabled) {
             const b = document.createElement('button');
             b.innerHTML = label;
-            b.disabled  = disabled;
+            b.disabled = disabled;
             b.setAttribute('data-page', toPage);
             if (active) b.classList.add('is-active');
             nav.appendChild(b);
@@ -96,9 +96,31 @@
     if (clearBtn) clearBtn.onclick = function () {
         search.value = '';
         query = '';
-        page  = 1;
+        page = 1;
         render();
     };
+
+
+    function filterByTingkatan() {
+        const filter = document.getElementById('filter').value;
+        const rows = document.querySelectorAll('#dt-body tr[data-tingkatan]');
+
+        rows.forEach(function (row) {
+            const tingkatan = row.getAttribute('data-tingkatan');
+            if (!filter || tingkatan === filter) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Cek apakah ada hasil yang tampil
+        const visibleRows = document.querySelectorAll('#dt-body tr[data-tingkatan]:not([style*="display: none"])');
+        const emptyState = document.getElementById('dt-empty');
+        if (emptyState) {
+            emptyState.style.display = visibleRows.length === 0 ? 'flex' : 'none';
+        }
+    }
 
     render();
 })();

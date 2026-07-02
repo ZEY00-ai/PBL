@@ -10,11 +10,14 @@ class SekolahModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'nama_sekolah',
+        'kepala_sekolah',
         'tingkatan',
         'akreditasi',
         'npsn',
         'nomor_sekolah',
         'email',
+        'visi',
+        'misi',
         'website',
         'alamat',
         'latitude',

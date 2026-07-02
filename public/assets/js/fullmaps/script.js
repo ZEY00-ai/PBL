@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const sekolahData = window.SEKOLAH_DATA || [];
     const geojsonData = window.GEOJSON_DATA || [];
-    const maptilerKey = window.MAPTILER_KEY || '';
     const fotoUrl = window.FOTO_SEKOLAH_URL || '';
+    const sekolahDetailUrl = window.SEKOLAH_DETAIL_URL || '';
 
     const mapDiv = document.getElementById('map');
     if (!mapDiv) return;
@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
-        maxZoom: 12,
+        maxZoom: 19,
         maxNativeZoom: 19
     }).addTo(map);
 
     // ── GeoJSON Wilayah Kecamatan ──────────────────────────────
     geojsonData.forEach(function (item) {
         try {
-            const geoData = JSON.parse(item.geojson);
+            const geoData = typeof item.geojson === 'string' ? JSON.parse(item.geojson) : item.geojson;
             L.geoJSON(geoData, {
                 style: {
                     color: item.warna,
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ── Warna Marker Sesuai Tingkatan ──────────────────────────
+    // ── Warna Marker ───────────────────────────────────────────
     function getMarkerColor(tingkatan) {
         switch (tingkatan) {
             case 'TK': return 'green';
@@ -79,13 +79,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         ${s.tingkatan ?? '-'}
                     </span>
                     ${s.akreditasi ? `<span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:#475569; color:#fff;">Akreditasi ${s.akreditasi}</span>` : ''}
-                </div>
+                </div> 
+                 <div style="margin-top:10px; padding-top:8px; border-top:1px solid #e2e8f0;">
+            <a href="${sekolahDetailUrl}${s.id}" target="_blank"
+                style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#4272d7; text-decoration:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Lihat profil sekolah
+            </a>
+        </div>
             </div>
         `;
     }
 
-    // ── Simpan Marker ke Array ─────────────────────────────────
+    // ── Marker Array ───────────────────────────────────────────
     let markerLayer = L.layerGroup().addTo(map);
+    let markerRefs = {};
     const allMarkers = [];
 
     sekolahData.forEach(function (s) {
@@ -98,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderMarkers(list) {
         markerLayer.clearLayers();
+        markerRefs = {};
         const bounds = [];
 
         list.forEach(function (item) {
@@ -106,62 +115,95 @@ document.addEventListener('DOMContentLoaded', function () {
             const marker = L.marker([item.lat, item.lng], { icon: createIcon(color) });
             marker.bindPopup(popupSekolah(s, color));
             marker.addTo(markerLayer);
+            markerRefs[s.id] = marker;
             bounds.push([item.lat, item.lng]);
         });
 
-        if (bounds.length) {
-            map.fitBounds(bounds, { padding: [40, 40] });
-        }
+        return bounds;
     }
 
-    // Render semua marker pertama kali
-    renderMarkers(allMarkers);
+    function renderResultList(list) {
+        const container = document.getElementById('result-list');
+        if (!container) return;
+        container.innerHTML = '';
+
+        list.forEach(function (item) {
+            const s = item.data;
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            div.innerHTML = `
+                <div class="result-item__title">🏫 ${s.nama_sekolah}</div>
+                <div class="result-item__sub">${s.kecamatan || ''} · ${s.tingkatan || '-'}</div>
+            `;
+            div.addEventListener('click', function () {
+                map.setView([item.lat, item.lng], 16);
+                if (markerRefs[s.id]) markerRefs[s.id].openPopup();
+            });
+            container.appendChild(div);
+        });
+    }
+
+    // Render awal
+    const initBounds = renderMarkers(allMarkers);
+    if (initBounds.length) {
+        map.fitBounds(initBounds, { padding: [40, 40] });
+    }
+    renderResultList(allMarkers);
 
     // ── Pencarian & Filter ──────────────────────────────────────
-    const searchInput = document.getElementById('dt-search-input');
+    // ID sesuai peta_full.php
+    const searchInput = document.getElementById('search-input');
     const jenjangSelect = document.getElementById('filter-jenjang');
     const kecamatanSelect = document.getElementById('filter-kecamatan');
     const akreditasiSelect = document.getElementById('filter-akreditasi');
-    const btnCari = document.getElementById('btn-cari-sekolah');
-    const btnReset = document.getElementById('btn-reset-filter');
-    const resultInfo = document.getElementById('search-result-info');
+    const btnCari = document.getElementById('btn-cari');
+    const btnReset = document.getElementById('btn-reset');
+    const resultInfo = document.getElementById('result-info');
 
     function filterSekolah() {
-        const keyword = (searchInput.value || '').toLowerCase().trim();
-        const jenjang = jenjangSelect.value;
-        const kecamatan = kecamatanSelect.value;
-        const akreditasi = akreditasiSelect.value;
+        const keyword = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        const jenjang = jenjangSelect ? jenjangSelect.value : '';
+        const kecamatan = kecamatanSelect ? kecamatanSelect.value : '';
+        const akreditasi = akreditasiSelect ? akreditasiSelect.value : '';
 
         const hasil = allMarkers.filter(function (item) {
             const s = item.data;
-
             const matchKeyword = !keyword || s.nama_sekolah.toLowerCase().includes(keyword);
             const matchJenjang = !jenjang || s.tingkatan === jenjang;
             const matchKecamatan = !kecamatan || s.kecamatan === kecamatan;
             const matchAkreditasi = !akreditasi || s.akreditasi === akreditasi;
-
             return matchKeyword && matchJenjang && matchKecamatan && matchAkreditasi;
         });
 
-        renderMarkers(hasil);
+        const bounds = renderMarkers(hasil);
+        renderResultList(hasil);
+
+        // Zoom berdasarkan jumlah hasil
+        if (hasil.length === 0) {
+            map.setView([-0.4558, 100.6162], 11);
+        } else if (hasil.length === 1) {
+            map.setView([hasil[0].lat, hasil[0].lng], 16);
+        } else {
+            map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+        }
 
         if (resultInfo) {
             resultInfo.classList.add('show');
-            resultInfo.innerHTML = `<i class="fa-solid fa-circle-info"></i> Ditemukan <strong>${hasil.length}</strong> sekolah sesuai filter.`;
-        }
-
-        if (hasil.length === 0) {
-            map.setView([-0.4558, 100.6162], 11);
+            resultInfo.innerHTML = `<i class="fa-solid fa-circle-info"></i> Ditemukan <strong>${hasil.length}</strong> sekolah.`;
         }
     }
 
     function resetFilter() {
-        searchInput.value = '';
-        jenjangSelect.value = '';
-        kecamatanSelect.value = '';
-        akreditasiSelect.value = '';
+        if (searchInput) searchInput.value = '';
+        if (jenjangSelect) jenjangSelect.value = '';
+        if (kecamatanSelect) kecamatanSelect.value = '';
+        if (akreditasiSelect) akreditasiSelect.value = '';
         if (resultInfo) resultInfo.classList.remove('show');
-        renderMarkers(allMarkers);
+        const bounds = renderMarkers(allMarkers);
+        renderResultList(allMarkers);
+        if (bounds.length) {
+            map.fitBounds(bounds, { padding: [40, 40] });
+        }
     }
 
     if (btnCari) {
