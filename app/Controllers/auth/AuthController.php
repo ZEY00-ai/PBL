@@ -51,16 +51,27 @@ class AuthController extends BaseController
         }
 
         session()->set([
-            'logged_in'  => true,
-            'user_id'    => $user['id'],
-            'user_nama'  => $user['nama'],
-            'user_email' => $user['email'],
-            'user_role'  => $user['role'],
-            'user_foto'  => $user['foto_profil'],
-            'sekolah_id' => $user['sekolah_id'] ?? null,
+            'logged_in'   => true,
+            'user_id'     => $user['id'],
+            'user_nama'   => $user['nama'],
+            'user_email'  => $user['email'],
+            'user_role'   => $user['role'],
+            'user_foto'   => $user['foto_profil'],
+            'foto_profil' => $user['foto_profil'],
+            'sekolah_id'  => $user['sekolah_id'] ?? null,
         ]);
 
-        return redirect()->to('/dashboard')->with('success', 'Login berhasil.');
+        // Redirect berdasarkan role
+        switch ($user['role']) {
+            case 'super_admin':
+                return redirect()->to('/dashboard')->with('success', 'Login berhasil.');
+                
+            case 'admin':
+                return redirect()->to('/admin/profileSekolah')->with('success', 'Login berhasil.');
+
+            default:
+                return redirect()->to('/dashboard')->with('success', 'Login berhasil.');
+        }
     }
 
     public function register()

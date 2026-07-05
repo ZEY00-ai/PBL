@@ -83,8 +83,8 @@
                                                     <i class="fa-solid fa-eye"></i> Detail
                                                 </a>
                                                 <a href="<?= base_url('superAdmin/geojson/hapus/' . $g['id']) ?>"
-                                                    class="m-btn m-btn--ghost" style="padding:4px 10px; font-size:12px; color:red;"
-                                                    onclick="return confirm('Yakin hapus data kecamatan <?= esc($g['nama_kecamatan']) ?>?')">
+                                                    class="m-btn m-btn--ghost btn-hapus-geojson" style="padding:4px 10px; font-size:12px; color:red;"
+                                                    data-nama="<?= esc($g['nama_kecamatan']) ?>">
                                                     <i class="fa-solid fa-trash"></i> Hapus
                                                 </a>
                                             </td>
@@ -114,5 +114,6 @@
         </main>
     </div>
     <?php echo view('components/footer'); ?>
-    <script src="<?= base_url('assets/js/list.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url('assets/js/geojson/list.js') ?>"></script>
 </body>

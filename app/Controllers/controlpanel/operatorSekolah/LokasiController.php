@@ -58,6 +58,6 @@ class LokasiController extends BaseController
             'radius'    => $this->request->getPost('radius') ?: 100,
         ]);
 
-        return redirect()->to('admin/profileSekolah/lokasi')->with('success', 'Lokasi sekolah berhasil diperbarui.');
+        return redirect()->to('admin/lokasiSekolah')->with('success', 'Lokasi sekolah berhasil diperbarui.');
     }
 }

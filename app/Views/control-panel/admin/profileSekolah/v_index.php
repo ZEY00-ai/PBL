@@ -14,86 +14,146 @@
                     <div class="page-header mb-4 d-flex justify-content-between align-items-center">
                         <div>
                             <h1 class="h3 mb-1 text-dark fw-bold">Profil Sekolah</h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb small mb-0" style="background: none; padding: 0;">
-                                    <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profil Sekolah</li>
-                                </ol>
-                            </nav>
                         </div>
                         <a href="<?= site_url('admin/profileSekolah/edit/' . $sekolah['id']) ?>" class="btn btn-primary d-flex align-items-center gap-2 px-3" style="border-radius: 8px;">
                             <i class="fa-solid fa-pen-to-square"></i> Edit Profil Sekolah
                         </a>
                     </div>
 
+                    <!-- Informasi Sekolah (termasuk Kontak Sekolah, dibagi 2 kolom) -->
                     <div class="row g-4 mb-4">
-
-                        <div class="col-lg-7 col-xl-12">
-                            <section class="card border-0 shadow-sm p-4 h-100" style="border-radius: 12px; background: #ffffff;">
-                                <div class="border-bottom pb-2 mb-4">
-                                    <h5 class="fw-bold text-dark mb-0" style="border-left: 4px solid #3b82f6; padding-left: 10px;">Informasi Sekolah</h5>
+                        <div class="col-12">
+                            <section class="card border-0 shadow-sm h-100 sekolah-info-card">
+                                <div class="card-header-custom">
+                                    <h5 class="fw-bold text-dark mb-0">
+                                        <i class="fa-solid fa-school me-2 text-primary"></i>
+                                        Informasi Sekolah
+                                    </h5>
                                 </div>
 
-                                <div class="row g-4">
-                                    <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-start">
-                                        <div class="p-3 bg-light rounded mb-3 d-flex align-items-center justify-content-center" style="width: 100%; max-width: 180px; aspect-ratio: 1/1;">
-                                            <?php if (!empty($sekolah['foto'])): ?>
-                                                <img src="<?= base_url('uploads/sekolah/' . esc($sekolah['foto'])) ?>" alt="Foto Sekolah" class="img-fluid" style="max-height: 140px;">
-                                            <?php else: ?>
-                                                <img src="<?= base_url('uploads/logo/default-school.png') ?>" alt="Foto Sekolah" class="img-fluid" style="max-height: 140px;">
+                                <div class="p-4">
+                                    <div class="row g-4">
+
+                                        <!-- Foto Sekolah -->
+                                        <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-start">
+                                            <div class="foto-sekolah-box">
+                                                <?php if (!empty($sekolah['foto'])): ?>
+                                                    <img src="<?= base_url('uploads/sekolah/' . esc($sekolah['foto'])) ?>" alt="Foto Sekolah">
+                                                <?php else: ?>
+                                                    <img src="<?= base_url('default/sekolah.png') ?>" alt="Foto Sekolah">
+                                                <?php endif; ?>
+                                            </div>
+
+                                            <?php
+                                            $akreditasi = $sekolah['akreditasi'] ?? null;
+                                            $badgeClass = match ($akreditasi) {
+                                                'A' => 'bg-success-subtle text-success border-success-subtle',
+                                                'B' => 'bg-primary-subtle text-primary border-primary-subtle',
+                                                'C' => 'bg-warning-subtle text-warning border-warning-subtle',
+                                                default => 'bg-secondary-subtle text-secondary border-secondary-subtle',
+                                            };
+                                            ?>
+                                            <?php if ($akreditasi): ?>
+                                                <span class="badge <?= $badgeClass ?> border px-3 py-2 mt-3" style="font-size: 12.5px; border-radius: 8px; font-weight: 600;">
+                                                    <i class="fa-solid fa-star me-1"></i> Akreditasi <?= esc($akreditasi) ?>
+                                                </span>
                                             <?php endif; ?>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-8">
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-borderless mb-0 align-middle" style="font-size: 14px;">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-muted py-2" style="width: 35%;">Nama Sekolah</td>
-                                                        <td class="fw-semibold text-dark py-2"><?= esc($sekolah['nama_sekolah'] ?? '-') ?></td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">NPSN</td>
-                                                        <td class="text-dark py-2"><?= esc($sekolah['npsn'] ?? '-') ?></td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">Kepala Sekolah</td>
-                                                        <td class="text-dark py-2"><?= esc($sekolah['kepala_sekolah'] ?? '-') ?></td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">Jenjang Pendidikan</td>
-                                                        <td class="text-dark py-2"><?= esc($sekolah['tingkatan'] ?? '-') ?></td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">Akreditasi</td>
-                                                        <td class="py-2">
-                                                            <?php
-                                                            $akreditasi = $sekolah['akreditasi'] ?? null;
-                                                            $badgeClass = match ($akreditasi) {
-                                                                'A' => 'bg-success-subtle text-success border-success-subtle',
-                                                                'B' => 'bg-primary-subtle text-primary border-primary-subtle',
-                                                                'C' => 'bg-warning-subtle text-warning border-warning-subtle',
-                                                                default => 'bg-secondary-subtle text-secondary border-secondary-subtle',
-                                                            };
-                                                            ?>
-                                                            <?php if ($akreditasi): ?>
-                                                                <span class="badge <?= $badgeClass ?> border px-2 py-1" style="font-size: 12px; border-radius: 4px;"><?= esc($akreditasi) ?></span>
-                                                            <?php else: ?>
-                                                                <span class="text-muted">-</span>
-                                                            <?php endif; ?>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">Kecamatan</td>
-                                                        <td class="text-dark py-2"><?= esc($sekolah['kecamatan'] ?? '-') ?></td>
-                                                    </tr>
-                                                    <tr style="border-top: 1px solid #f1f5f9;">
-                                                        <td class="text-muted py-2">Alamat</td>
-                                                        <td class="text-dark py-2"><?= esc($sekolah['alamat'] ?? '-') ?></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <!-- Detail Info: dibagi 2 kolom -->
+                                        <div class="col-md-8">
+                                            <div class="row g-0">
+
+                                                <!-- Kolom Kiri -->
+                                                <div class="col-md-6">
+                                                    <div class="info-list info-list--split">
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-building-columns"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Nama Sekolah</div>
+                                                                <div class="info-value fw-semibold"><?= esc($sekolah['nama_sekolah'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-hashtag"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">NPSN</div>
+                                                                <div class="info-value"><?= esc($sekolah['npsn'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-user-tie"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Kepala Sekolah</div>
+                                                                <div class="info-value"><?= esc($sekolah['kepala_sekolah'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-layer-group"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Jenjang Pendidikan</div>
+                                                                <div class="info-value"><?= esc($sekolah['tingkatan'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-map"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Kecamatan</div>
+                                                                <div class="info-value"><?= esc($sekolah['kecamatan'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- Kolom Kanan -->
+                                                <div class="col-md-6">
+                                                    <div class="info-list info-list--split">
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Nomor Sekolah</div>
+                                                                <div class="info-value"><?= esc($sekolah['nomor_sekolah'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Email</div>
+                                                                <div class="info-value"><?= esc($sekolah['email'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="info-row">
+                                                            <div class="info-icon"><i class="fa-solid fa-globe"></i></div>
+                                                            <div class="info-body">
+                                                                <div class="info-label">Website</div>
+                                                                <div class="info-value"><?= esc($sekolah['website'] ?? '-') ?></div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- Alamat: full width di bawah kedua kolom -->
+                                                <div class="col-12">
+                                                    <div class="info-row border-0 pt-3">
+                                                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                                        <div class="info-body">
+                                                            <div class="info-label">Alamat</div>
+                                                            <div class="info-value"><?= esc($sekolah['alamat'] ?? '-') ?></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,50 +161,44 @@
                         </div>
                     </div>
 
+                    <!-- Visi & Misi (full width) -->
                     <div class="row g-4 mb-4">
-                        <div class="col-lg-7 col-xl-8 d-flex flex-column gap-4">
-                            <section class="card border-0 shadow-sm p-4 flex-fill" style="border-radius: 12px; background: #ffffff;">
-                                <div class="border-bottom pb-2 mb-3">
-                                    <h5 class="fw-bold text-dark mb-0" style="border-left: 4px solid #3b82f6; padding-left: 10px;">Kontak Sekolah</h5>
-                                </div>
-                                <div class="row g-2" style="font-size: 14px;">
-                                    <div class="col-12 d-flex align-items-center gap-3 py-1">
-                                        <i class="fa-solid fa-phone text-muted" style="width: 20px;"></i>
-                                        <span class="text-muted" style="width: 120px;">Nomor Sekolah</span>
-                                        <span class="text-dark fw-medium"><?= esc($sekolah['nomor_sekolah'] ?? '-') ?></span>
-                                    </div>
-                                    <div class="col-12 d-flex align-items-center gap-3 py-1">
-                                        <i class="fa-solid fa-envelope text-muted" style="width: 20px;"></i>
-                                        <span class="text-muted" style="width: 120px;">Email</span>
-                                        <span class="text-primary fw-medium"><?= esc($sekolah['email'] ?? '-') ?></span>
-                                    </div>
-                                    <div class="col-12 d-flex align-items-center gap-3 py-1">
-                                        <i class="fa-solid fa-globe text-muted" style="width: 20px;"></i>
-                                        <span class="text-muted" style="width: 120px;">Website</span>
-                                        <span class="text-primary fw-medium"><?= esc($sekolah['website'] ?? '-') ?></span>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        <div class="col-lg-5 col-xl-4 d-flex flex-column gap-4">
-                            <section class="card border-0 shadow-sm p-4 h-100" style="border-radius: 12px; background: #ffffff;">
+                        <div class="col-12">
+                            <section class="card border-0 shadow-sm p-4" style="border-radius: 12px; background: #ffffff;">
                                 <div class="border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
-                                    <h5 class="fw-bold text-dark mb-0" style="border-left: 4px solid #3b82f6; padding-left: 10px;">VIsi & Misi</h5>
+                                    <h5 class="fw-bold text-dark mb-0" style="border-left: 4px solid #3b82f6; padding-left: 10px;">Visi & Misi</h5>
                                 </div>
-                                <div class="row g-3">
-                                    <div class="col-12">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
                                         <h6 class="fw-bold text-dark mb-2">Visi</h6>
                                         <p class="text-muted"><?= esc($sekolah['visi'] ?? '-') ?></p>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <h6 class="fw-bold text-dark mb-2">Misi</h6>
-                                        <p class="text-muted"><?= esc($sekolah['misi'] ?? '-') ?></p>
+
+                                        <?php
+                                        $misiRaw = trim($sekolah['misi'] ?? '');
+
+                                        if ($misiRaw === '') {
+                                            echo '<p class="text-muted">-</p>';
+                                        } else {
+                                            // Pecah string berdasarkan pola "angka." (misal "1.", "2.", dst)
+                                            $misiItems = preg_split('/\d+\.\s*/', $misiRaw, -1, PREG_SPLIT_NO_EMPTY);
+                                            $misiItems = array_map('trim', $misiItems);
+                                        }
+                                        ?>
+
+                                        <?php if (!empty($misiItems)): ?>
+                                            <ol class="text-muted ps-3 mb-0">
+                                                <?php foreach ($misiItems as $item): ?>
+                                                    <li class="mb-2"><?= esc($item) ?></li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </section>
                         </div>
-
                     </div>
 
                     <div class="row g-3 mb-4">
@@ -217,4 +271,101 @@
                 .openPopup();
         </script>
     <?php endif; ?>
+
+    <style>
+        .sekolah-info-card {
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .card-header-custom {
+            padding: 18px 24px;
+            border-bottom: 1px solid #eef1f6;
+            background: #fafbfd;
+        }
+
+        .card-header-custom h5 {
+            font-size: 15px;
+        }
+
+        .foto-sekolah-box {
+            width: 100%;
+            max-width: 180px;
+            aspect-ratio: 1/1;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #f4f7fb;
+            border: 1px solid #eef1f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .foto-sekolah-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .info-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: #eff6ff;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .info-body {
+            min-width: 0;
+        }
+
+        .info-label {
+            font-size: 11.5px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .info-list--split .info-row:last-child {
+            border-bottom: none;
+        }
+
+        @media (min-width: 768px) {
+            .col-md-6:first-child .info-list--split {
+                padding-right: 20px;
+            }
+
+            .col-md-6:last-child .info-list--split {
+                padding-left: 20px;
+                border-left: 1px solid #f1f5f9;
+            }
+        }
+    </style>
 </body>

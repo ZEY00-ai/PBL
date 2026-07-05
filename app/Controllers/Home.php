@@ -37,12 +37,28 @@ class Home extends BaseController
     public function sekolahDetail($id)
     {
         $sekolahModel = new \App\Models\SekolahModel();
+        $geoJsonModel = new \App\Models\GeoJsonModel();
         $sekolah      = $sekolahModel->find($id);
+
 
         if (!$sekolah) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Sekolah tidak ditemukan.');
         }
 
-        return view('control-panel/detail_sekolah', ['sekolah' => $sekolah]);
+        // ambil parameter 'from' dari query string, misal ?from=admin
+        $from = $this->request->getGet('from');
+
+        // tentukan url tombol kembali
+        if ($from === 'superAdmin') {
+            $backUrl = base_url('superAdmin/sekolah'); // ganti sesuai route halaman super admin lo
+        } else {
+            $backUrl = base_url('/'); // default balik ke beranda
+        }
+
+        return view('control-panel/detail_sekolah', [
+            'sekolah' => $sekolah,
+            'geojson' => $geoJsonModel->findAll(),
+            'backUrl' => $backUrl,
+        ]);
     }
 }

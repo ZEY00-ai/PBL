@@ -46,12 +46,6 @@
 
                     <div class="page-header mb-4">
                         <h1 class="h3 mb-1 text-dark fw-bold">Lokasi Sekolah</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb small mb-0" style="background: none; padding: 0;">
-                                <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Lokasi Sekolah</li>
-                            </ol>
-                        </nav>
                     </div>
 
                     <?php if (session()->getFlashdata('success')): ?>
@@ -66,7 +60,7 @@
                         <span>Atur lokasi sekolah Anda pada peta dengan menandai posisi yang tepat. Marker akan ditampilkan pada peta publik.</span>
                     </div>
 
-                    <form id="form-lokasi" action="<?= site_url('admin/profileSekolah/updateLokasi/' . $sekolah['id']) ?>" method="post">
+                    <form id="form-lokasi" action="<?= site_url('admin/lokasiSekolah/update/' . $sekolah['id']) ?>" method="post">
                         <?= csrf_field() ?>
                         <div class="row g-4">
 
@@ -98,20 +92,6 @@
                                         <textarea class="form-control" id="input-alamat" name="alamat" rows="3"
                                             placeholder="Jl. Pendidikan No. 10, Kecamatan, Kabupaten, Provinsi"><?= esc($sekolah['alamat'] ?? '') ?></textarea>
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label-custom" for="input-radius">
-                                            Radius (meter)
-                                            <i class="fa-solid fa-circle-question text-muted" title="Radius digunakan untuk menampilkan area sekitar sekolah pada peta."></i>
-                                        </label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="input-radius" name="radius"
-                                                value="<?= esc($sekolah['radius'] ?? 100) ?>" min="10" step="10">
-                                            <span class="input-group-text">m</span>
-                                        </div>
-                                        <small class="text-muted">Radius digunakan untuk menampilkan area sekitar sekolah pada peta.</small>
-                                    </div>
-
                                     <div class="preview-lokasi-box mb-3">
                                         <p class="fw-bold text-dark mb-2" style="font-size: 14px;">Preview Lokasi</p>
                                         <div class="d-flex align-items-start gap-2">
@@ -142,9 +122,6 @@
                                 <section class="card border-0 shadow-sm h-100" style="border-radius: 12px; background: #ffffff; overflow: hidden;">
                                     <div class="d-flex justify-content-between align-items-center p-4 pb-3">
                                         <h5 class="fw-bold text-dark mb-0">Peta Lokasi Sekolah</h5>
-                                        <a href="<?= site_url('fullmaps') ?>" target="_blank" class="btn btn-outline-primary btn-sm" style="border-radius: 8px;">
-                                            <i class="fa-solid fa-up-right-and-down-left-from-center me-1"></i> Tampilan Peta Penuh
-                                        </a>
                                     </div>
 
                                     <div id="map-lokasi"></div>
@@ -152,8 +129,6 @@
                                     <div class="map-footer-info">
                                         <span><i class="fa-solid fa-location-dot"></i>Latitude: <span id="footer-lat"><?= esc($sekolah['latitude'] ?? '-') ?></span></span>
                                         <span><i class="fa-solid fa-globe"></i>Longitude: <span id="footer-lng"><?= esc($sekolah['longitude'] ?? '-') ?></span></span>
-                                        <span><i class="fa-solid fa-circle-dot"></i>Radius: <span id="footer-radius"><?= esc($sekolah['radius'] ?? 100) ?></span> m</span>
-                                    </div>
                                 </section>
                             </div>
 
@@ -172,17 +147,14 @@
         (function () {
             const defaultLat = <?= !empty($sekolah['latitude']) ? esc($sekolah['latitude']) : -0.947123 ?>;
             const defaultLng = <?= !empty($sekolah['longitude']) ? esc($sekolah['longitude']) : 100.354567 ?>;
-            const defaultRadius = <?= !empty($sekolah['radius']) ? (int) $sekolah['radius'] : 100 ?>;
             const namaSekolah = <?= json_encode($sekolah['nama_sekolah'] ?? 'Lokasi Sekolah') ?>;
 
             const latInput = document.getElementById('input-latitude');
             const lngInput = document.getElementById('input-longitude');
-            const radiusInput = document.getElementById('input-radius');
             const alamatInput = document.getElementById('input-alamat');
 
             const footerLat = document.getElementById('footer-lat');
             const footerLng = document.getElementById('footer-lng');
-            const footerRadius = document.getElementById('footer-radius');
             const previewAlamat = document.getElementById('preview-alamat');
 
             const map = L.map('map-lokasi').setView([defaultLat, defaultLng], 16);
@@ -197,14 +169,6 @@
                 .bindPopup(`<strong>${namaSekolah}</strong><br>${defaultLat}, ${defaultLng}`)
                 .openPopup();
 
-            const circle = L.circle([defaultLat, defaultLng], {
-                radius: defaultRadius,
-                color: '#3b82f6',
-                fillColor: '#3b82f6',
-                fillOpacity: 0.15,
-                dashArray: '6 4'
-            }).addTo(map);
-
             function updatePosition(lat, lng) {
                 lat = parseFloat(lat).toFixed(6);
                 lng = parseFloat(lng).toFixed(6);
@@ -217,12 +181,6 @@
                 lngInput.value = lng;
                 footerLat.textContent = lat;
                 footerLng.textContent = lng;
-            }
-
-            function updateRadius(radius) {
-                radius = parseInt(radius) || 0;
-                circle.setRadius(radius);
-                footerRadius.textContent = radius;
             }
 
             // Drag marker
@@ -248,11 +206,6 @@
                 });
             });
 
-            // Edit radius manual
-            radiusInput.addEventListener('input', function () {
-                updateRadius(radiusInput.value);
-            });
-
             // Sinkronkan preview alamat
             alamatInput.addEventListener('input', function () {
                 previewAlamat.textContent = alamatInput.value || 'Alamat belum diisi';
@@ -262,10 +215,8 @@
             document.getElementById('btn-reset').addEventListener('click', function () {
                 latInput.value = defaultLat;
                 lngInput.value = defaultLng;
-                radiusInput.value = defaultRadius;
                 map.setView([defaultLat, defaultLng], 16);
                 updatePosition(defaultLat, defaultLng);
-                updateRadius(defaultRadius);
             });
 
             // Pastikan peta render penuh (kasus container baru muncul/flex layout)

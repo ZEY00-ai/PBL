@@ -81,18 +81,24 @@ class SekolahController extends BaseController
         $npsn = $this->request->getPost('npsn');
 
         if ($npsn) {
+            $emailAkun = $npsn . '@op.sekolah';
             $this->UserModel->insert([
                 'nama'     => $this->request->getPost('nama_sekolah'),
-                'username' => $npsn,
-                'email'    => $npsn . '@op.sekolah',
+                'email'    => $emailAkun,
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role'     => 'admin',
                 'status'   => 1,
                 'sekolah_id' => $newSekolahId,
             ]);
+            $akunBaru = [
+                'email'    => $emailAkun,
+                'password' => '12345678',
+            ];
         }
 
-        return redirect()->to('/superAdmin/sekolah')->with('success', 'Data sekolah berhasil disimpan');
+        return redirect()->to('/superAdmin/sekolah')
+        ->with('success', 'Data sekolah berhasil disimpan')
+        ->with('akunBaru', $akunBaru);
     }
 
     public function edit($id)
@@ -144,6 +150,7 @@ class SekolahController extends BaseController
 
         $this->SekolahModel->update($id, [
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
+            'kepala_sekolah' => $this->request->getPost('kepala_sekolah') ?: null,
             'tingkatan'     => $this->request->getPost('tingkatan'),
             'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
             'npsn'          => $this->request->getPost('npsn') ?: null,
@@ -185,6 +192,7 @@ class SekolahController extends BaseController
             }
         }
 
+        $this->UserModel->where('sekolah_id', $id)->delete();
         $this->SekolahModel->delete($id);
         return redirect()->to('superAdmin/sekolah')->with('success', 'Data sekolah berhasil dihapus');
     }

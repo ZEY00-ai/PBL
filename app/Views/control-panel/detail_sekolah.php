@@ -14,11 +14,13 @@
     <style>
         :root {
             --primary: #2563eb;
+            --primary-dark: #1d4ed8;
             --primary-light: #eff6ff;
+            --accent: #06b6d4;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e5e9f0;
-            --bg: #f7f9fc;
+            --bg: #f4f7fb;
         }
 
         body {
@@ -40,6 +42,7 @@
             text-decoration: none;
             font-size: 13.5px;
             font-weight: 500;
+            transition: color .2s ease;
         }
 
         .back-btn:hover {
@@ -49,9 +52,10 @@
         /* ===== Cards (base) ===== */
         .card-box {
             background: #fff;
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            padding: 22px;
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
         }
 
         .card-box h5 {
@@ -69,73 +73,141 @@
             font-size: 13px;
         }
 
-        /* ===== Profile Card ===== */
-        .profile-card {
+        /* ===== Header Sekolah (judul + alamat singkat) ===== */
+        .school-header {
             display: flex;
-            gap: 22px;
-            align-items: center;
-            margin-bottom: 16px;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
         }
 
-        .profile-photo {
-            width: 110px;
-            height: 110px;
-            border-radius: 14px;
-            object-fit: cover;
-            flex-shrink: 0;
-            background: var(--primary-light);
-        }
-
-        .profile-photo-placeholder {
-            width: 110px;
-            height: 110px;
-            border-radius: 14px;
-            flex-shrink: 0;
-            background: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-
-        .profile-info h1 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin: 0 0 8px;
+        .school-header h1 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            margin: 0 0 6px;
             color: var(--text-main);
         }
 
-        .profile-info .lokasi {
+        .school-header .lokasi {
             font-size: 13.5px;
             color: var(--text-muted);
             margin: 0;
         }
 
+        .btn-aksi {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid #dbe6fb;
+            border-radius: 10px;
+            padding: 9px 18px;
+            font-size: 13.5px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-aksi:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* ===== Baris atas: foto besar (kiri) + kartu info (kanan) ===== */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 860px) {
+            .top-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .photo-box {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #fff;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+            min-height: 300px;
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform .4s ease;
+        }
+
+        .photo-box:hover .profile-photo {
+            transform: scale(1.04);
+        }
+
+        .profile-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            background: linear-gradient(135deg, var(--primary-light), #e0ecff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .photo-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            z-index: 1;
+        }
+
         .badge-tingkatan {
             display: inline-block;
-            padding: 3px 12px;
-            border-radius: 6px;
+            padding: 4px 13px;
+            border-radius: 20px;
             font-size: 11.5px;
             font-weight: 700;
             color: #fff;
-            margin-right: 6px;
-            letter-spacing: .2px;
+            letter-spacing: .3px;
+            background: var(--primary);
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.18);
         }
 
-        /* ===== Kotak info & kontak — seragam ===== */
-        .stat-box {
-            background: #fff;
-            border-radius: 12px;
+        /* ===== Kartu info grid (mirip referensi) ===== */
+        .info-card {
+            border-radius: 16px;
             border: 1px solid var(--border);
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            height: 100%;
+            background: #fff;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+            padding: 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 16px;
+            align-content: start;
         }
 
-        .stat-box .icon-box {
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-item .icon-box {
             width: 38px;
             height: 38px;
             border-radius: 10px;
@@ -144,7 +216,66 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .info-item .info-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            margin-bottom: 3px;
+        }
+
+        .info-item .info-value {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: block;
+            word-break: break-word;
+        }
+
+        .info-item a.info-value:hover {
+            color: var(--primary);
+        }
+
+        .info-item .info-value.empty {
+            font-weight: 400;
+            font-style: italic;
+            color: #94a3b8;
+        }
+
+        /* ===== Kotak info & kontak — seragam ===== */
+        .stat-box {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 15px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 100%;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.07);
+            border-color: var(--primary);
+        }
+
+        .stat-box .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
             flex-shrink: 0;
         }
 
@@ -183,8 +314,8 @@
 
         /* ===== Map ===== */
         #map {
-            height: 280px;
-            border-radius: 8px;
+            height: 300px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border);
             margin-bottom: 16px;
@@ -194,7 +325,7 @@
         .lokasi-detail {
             display: flex;
             gap: 14px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
 
@@ -205,19 +336,23 @@
             align-items: flex-start;
             gap: 12px;
             font-size: 13.5px;
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 12px 14px;
         }
 
         .lokasi-item .icon-box {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--primary-light);
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: #fff;
             color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 13px;
             flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
         }
 
         .lokasi-item .lokasi-label {
@@ -248,6 +383,8 @@
             --bs-btn-border-color: var(--primary);
             --bs-btn-hover-bg: var(--primary);
             --bs-btn-hover-border-color: var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
         }
 
         .section-gap {
@@ -255,9 +392,23 @@
         }
 
         @media (max-width: 576px) {
-            .profile-card {
+            .school-header {
                 flex-direction: column;
-                text-align: center;
+                align-items: stretch;
+            }
+
+            .btn-aksi {
+                justify-content: center;
+            }
+
+            .info-card {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-box,
+            .profile-photo,
+            .profile-photo-placeholder {
+                min-height: 220px;
             }
         }
     </style>
@@ -269,27 +420,25 @@
 
         <!-- Top bar -->
         <div class="topbar">
-            <a href="<?= base_url('/') ?>" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+            <a href="<?= esc($backUrl ?? base_url('/')) ?>" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
             </a>
         </div>
 
-        <!-- Profile Card -->
-        <div class="card-box profile-card">
-            <?php if (!empty($sekolah['foto'])): ?>
-                <img src="<?= base_url('uploads/sekolah/' . $sekolah['foto']) ?>"
-                    alt="Foto <?= esc($sekolah['nama_sekolah']) ?>"
-                    class="profile-photo">
-            <?php else: ?>
-                <div class="profile-photo-placeholder">
-                    <i class="fa-solid fa-school"></i>
-                </div>
-            <?php endif; ?>
-
-            <div class="profile-info">
+        <!-- Header: Nama Sekolah + Alamat singkat -->
+        <div class="school-header">
+            <div>
                 <h1><?= esc($sekolah['nama_sekolah']) ?></h1>
+                <p class="lokasi"><?= esc($sekolah['kecamatan'] ?? '-') ?>, Kabupaten Tanah Datar<?= !empty($sekolah['alamat']) ? ' — ' . esc($sekolah['alamat']) : '' ?></p>
+            </div>
+        </div>
 
-                <div class="mb-2">
+        <!-- Baris atas: Foto besar (kiri) + Kartu Info (kanan) -->
+        <div class="top-grid">
+
+            <!-- Foto Sekolah -->
+            <div class="photo-box">
+                <div class="photo-badge">
                     <?php
                     $tingkatanColor = match ($sekolah['tingkatan'] ?? '') {
                         'TK'  => '#16a34a',
@@ -298,83 +447,102 @@
                         default => '#475569',
                     };
                     ?>
-                    <span class="badge-tingkatan" style="background:<?= $tingkatanColor ?>;">
-                        <?= esc($sekolah['tingkatan'] ?? '-') ?>
-                    </span>
+                    <span class="badge-tingkatan" style="background:<?= $tingkatanColor ?>;"><?= esc($sekolah['tingkatan'] ?? '-') ?></span>
                     <?php if (!empty($sekolah['akreditasi'])): ?>
-                        <?php
-                        $akrColor = match ($sekolah['akreditasi']) {
-                            'A'    => '#16a34a',
-                            'B'    => '#2563eb',
-                            'C'    => '#d97706',
-                            default => '#6b7280',
-                        };
-                        ?>
-                        <span class="badge-tingkatan" style="background:<?= $akrColor ?>;">
-                            Akreditasi <?= esc($sekolah['akreditasi']) ?>
-                        </span>
+                        <span class="badge-tingkatan">Akreditasi <?= esc($sekolah['akreditasi']) ?></span>
                     <?php endif; ?>
-                    <span class="badge-tingkatan" style="background:#0f172a;">
-                        NPSN <?= esc($sekolah['npsn'] ?? '-') ?>
-                    </span>
                 </div>
 
-                <p class="lokasi"><i class="fa-solid fa-location-dot me-1"></i><?= esc($sekolah['kecamatan'] ?? '-') ?>, Kabupaten Tanah Datar</p>
+                <?php if (!empty($sekolah['foto'])): ?>
+                    <img src="<?= base_url('uploads/sekolah/' . $sekolah['foto']) ?>"
+                        alt="Foto <?= esc($sekolah['nama_sekolah']) ?>"
+                        class="profile-photo">
+                <?php else: ?>
+                    <div class="profile-photo-placeholder">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                <?php endif; ?>
             </div>
-        </div>
 
-        <!-- Kepala Sekolah + Telepon + Email + Website — 4 kotak sejajar -->
-        <div class="row g-3 section-gap">
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
+            <!-- Kartu Informasi -->
+            <div class="info-card">
+
+                <div class="info-item">
+                    <span class="icon-box"><i class="fa-solid fa-star"></i></span>
+                    <div>
+                        <div class="info-label">Akreditasi</div>
+                        <span class="info-value<?= empty($sekolah['akreditasi']) ? ' empty' : '' ?>"><?= esc($sekolah['akreditasi'] ?? 'Belum Terisi') ?></span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icon-box"><i class="fa-solid fa-hashtag"></i></span>
+                    <div>
+                        <div class="info-label">NPSN</div>
+                        <span class="info-value"><?= esc($sekolah['npsn'] ?? '-') ?></span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icon-box"><i class="fa-solid fa-layer-group"></i></span>
+                    <div>
+                        <div class="info-label">Tingkatan</div>
+                        <span class="info-value"><?= esc($sekolah['tingkatan'] ?? '-') ?></span>
+                    </div>
+                </div>
+
+                <div class="info-item">
                     <span class="icon-box"><i class="fa-solid fa-user-tie"></i></span>
-                    <div class="stat-text">
-                        <div class="stat-label">Kepala Sekolah</div>
-                        <span class="stat-value"><?= esc($sekolah['kepala_sekolah'] ?? '-') ?></span>
+                    <div>
+                        <div class="info-label">Kepala Sekolah</div>
+                        <span class="info-value<?= empty($sekolah['kepala_sekolah']) ? ' empty' : '' ?>"><?= esc($sekolah['kepala_sekolah'] ?? 'Belum Terisi') ?></span>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
+                <div class="info-item">
                     <span class="icon-box"><i class="fa-solid fa-phone"></i></span>
-                    <div class="stat-text">
-                        <div class="stat-label">Telepon</div>
+                    <div>
+                        <div class="info-label">Telepon</div>
                         <?php if (!empty($sekolah['nomor_sekolah'])): ?>
-                            <span class="stat-value"><?= esc($sekolah['nomor_sekolah']) ?></span>
+                            <span class="info-value"><?= esc($sekolah['nomor_sekolah']) ?></span>
                         <?php else: ?>
-                            <span class="stat-value empty">Belum tersedia</span>
+                            <span class="info-value empty">Belum Terisi</span>
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
+                <div class="info-item">
                     <span class="icon-box"><i class="fa-solid fa-envelope"></i></span>
-                    <div class="stat-text">
-                        <div class="stat-label">Email</div>
+                    <div>
+                        <div class="info-label">Email</div>
                         <?php if (!empty($sekolah['email'])): ?>
-                            <a href="mailto:<?= esc($sekolah['email']) ?>" class="stat-value"><?= esc($sekolah['email']) ?></a>
+                            <a href="mailto:<?= esc($sekolah['email']) ?>" class="info-value"><?= esc($sekolah['email']) ?></a>
                         <?php else: ?>
-                            <span class="stat-value empty">Belum tersedia</span>
+                            <span class="info-value empty">Belum Terisi</span>
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
+                <div class="info-item">
                     <span class="icon-box"><i class="fa-solid fa-globe"></i></span>
-                    <div class="stat-text">
-                        <div class="stat-label">Website</div>
+                    <div>
+                        <div class="info-label">Website Sekolah</div>
                         <?php if (!empty($sekolah['website'])): ?>
-                            <a href="<?= esc($sekolah['website']) ?>" target="_blank" class="stat-value"><?= esc($sekolah['website']) ?></a>
+                            <a href="<?= esc($sekolah['website']) ?>" target="_blank" class="info-value"><?= esc($sekolah['website']) ?></a>
                         <?php else: ?>
-                            <span class="stat-value empty">Belum tersedia</span>
+                            <span class="info-value empty">Belum Terisi</span>
                         <?php endif; ?>
                     </div>
                 </div>
+
+                <div class="info-item">
+                    <span class="icon-box"><i class="fa-solid fa-map"></i></span>
+                    <div>
+                        <div class="info-label">Kecamatan</div>
+                        <span class="info-value"><?= esc($sekolah['kecamatan'] ?? '-') ?></span>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -400,12 +568,6 @@
                     </div>
                 </div>
             </div>
-
-            <a href="https://www.google.com/maps?q=<?= $sekolah['latitude'] ?>,<?= $sekolah['longitude'] ?>"
-                target="_blank"
-                class="btn btn-outline-primary btn-sm">
-                <i class="fa-brands fa-google me-1"></i> Buka di Google Maps
-            </a>
         </div>
 
         <!-- Visi & Misi -->
@@ -452,33 +614,57 @@
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script>
-        <?php if ($sekolah['latitude'] && $sekolah['longitude']): ?>
-            const lat = <?= $sekolah['latitude'] ?>;
-            const lng = <?= $sekolah['longitude'] ?>;
+    const GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
+    const SEKOLAH_KECAMATAN = <?= json_encode($sekolah['kecamatan'] ?? '') ?>;
 
-            const map = L.map('map').setView([lat, lng], 16);
+    <?php if ($sekolah['latitude'] && $sekolah['longitude']): ?>
+        const lat = <?= $sekolah['latitude'] ?>;
+        const lng = <?= $sekolah['longitude'] ?>;
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+        const map = L.map('map').setView([lat, lng], 16);
 
-            const marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup(`
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // ── Render HANYA batas wilayah kecamatan sekolah ini ───────
+        const geoKecamatan = GEOJSON_DATA.find(function (item) {
+            return item.nama_kecamatan === SEKOLAH_KECAMATAN;
+        });
+
+        if (geoKecamatan) {
+            try {
+                const geoData = typeof geoKecamatan.geojson === 'string'
+                    ? JSON.parse(geoKecamatan.geojson)
+                    : geoKecamatan.geojson;
+
+                L.geoJSON(geoData, {
+                    style: {
+                        color: geoKecamatan.warna,
+                        weight: 2,
+                        fillColor: geoKecamatan.warna,
+                        fillOpacity: 0.25,
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup('<strong>📍 ' + geoKecamatan.nama_kecamatan + '</strong>');
+                    }
+                }).addTo(map);
+            } catch (e) {
+                console.error('GeoJSON tidak valid: ' + geoKecamatan.nama_kecamatan);
+            }
+        }
+
+        // ── Marker sekolah ──────────────────────────────────────────
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(`
             <div style="min-width:160px;">
                 <strong><?= esc($sekolah['nama_sekolah']) ?></strong><br>
                 <small><?= esc($sekolah['kecamatan'] ?? '') ?></small><br>
                 <small><?= esc($sekolah['alamat'] ?? '') ?></small>
             </div>
         `).openPopup();
-
-            L.circle([lat, lng], {
-                color: '#2563eb',
-                fillColor: '#2563eb',
-                fillOpacity: 0.1,
-                radius: 300
-            }).addTo(map);
-        <?php endif; ?>
-    </script>
+    <?php endif; ?>
+</script>
 </body>
 
 </html>

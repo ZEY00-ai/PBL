@@ -47,7 +47,7 @@
 
                             <!-- Akreditasi -->
                             <div>
-                                <p style="font-size:11px; color:var(--m-text-muted); margin-bottom:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Akreditasi</p>
+                                <!-- <p style="font-size:11px; color:var(--m-text-muted); margin-bottom:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Akreditasi</p>
                                 <div style="display:flex; flex-direction:column; gap:8px;">
                                     <div style="display:flex; align-items:center; gap:8px;">
                                         <span style="display:inline-block; padding:1px 10px; border-radius:10px; font-size:11px; font-weight:700; background:#16a34a; color:#fff;">A</span>
@@ -65,7 +65,7 @@
                                         <span style="display:inline-block; padding:1px 10px; border-radius:10px; font-size:11px; font-weight:700; background:#6b7280; color:#fff;">-</span>
                                         <span style="font-size:13px;">Belum Terakreditasi</span>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <!-- Kecamatan -->
@@ -93,6 +93,9 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // ── Base URL untuk foto sekolah (FIX: sebelumnya hardcode "/uploads/sekolah/") ──
+        const FOTO_BASE_URL = '<?= base_url('uploads/sekolah') ?>';
+
         const map = L.map('map').setView([-0.4558, 100.6162], 11);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -191,7 +194,7 @@
                     .bindPopup(`
                         <div style="min-width:190px;">
                             ${s.foto
-                                ? `<img src="/uploads/sekolah/${s.foto}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom:8px;">`
+                                ? `<img src="${FOTO_BASE_URL}/${s.foto}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom:8px;">`
                                 : ''
                             }
                             <strong style="font-size:13px;">🏫 ${s.nama_sekolah}</strong><br>

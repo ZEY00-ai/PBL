@@ -8,29 +8,19 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                <li class="sidebar-title">
-                    DASHBOARD
-                </li>
-                <li class="<?= uri_string() === 'dashboard' ? 'active' : '' ?>">
-                    <a href="<?= base_url('dashboard') ?>">
-                        <i class="fas fa-home"></i>
-                        Dashboard
-                    </a>
-                </li>
-
                 <?php if (session()->get('user_role') === 'admin'): ?>
                     <li class="sidebar-title">
                         MASTER DATA
                     </li>
                     <li class="<?= uri_string() === 'admin/profileSekolah' ? 'active' : '' ?>">
                         <a href="<?= base_url('admin/profileSekolah') ?>">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-school"></i>
                             Profile Sekolah
                         </a>
                     </li>
                     <li class="<?= uri_string() === 'admin/lokasiSekolah' ? 'active' : '' ?>">
                         <a href="<?= base_url('admin/lokasiSekolah') ?>">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-location-dot"></i>
                             Lokasi Sekolah
                         </a>
                     </li>
@@ -38,6 +28,15 @@
 
 
                 <?php if (session()->get('user_role') === 'super_admin'): ?>
+                    <li class="sidebar-title">
+                        DASHBOARD
+                    </li>
+                    <li class="<?= uri_string() === 'dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('dashboard') ?>">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
                     <li class="sidebar-title">
                         MASTER DATA
                     </li>
@@ -55,15 +54,6 @@
                     </li>
                 <?php endif; ?>
 
-                <li class="sidebar-title">
-                    VISUALISASI
-                </li>
-                <li class="<?= uri_string() === 'maps/index' ? 'active' : '' ?>">
-                    <a href="<?= base_url('maps/index') ?>">
-                        <i class="fas fa-map-location-dot"></i>
-                        Maps Sekolah & GeoJson
-                    </a>
-                </li>
 
                 <?php if (session()->get('user_role') === 'super_admin'): ?>
                     <!-- <li class="sidebar-title">
@@ -75,6 +65,15 @@
                             Laporan
                         </a>
                     </li> -->
+                    <li class="sidebar-title">
+                        VISUALISASI
+                    </li>
+                    <li class="<?= uri_string() === 'maps/index' ? 'active' : '' ?>">
+                        <a href="<?= base_url('maps/index') ?>">
+                            <i class="fas fa-map-location-dot"></i>
+                            Maps Sekolah & GeoJson
+                        </a>
+                    </li>
                     <li class="sidebar-title">
                         AKUN
                     </li>

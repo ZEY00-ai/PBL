@@ -31,7 +31,7 @@
 
                         <!-- Nama Sekolah -->
                         <div class="form-group">
-                            <label>Nama Sekolah</label>
+                            <label>Nama Sekolah*</label>
                             <input type="text"
                                 name="nama_sekolah"
                                 class="form-control"
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="fw-semibold">Tingkatan Sekolah</label>
+                            <label class="fw-semibold">Tingkatan Sekolah*</label>
                             <select name="tingkatan" class="form-select" required>
                                 <option value="" disabled selected>-- Pilih Tingkatan --</option>
                                 <option value="TK" <?= old('tingkatan') === 'TK'  ? 'selected' : '' ?>>TK</option>
@@ -72,7 +72,6 @@
                             <input type="text" name="kepala_sekolah" class="form-control"
                                 placeholder="Nama lengkap kepala sekolah"
                                 value="<?= old('kepala_sekolah', $sekolah['kepala_sekolah'] ?? '') ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <div class="row row-tight mb-3">
@@ -128,7 +127,7 @@
                                     <div class="card-body">
 
                                         <div class="form-group">
-                                            <label>Latitude</label>
+                                            <label>Latitude*</label>
                                             <input type="text"
                                                 id="latitude"
                                                 name="latitude"
@@ -139,7 +138,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Longitude</label>
+                                            <label>Longitude*</label>
                                             <input type="text"
                                                 id="longitude"
                                                 name="longitude"
@@ -150,7 +149,7 @@
                                         </div>
 
                                         <div class="form-group mb-3">
-                                            <label class="fw-semibold">Kecamatan</label>
+                                            <label class="fw-semibold">Kecamatan*</label>
                                             <select name="geojson_id" class="form-select" required>
                                                 <option value="" disabled selected>-- Pilih Kecamatan --</option>
                                                 <?php foreach ($geojson as $g): ?>
@@ -167,7 +166,7 @@
 
                         <!-- Alamat -->
                         <div class="form-group">
-                            <label>Alamat</label>
+                            <label>Alamat*</label>
                             <textarea name="alamat"
                                 class="form-control"
                                 rows="4"
@@ -179,7 +178,6 @@
                             <input type="text" name="nomor_sekolah" class="form-control"
                                 placeholder="Nomor telepon/kontak sekolah"
                                 value="<?= old('nomor_sekolah') ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <div class="form-group mb-3">
@@ -187,7 +185,6 @@
                             <input type="email" name="email" class="form-control"
                                 placeholder="contoh@sekolah.sch.id"
                                 value="<?= old('email') ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <div class="form-group mb-3">
@@ -195,7 +192,6 @@
                             <input type="url" name="website" class="form-control"
                                 placeholder="https://www.sekolah.sch.id"
                                 value="<?= old('website') ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <!-- Foto Sekolah -->

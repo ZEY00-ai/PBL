@@ -35,7 +35,7 @@ class ProfileController extends BaseController
         // Sync session dengan data database
         session()->set('foto_profil', $user['foto_profil']);
 
-        return view('control-panel/admin/profile/v_index', [
+        return view('control-panel/profile/v_index', [
             'user' => $user,
         ]);
     }
@@ -66,12 +66,19 @@ class ProfileController extends BaseController
                 ->with('errors', $this->validator->getErrors());
         }
 
+        $nama  = $this->request->getPost('nama');
+        $email = $this->request->getPost('email');
+
         $this->userModel->update($userId, [
-            'nama'  => $this->request->getPost('nama'),
-            'email' => $this->request->getPost('email'),
+            'nama'  => $nama,
+            'email' => $email,
         ]);
 
-        return redirect()->to(base_url('admin/profile'))
+        // FIX: sync session supaya header langsung berubah tanpa perlu logout
+        session()->set('user_nama', $nama);
+        session()->set('user_email', $email);
+
+        return redirect()->to(base_url('profile'))
             ->with('success', 'Profil berhasil diperbarui.');
     }
 
@@ -95,14 +102,14 @@ class ProfileController extends BaseController
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->to(base_url('admin/profile'))
+            return redirect()->to(base_url('profile'))
                 ->with('errors', $this->validator->getErrors());
         }
 
         $file = $this->request->getFile('foto_profil');
 
         if (! $file->isValid() || $file->hasMoved()) {
-            return redirect()->to(base_url('admin/profile'))
+            return redirect()->to(base_url('profile'))
                 ->with('errors', ['Upload foto gagal, silakan coba lagi.']);
         }
 
@@ -125,11 +132,12 @@ class ProfileController extends BaseController
         // Update database
         $this->userModel->update($userId, ['foto_profil' => $newName]);
 
-        // Update session
+        // FIX: sync KEDUA session key yang dipakai header (foto_profil & user_foto)
         session()->set('user_foto', $newName);
+        session()->set('foto_profil', $newName);
 
         // Redirect ke halaman yang sama dengan flag reload
-        return redirect()->to(base_url('admin/profile'))
+        return redirect()->to(base_url('profile'))
             ->with('success_foto', 'Foto profil berhasil diperbarui.')
             ->with('reload_foto', $newName);
     }
@@ -168,7 +176,7 @@ class ProfileController extends BaseController
             'password' => password_hash($this->request->getPost('new_password'), PASSWORD_DEFAULT),
         ]);
 
-        return redirect()->to(base_url('admin/profile'))
+        return redirect()->to(base_url('profile'))
             ->with('success_password', 'Password berhasil diperbarui.');
     }
 }

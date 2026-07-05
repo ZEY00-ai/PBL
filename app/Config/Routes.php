@@ -20,8 +20,11 @@
     //maps
     $routes->get('maps/index', 'Controlpanel\MapsController::index');
 
-    //profile index
+    // Profile / Account & Settings
     $routes->get('profile', 'Controlpanel\ProfileController::index');
+    $routes->post('profile/update', 'Controlpanel\ProfileController::update');
+    $routes->post('profile/foto', 'Controlpanel\ProfileController::foto');
+    $routes->post('profile/password', 'Controlpanel\ProfileController::password');
 
     //dashboard
     $routes->get('/dashboard', 'Controlpanel\DashboardController::index');
@@ -89,6 +92,10 @@
         $routes->get('user/create', 'Controlpanel\superAdmin\UserController::create');
         $routes->post('user/store', 'Controlpanel\superAdmin\UserController::store');
 
+        //user edit
+        $routes->get('user/edit/(:num)', 'Controlpanel\superAdmin\UserController::edit/$1');
+        $routes->post('user/update/(:num)', 'Controlpanel\superAdmin\UserController::update/$1');
+
         //user deatil
         $routes->get('user/detail/(:num)', 'Controlpanel\superAdmin\UserController::show/$1');
 
@@ -108,7 +115,7 @@
         // =================
 
         //profile sekolah index
-        $routes->get('profileSekolah', 'Controlpanel\operatorSekolah\SekolahController::index');    
+        $routes->get('profileSekolah', 'Controlpanel\operatorSekolah\SekolahController::index');
         //profile edit
         $routes->get('profileSekolah/edit/(:num)', 'Controlpanel\operatorSekolah\SekolahController::edit/$1');
         $routes->post('profileSekolah/update', 'Controlpanel\operatorSekolah\SekolahController::update');
@@ -117,9 +124,8 @@
         // LOKASI SEKOLAH  =
         // =================
 
-        //profile sekolah
         $routes->get('lokasiSekolah', 'Controlpanel\operatorSekolah\LokasiController::index');
-
+        $routes->post('lokasiSekolah/update/(:num)', 'Controlpanel\operatorSekolah\LokasiController::updateLokasi/$1');
 
 
 

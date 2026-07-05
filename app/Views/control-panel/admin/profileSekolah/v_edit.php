@@ -41,11 +41,24 @@
                                 </header>
                                 <form action="<?= base_url('admin/profileSekolah/update') ?>" method="post" enctype="multipart/form-data" id="form-utama">
                                     <?= csrf_field() ?>
-                                    <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
-                                        <img id="preview-foto"
-                                            src="<?= $sekolah['foto'] ? base_url('uploads/sekolah/' . $sekolah['foto']) : base_url('CoolAdmin-master/images/icon/avatar-01.jpg') ?>"
-                                            style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px;">
-                                        <input type="file" name="foto" id="input-foto" accept="image/*" style="width:100%;">
+                                    <div class="foto-upload-wrap">
+                                        <div class="foto-preview-box">
+                                            <img id="preview-foto"
+                                                src="<?= $sekolah['foto'] ? base_url('uploads/sekolah/' . $sekolah['foto']) : base_url('CoolAdmin-master/images/icon/avatar-01.jpg') ?>"
+                                                alt="Foto Sekolah">
+
+                                            <label for="input-foto" class="foto-overlay">
+                                                <i class="fa-solid fa-camera"></i>
+                                                <span>Ganti Foto</span>
+                                            </label>
+                                        </div>
+
+                                        <input type="file" name="foto" id="input-foto" accept="image/*" hidden>
+
+                                        <label for="input-foto" class="foto-btn">
+                                            <i class="fa-solid fa-upload"></i> Pilih Foto
+                                        </label>
+
                                         <small class="text-muted">JPG atau PNG, maksimal 2MB.</small>
                                     </div>
 
@@ -66,7 +79,6 @@
                                 <div class="form-group mb-3">
                                     <label>Nama sekolah</label>
                                     <input type="text" class="form-control" value="<?= esc($sekolah['nama_sekolah']) ?>" disabled>
-                                    <small class="text-muted">Hubungi Super Admin untuk mengubah nama sekolah.</small>
                                 </div>
 
                                 <div class="row row-tight mb-3">
@@ -78,6 +90,7 @@
                                         <label>Tingkatan</label>
                                         <input type="text" class="form-control" value="<?= esc($sekolah['tingkatan'] ?? '-') ?>" disabled>
                                     </div>
+                                    <small class="text-muted">Hubungi Super Admin untuk mengubah</small>
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -123,12 +136,12 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <!-- <div class="form-group mb-3">
                                     <label>Alamat</label>
                                     <textarea name="alamat" class="form-control" rows="3" required><?= esc($sekolah['alamat']) ?></textarea>
-                                </div>
+                                </div> -->
 
-                                <div class="row row-tight mb-3">
+                                <!-- <div class="row row-tight mb-3">
                                     <div class="col-md-6">
                                         <label>Latitude</label>
                                         <input type="text" name="latitude" id="latitude" class="form-control" value="<?= esc($sekolah['latitude']) ?>" required>
@@ -137,7 +150,7 @@
                                         <label>Longitude</label>
                                         <input type="text" name="longitude" id="longitude" class="form-control" value="<?= esc($sekolah['longitude']) ?>" required>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="row row-tight mb-3">
                                     <div class="col-md-6">
@@ -155,9 +168,15 @@
                                     <input type="url" name="website" class="form-control" placeholder="https://www.sekolah.sch.id" value="<?= esc($sekolah['website']) ?>">
                                 </div>
 
-                                <button type="submit" form="form-utama" class="m-btn m-btn--primary">
-                                    <i class="fa-solid fa-floppy-disk"></i> Simpan perubahan
-                                </button>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <button type="submit" form="form-utama" class="m-btn m-btn--primary">
+                                        <i class="fa-solid fa-floppy-disk"></i> Simpan perubahan
+                                    </button>
+
+                                    <a href="<?= base_url('admin/profileSekolah') ?>" class="m-btn m-btn--ghost">
+                                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                                    </a>
+                                </div>
                             </section>
                         </div>
 
@@ -185,6 +204,92 @@
     <style>
         .theme-switcher {
             display: none !important;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Foto Upload ===== */
+        .foto-upload-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .foto-preview-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e5e9f0;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        }
+
+        .foto-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .3s ease;
+        }
+
+        .foto-preview-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .foto-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            cursor: pointer;
+            transition: opacity .25s ease;
+        }
+
+        .foto-overlay i {
+            font-size: 20px;
+        }
+
+        .foto-preview-box:hover .foto-overlay {
+            opacity: 1;
+        }
+
+        .foto-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbe6fb;
+            border-radius: 10px;
+            padding: 9px 18px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .foto-btn:hover {
+            background: #2563eb;
+            color: #fff;
+            border-color: #2563eb;
         }
     </style>
 </body>

@@ -107,7 +107,6 @@ function popupSekolah(s, markerColor) {
     return `
         <div style="min-width:200px;">
             <strong>${s.nama_sekolah}</strong><br>
-            <small>${s.kecamatan || ''}</small><br>
             <p class="small mb-1">${s.alamat || ''}</p>
             ${s.foto ? `<img src="${fotoSekolahUrl}/${s.foto}" alt="Foto sekolah" style="width:100%; height:100px; object-fit:cover; border-radius:6px;">` : ''}
             <div style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;">

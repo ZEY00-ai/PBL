@@ -18,3 +18,4 @@
 <script src="<?= base_url('CoolAdmin-master/js/bootstrap5-init.js') ?>"></script>
 <script src="<?= base_url('CoolAdmin-master/js/main-vanilla.js') ?>"></script>
 <script src="<?= base_url('CoolAdmin-master/js/modern-plugins.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

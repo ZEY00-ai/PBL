@@ -68,6 +68,13 @@
                                 value="<?= old('npsn', $sekolah['npsn']) ?>">
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label>Kepala Sekolah</label>
+                            <input type="text" name="kepala_sekolah" class="form-control"
+                                placeholder="Nama Kepala Sekolah"
+                                value="<?= old('kepala_sekolah', $sekolah['kepala_sekolah']) ?>">
+                        </div>
+
                         <div class="row row-tight mb-3">
                             <div class="col-md-6">
                                 <label>Visi Sekolah</label>
@@ -75,10 +82,10 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label>Misi Sekolah</label> 
+                                <label>Misi Sekolah</label>
                                 <textarea name="misi" class="form-control" rows="4"><?= old('misi', $sekolah['misi']) ?></textarea>
                             </div>
-                        </div>  
+                        </div>
 
                         <!-- PETA + KOORDINAT -->
                         <div class="row mb-4">
@@ -151,14 +158,12 @@
                             <label>Nomor Sekolah</label>
                             <input type="text" name="nomor_sekolah" class="form-control"
                                 value="<?= old('nomor_sekolah', $sekolah['nomor_sekolah']) ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Email Sekolah</label>
                             <input type="email" name="email" class="form-control"
                                 value="<?= old('email', $sekolah['email']) ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <div class="form-group mb-3">
@@ -166,7 +171,6 @@
                             <input type="url" name="website" class="form-control"
                                 placeholder="https://www.sekolah.sch.id"
                                 value="<?= old('website', $sekolah['website']) ?>">
-                            <small class="text-muted">Opsional</small>
                         </div>
 
                         <!-- FOTO -->

@@ -70,9 +70,7 @@ class SekolahController extends BaseController
         }
 
         if (!$this->validate([
-            'alamat'        => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
+            // 'alamat'        => 'required',
             'geojson_id'    => 'required',
             'foto'          => 'permit_empty|max_size[foto,2048]|is_image[foto]',
         ])) {
@@ -111,8 +109,6 @@ class SekolahController extends BaseController
             'misi'          => $this->request->getPost('misi') ?: null,
             'website'       => $this->request->getPost('website') ?: null,
             'alamat'        => $this->request->getPost('alamat'),
-            'latitude'      => $this->request->getPost('latitude'),
-            'longitude'     => $this->request->getPost('longitude'),
             'geojson_id'    => $geojsonId,
             'kecamatan'     => $geo['nama_kecamatan'] ?? null,
             'foto'          => $fotoName,

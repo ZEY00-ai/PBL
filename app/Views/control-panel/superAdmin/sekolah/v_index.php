@@ -37,15 +37,19 @@
                                 <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                                 <input type="search" id="dt-search-input" placeholder="Search any column…" aria-label="Search">
                             </div>
-                            <!-- <div class="dt-filter">
-                                <label for="filter-tingkatan">Filter</label>
-                                <select id="filter-tingkatan" class="form-select">
-                                    <option value="">Semua Sekolah</option>
-                                    <option value="TK">TK</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMP">SMP</option>
+
+                            <div class="dt-filter" style="display:flex; gap:8px;">
+                                <select id="dt-filter-type" class="form-select" style="height:38px; font-size:12.5px;">
+                                    <option value="kecamatan">Kecamatan</option>
+                                    <option value="tingkatan">Tingkatan</option>
+                                    <option value="akreditasi">Akreditasi</option>
                                 </select>
-                            </div> -->
+
+                                <select id="dt-filter-value" class="form-select" style="height:38px; font-size:12.5px;">
+                                    <option value="">Semua</option>
+                                </select>
+                            </div>
+
                             <div style="display:flex; gap:8px; align-items:center;">
                                 <label style="font-size:12.5px; color:var(--m-text-muted); display:inline-flex; align-items:center; gap:8px;">
                                     Show
@@ -68,7 +72,7 @@
                                     <th class="text-center">Tingkatan</th>
                                     <th class="text-center">Akreditasi</th>
                                     <th class="text-center">Kecamatan</th>
-                                    <th class="text-center">Alamat</th>
+                                    <!-- <th class="text-center">Alamat</th> -->
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -76,7 +80,7 @@
                             <tbody id="dt-body">
                                 <?php if (!empty($sekolah)): ?>
                                     <?php foreach ($sekolah as $i => $s): ?>
-                                        <tr data-tingkatan="<?= esc($s['tingkatan']) ?>">
+                                        <tr data-tingkatan="<?= esc($s['tingkatan']) ?>" data-kecamatan="<?= esc($s['kecamatan']) ?>" data-akreditasi="<?= esc($s['akreditasi']) ?>">
                                             <td class="text-center"><?= $i + 1 ?></td>
 
                                             <td class="text-center"><?= esc($s['nama_sekolah']) ?></td>
@@ -111,7 +115,7 @@
 
                                             <td class="text-center"><?= esc($s['kecamatan']) ?></td>
 
-                                            <td class="col-alamat text-center" title="<?= esc($s['alamat']) ?>"><?= esc($s['alamat']) ?></td>
+                                            <!-- <td class="col-alamat text-center" title="<?= esc($s['alamat']) ?>"><?= esc($s['alamat']) ?></td> -->
 
                                             <td class="text-center">
 
@@ -120,17 +124,15 @@
                                                     style="padding:4px 10px; font-size:12px;">
                                                     <i class="fa-solid fa-pen"></i> Edit
                                                 </a>
-
-                                                <a href="<?= base_url('superAdmin/sekolah/detail/' . $s['id']) ?>"
+                                                <a href="<?= base_url('sekolah/' . $s['id'] . '?from=superAdmin') ?>"
                                                     class="m-btn m-btn--ghost"
                                                     style="padding:4px 10px; font-size:12px;">
                                                     <i class="fa-solid fa-eye"></i> Detail
                                                 </a>
-
                                                 <a href="<?= base_url('superAdmin/sekolah/hapus/' . $s['id']) ?>"
-                                                    class="m-btn m-btn--ghost"
+                                                    class="m-btn m-btn--ghost btn-hapus-sekolah"
                                                     style="padding:4px 10px; font-size:12px; color:red;"
-                                                    onclick="return confirm('Yakin hapus data <?= esc($s['nama_sekolah']) ?>?')">
+                                                    data-nama="<?= esc($s['nama_sekolah']) ?>">
                                                     <i class="fa-solid fa-trash"></i> Hapus
                                                 </a>
                                             </td>
@@ -168,31 +170,8 @@
     </div>
 
     <?php echo view('components/footer'); ?>
-    <script src="<?= base_url('assets/js/list.js') ?>"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            const filter = document.getElementById("filter-tingkatan");
-            const rows = document.querySelectorAll("#dt-body tr[data-tingkatan]");
-
-            function filterTable() {
-                const value = filter.value.toUpperCase();
-
-                rows.forEach(row => {
-                    const tingkatan = row.dataset.tingkatan.toUpperCase();
-
-                    if (value === "" || tingkatan === value) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                });
-            }
-
-            filter.addEventListener("change", filterTable);
-
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url('assets/js/sekolah/list.js') ?>"></script>
     <style>
         .theme-switcher {
             display: none !important;

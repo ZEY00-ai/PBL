@@ -121,6 +121,9 @@
         </main>
     </div>
 
+    <script>
+        window.FOTO_SEKOLAH_URL = "<?= base_url('uploads/sekolah') ?>";
+    </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // ── Peta ──────────────────────────────────────────────────────
@@ -129,23 +132,39 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // GeoJSON
-        const geojsonData = <?= json_encode($geojson) ?>;
+        // ── GeoJSON Wilayah Kecamatan ───────────────────────────────────
+        const geojsonData = <?= json_encode($geojson ?? []) ?>;
+
         geojsonData.forEach(function(item) {
             try {
-                const geoData = JSON.parse(item.geojson);
+                const geoData = typeof item.geojson === 'string' ? JSON.parse(item.geojson) : item.geojson;
                 L.geoJSON(geoData, {
                     style: {
                         color: item.warna,
                         weight: 2,
                         fillColor: item.warna,
                         fillOpacity: 0.3,
+                    },
+                    onEachFeature: function(feature, layer) {
+                        layer.bindPopup('<strong>📍 ' + item.nama_kecamatan + '</strong>');
+                        layer.on('mouseover', function() {
+                            layer.setStyle({
+                                fillOpacity: 0.6
+                            });
+                        });
+                        layer.on('mouseout', function() {
+                            layer.setStyle({
+                                fillOpacity: 0.3
+                            });
+                        });
                     }
-                }).bindPopup('<strong>' + item.nama_kecamatan + '</strong>').addTo(map);
-            } catch (e) {}
+                }).addTo(map);
+            } catch (e) {
+                console.error('GeoJSON tidak valid: ' + item.nama_kecamatan);
+            }
         });
 
-        // Marker sekolah
+        // ── Marker Sekolah ────────────────────────────────────────────
         function getMarkerColor(tingkatan) {
             switch (tingkatan) {
                 case 'TK':
@@ -169,27 +188,42 @@
             });
         }
 
-        const sekolah = <?= json_encode($sekolah) ?>;
+        const sekolah = <?= json_encode($sekolah ?? []) ?>;
+        const bounds = [];
+
         sekolah.forEach(function(s) {
-            if (s.latitude && s.longitude) {
-                const color = getMarkerColor(s.tingkatan);
-                L.marker([s.latitude, s.longitude], {
-                        icon: createIcon(color)
-                    })
-                    .bindPopup(`
-                    <div style="min-width:160px;">
-                        ${s.foto ? `<img src="/uploads/sekolah/${s.foto}" style="width:100%;height:90px;object-fit:cover;border-radius:6px;margin-bottom:6px;">` : ''}
-                        <strong>🏫 ${s.nama_sekolah}</strong><br>
-                        <small>📍 ${s.kecamatan}</small><br>
-                        <span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;background:${color};color:#fff;">${s.tingkatan ?? '-'}</span>
-                    </div>
-                `)
-                    .addTo(map);
-            }
+            if (!s.latitude || !s.longitude) return;
+
+            const lat = parseFloat(s.latitude);
+            const lng = parseFloat(s.longitude);
+            if (Number.isNaN(lat) || Number.isNaN(lng)) return;
+
+            const color = getMarkerColor(s.tingkatan);
+            L.marker([lat, lng], {
+                    icon: createIcon(color)
+                })
+                .bindPopup(`
+                <div style="min-width:160px;">
+                    ${s.foto ? `<img src="${window.FOTO_SEKOLAH_URL}/${s.foto}" style="width:100%;height:90px;object-fit:cover;border-radius:6px;margin-bottom:6px;">` : ''}
+                    <strong>🏫 ${s.nama_sekolah}</strong><br>
+                    <small>📍 ${s.kecamatan || ''}</small><br>
+                    <span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;background:${color};color:#fff;">${s.tingkatan ?? '-'}</span>
+                </div>
+            `)
+                .addTo(map);
+
+            bounds.push([lat, lng]);
         });
 
-        const labels = <?= json_encode(array_column($sekolahPerKecamatan, 'kecamatan')) ?>;
-        const values = <?= json_encode(array_column($sekolahPerKecamatan, 'total')) ?>;
+        if (bounds.length) {
+            map.fitBounds(bounds, {
+                padding: [40, 40]
+            });
+        }
+
+        // ── Chart Kecamatan ───────────────────────────────────────────
+        const labels = <?= json_encode(array_column($sekolahPerKecamatan ?? [], 'kecamatan')) ?>;
+        const values = <?= json_encode(array_column($sekolahPerKecamatan ?? [], 'total')) ?>;
         const colors = ['#4272d7', '#7c3aed', '#0d9488', '#e11d48', '#d97706', '#334155', '#06b6d4', '#84cc16', '#f43f5e', '#8b5cf6'];
 
         const ctx = document.getElementById('chart-kecamatan');
@@ -215,7 +249,6 @@
             });
         }
     </script>
-
     <?php echo view('components/footer'); ?>
     <style>
         .theme-switcher {

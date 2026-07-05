@@ -16,7 +16,7 @@
                             <p class="subtitle">Informasi lengkap akun pengguna</p>
                         </div>
                         <div class="page-header__actions">
-                            <a href="<?= base_url('admin/user/list') ?>" class="m-btn m-btn--ghost">
+                            <a href="<?= base_url('superAdmin/user/list') ?>" class="m-btn m-btn--ghost">
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
                         </div>
@@ -103,13 +103,13 @@
                                     </tr>
                                 </table>
 
-                                <div style="margin-top:24px; display:flex; gap:8px;">
+                                <!-- <div style="margin-top:24px; display:flex; gap:8px;">
                                     <a href="<?= base_url('user/delete/' . $user['id']) ?>"
                                         class="m-btn m-btn--ghost" style="color:red;"
                                         onclick="return confirm('Yakin hapus akun <?= esc($user['nama']) ?>?')">
                                         <i class="fa-solid fa-trash"></i> Hapus
                                     </a>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

@@ -287,9 +287,9 @@
                                 🐙 GitHub Project → Lihat Project
                             </button>
                             <!-- Email Kami -->
-                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#emailModal">
+                            <!-- <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#emailModal">
                                 ✉️ Email Kami → Lihat Email
-                            </button>
+                            </button> -->
                             <!-- Instagram Kami -->
                             <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#instagramModal">
                                 📸 Instagram Kami → Lihat Instagram
@@ -335,7 +335,7 @@
         </div>
 
         <!-- Modal Email -->
-        <div class="modal fade" id="emailModal" tabindex="-1">
+        <!-- <div class="modal fade" id="emailModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -350,7 +350,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Modal Instagram -->
         <div class="modal fade" id="instagramModal" tabindex="-1">
