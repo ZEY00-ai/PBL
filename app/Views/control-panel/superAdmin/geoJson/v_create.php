@@ -11,6 +11,9 @@
                     <div>
                         <h1>Tambah Data GeoJson</h1>
                         <p class="subtitle">Halaman Tambah Data GeoJson</p>
+                        <div style="margin-top:12px; padding:10px 12px; background:#fef3c7; border-left:4px solid #f59e0b; border-radius:4px; font-size:13px; color:#92400e;">
+                            <i class="fa-solid fa-info-circle"></i> Hanya boleh 1 GeoJson per kecamatan. Tidak bisa membuat data ganda untuk kecamatan yang sama.
+                        </div>
                     </div>
                 </div>
                 <form action="<?= base_url('superAdmin/geojson/simpan') ?>" method="post">

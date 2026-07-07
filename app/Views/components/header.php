@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="generator" content="CoolAdmin 3.3.0" />
     <meta name="description" content="Modern Bootstrap 5 admin dashboard with Chart.js widgets, responsive tables, and clean typography." />
-    <title> | CoolAdmin Bootstrap 5 Admin Dashboard</title>
+    <title> | Kelompok</title>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Dashboard | CoolAdmin Bootstrap 5 Admin Dashboard" />
     <meta property="og:description" content="Modern Bootstrap 5 admin dashboard with Chart.js widgets, responsive tables, and clean typography." />
@@ -21,6 +21,7 @@
     <link href="<?= base_url('CoolAdmin-master/css/theme.css') ?>" rel="stylesheet" media="all" />
     <link href="<?= base_url('CoolAdmin-master/css/app.css') ?>" rel="stylesheet" media="all" />
     <link href="<?= base_url('assets/css/user/style.css') ?>" rel="stylesheet" media="all" />
+    <link rel="icon" type="image/png" href="<?= base_url('logo/logo.ico') ?>" sizes="32x32" />
     <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="

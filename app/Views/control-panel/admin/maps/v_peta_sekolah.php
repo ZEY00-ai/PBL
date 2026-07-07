@@ -70,13 +70,13 @@
 
                             <!-- Kecamatan -->
                             <?php if (!empty($geojson)): ?>
-                                <div>
-                                    <p style="font-size:11px; color:var(--m-text-muted); margin-bottom:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Wilayah Kecamatan</p>
-                                    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                                <div class="map-legend__group">
+                                    <p style="margin:0 0 4px 0;">Wilayah Kecamatan</p>
+                                    <div style="display:flex; flex-direction:column; flex-wrap:wrap; height:90px; gap:4px 16px;">
                                         <?php foreach ($geojson as $g): ?>
-                                            <div style="display:flex; align-items:center; gap:6px;">
-                                                <div style="width:14px; height:14px; background:<?= esc($g['warna']) ?>; border-radius:4px; opacity:0.7;"></div>
-                                                <span style="font-size:13px;"><?= esc($g['nama_kecamatan']) ?></span>
+                                            <div class="map-legend__item" style="display:flex; align-items:center; gap:6px;">
+                                                <span style="width:14px; height:14px; border-radius:4px; background:<?= esc($g['warna']) ?>; opacity:0.7; display:inline-block; flex-shrink:0;"></span>
+                                                <span style="font-size:13px; white-space:nowrap;"><?= esc($g['nama_kecamatan']) ?></span>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>

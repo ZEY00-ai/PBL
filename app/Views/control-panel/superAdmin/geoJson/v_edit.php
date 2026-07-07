@@ -12,6 +12,9 @@
                     <div>
                         <h1>Edit Data GeoJson</h1>
                         <p class="subtitle">Halaman Edit Data GeoJson</p>
+                        <div style="margin-top:12px; padding:10px 12px; background:#fef3c7; border-left:4px solid #f59e0b; border-radius:4px; font-size:13px; color:#92400e;">
+                            <i class="fa-solid fa-info-circle"></i> Hanya boleh 1 GeoJson per kecamatan. Jika mengubah nama kecamatan, pastikan tidak duplikat dengan data lain.
+                        </div>
                     </div>
                 </div>
                 <form action="<?= base_url('superAdmin/geojson/update/' . $geojson['id']) ?>" method="post">

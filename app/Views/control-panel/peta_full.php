@@ -59,9 +59,15 @@
                 <label class="form-label-sm">Akreditasi</label>
                 <select id="filter-akreditasi" class="form-select mb-3">
                     <option value="">Semua Akreditasi</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
+                    <?php
+                    $daftarAkreditasi = array_unique(array_column(array_filter($sekolah ?? [], fn($s) => !empty($s['akreditasi'])), 'akreditasi'));
+                    sort($daftarAkreditasi);
+                    ?>
+                    <?php foreach ($daftarAkreditasi as $akred): ?>
+                        <?php if ($akred): ?>
+                            <option value="<?= esc($akred) ?>"><?= esc($akred) ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </select>
 
                 <button id="btn-cari" class="btn btn-primary w-100 fw-bold mb-2">

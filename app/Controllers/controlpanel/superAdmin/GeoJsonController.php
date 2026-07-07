@@ -35,13 +35,21 @@ class GeoJsonController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $namakecamatan = $this->request->getPost('nama_kecamatan');
+        
+        // Cek duplikat kecamatan
+        $existing = $this->geoJsonModel->where('nama_kecamatan', $namakecamatan)->first();
+        if ($existing) {
+            return redirect()->back()->withInput()->with('error', 'GeoJson untuk kecamatan "' . esc($namakecamatan) . '" sudah ada. Hanya boleh 1 GeoJson per kecamatan.');
+        }
+
         $geoJsonData = $this->request->getPost('geojson');
         if (!json_decode($geoJsonData)) {
             return redirect()->back()->withInput()->with('error', 'GeoJson tidak valid');
         }
 
         $this->geoJsonModel->insert([
-            'nama_kecamatan' => $this->request->getPost('nama_kecamatan'),
+            'nama_kecamatan' => $namakecamatan,
             'warna' => $this->request->getPost('warna'),
             'geojson' => $geoJsonData,
         ]);
@@ -69,13 +77,21 @@ class GeoJsonController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $namakecamatan = $this->request->getPost('nama_kecamatan');
+        
+        // Cek duplikat kecamatan (exclude record saat ini)
+        $existing = $this->geoJsonModel->where('nama_kecamatan', $namakecamatan)->where('id !=', $id)->first();
+        if ($existing) {
+            return redirect()->back()->withInput()->with('error', 'GeoJson untuk kecamatan "' . esc($namakecamatan) . '" sudah ada. Hanya boleh 1 GeoJson per kecamatan.');
+        }
+
         $geoJsonData = $this->request->getPost('geojson');
         if (!json_decode($geoJsonData)) {
             return redirect()->back()->withInput()->with('error', 'GeoJson tidak valid');
         }
 
         $this->geoJsonModel->update($id, [
-            'nama_kecamatan' => $this->request->getPost('nama_kecamatan'),
+            'nama_kecamatan' => $namakecamatan,
             'warna' => $this->request->getPost('warna'),
             'geojson' => $geoJsonData,
         ]);

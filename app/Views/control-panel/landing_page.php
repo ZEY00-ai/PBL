@@ -32,9 +32,8 @@
 <body class="app">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
-        <div class="container-fluid">
-
-            <a class="navbar-brand fw-bold text-primary" href="#beranda">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand fw-bold text-primary me-0" href="#beranda">
                 <i class="fa-solid fa-map-location-dot me-2"></i>
                 <span class="d-none d-md-inline">SIG Sekolah Tanah Datar</span>
                 <span class="d-md-none">SIG Sekolah</span>
@@ -46,34 +45,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="d-flex w-100 justify-content-between align-items-center flex-column flex-lg-row">
-
-                    <div style="width: 600px;" class="d-none d-lg-block"></div>
-
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#statistik">Statistik</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#pencarian">pencarian</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#tentang-kami">Tentang</a></li>
-                    </ul>
-
-                    <div style="width: 100px;" class="text-lg-end w-100 w-lg-auto mt-2 mt-lg-0">
-                        <a href="<?= base_url('login') ?>" class="btn btn-primary btn-sm px-4">
-                            <i class="fa-solid fa-right-to-bracket me-1"></i>Panel Admin
-                        </a>
-                    </div>
-                </div>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav mb-2 mb-lg-0 flex-row flex-wrap justify-content-center gap-2 gap-lg-4">
+                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#statistik">Statistik</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#pencarian">Pencarian</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#tentang-kami">Tentang</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
 
     <header id="beranda" class="landing-header text-center">
-        <div class="container">
-            <h1 class="mb-2">Jelajahi Sekolah di Kabupaten Tanah Datar</h1>
-            <p class="mb-1 fw-semibold" style="font-size:1.2rem;">Temukan Sekolah dengan Mudah</p>
-            <p style="font-size:0.95rem; opacity:0.85; max-width:560px; margin: 0 auto;">
+        <div class="container d-flex flex-column align-items-center justify-content-center text-center">
+            <h1 class="mb-2 text-center mx-auto">Jelajahi Sekolah di Kabupaten Tanah Datar</h1>
+            <p class="mb-1 fw-semibold text-center mx-auto" style="font-size:1.2rem;">Temukan Sekolah dengan Mudah</p>
+            <p class="text-center mx-auto" style="font-size:0.95rem; opacity:0.85; max-width:560px; margin: 0 auto;">
                 Akses informasi lokasi, fasilitas, dan profil sekolah melalui peta digital yang interaktif dan mudah digunakan.
             </p>
         </div>
@@ -205,9 +193,15 @@
                             <label class="form-label fw-semibold text-secondary small text-uppercase">Akreditasi</label>
                             <select id="filter-akreditasi" class="form-select">
                                 <option value="">Semua Akreditasi</option>
-                                <option value="A">Akreditasi A</option>
-                                <option value="B">Akreditasi B</option>
-                                <option value="C">Akreditasi C</option>
+                                <?php
+                                $daftarAkreditasi = array_unique(array_column(array_filter($sekolah ?? [], fn($s) => !empty($s['akreditasi'])), 'akreditasi'));
+                                sort($daftarAkreditasi);
+                                ?>
+                                <?php foreach ($daftarAkreditasi as $akred): ?>
+                                    <?php if ($akred): ?>
+                                        <option value="<?= esc($akred) ?>">Akreditasi <?= esc($akred) ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <button id="btn-cari-sekolah" class="btn btn-primary w-100 fw-bold mb-2 py-2">
@@ -248,13 +242,15 @@
                             </div>
                             <?php if (!empty($geojson)): ?>
                                 <div class="map-legend__group">
-                                    <p>Wilayah Kecamatan</p>
-                                    <?php foreach ($geojson as $g): ?>
-                                        <div class="map-legend__item">
-                                            <span style="width:14px; height:14px; border-radius:4px; background:<?= esc($g['warna']) ?>; opacity:0.7; display:inline-block;"></span>
-                                            <?= esc($g['nama_kecamatan']) ?>
-                                        </div>
-                                    <?php endforeach; ?>
+                                    <p style="margin:0 0 4px 0;">Wilayah Kecamatan</p>
+                                    <div style="display:flex; flex-direction:column; flex-wrap:wrap; height:90px; gap:4px 16px;">
+                                        <?php foreach ($geojson as $g): ?>
+                                            <div class="map-legend__item" style="display:flex; align-items:center; gap:6px;">
+                                                <span style="width:14px; height:14px; border-radius:4px; background:<?= esc($g['warna']) ?>; opacity:0.7; display:inline-block; flex-shrink:0;"></span>
+                                                <span style="font-size:13px; white-space:nowrap;"><?= esc($g['nama_kecamatan']) ?></span>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
                             <?php endif; ?>
                         </div>

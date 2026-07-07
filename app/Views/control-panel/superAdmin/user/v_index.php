@@ -17,9 +17,9 @@
                                 <p class="subtitle">Daftar data User</p>
                             </div>
                             <div class="page-header__actions">
-                                <a href="<?= base_url('superAdmin/user/create') ?>" class="m-btn m-btn--primary">
+                                <!-- <a href="<?= base_url('superAdmin/user/create') ?>" class="m-btn m-btn--primary">
                                     <i class="fa-solid fa-plus"></i> Tambah User
-                                </a>
+                                </a> -->
                             </div>
                         </div>
 

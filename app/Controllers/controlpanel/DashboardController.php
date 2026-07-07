@@ -32,6 +32,6 @@ class DashboardController extends BaseController
             ->orderBy('total', 'DESC')
             ->findAll();
 
-        return view('control-panel/admin/v_adminDashboard', $data);
+        return view('control-panel/superAdmin/v_adminDashboard', $data);
     }
 }

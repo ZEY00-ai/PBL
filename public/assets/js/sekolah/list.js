@@ -75,7 +75,11 @@
         }
 
         if (q) {
-            filtered = filtered.filter(r => r.textContent.toLowerCase().includes(q));
+            filtered = filtered.filter(r => {
+                const text = r.textContent.toLowerCase();
+                const npsn = (r.getAttribute('data-npsn') || '').toLowerCase();
+                return text.includes(q) || npsn.includes(q);
+            });
         }
 
         const total = filtered.length;

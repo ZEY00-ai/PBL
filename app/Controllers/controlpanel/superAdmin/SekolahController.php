@@ -42,7 +42,13 @@ class SekolahController extends BaseController
             'longitude'     => 'required|decimal',
             'geojson_id'    => 'required',
             'foto'          => 'max_size[foto,2048]|is_image[foto]',
-        ])) {
+            'npsn'          => 'permit_empty|is_unique[sekolah.npsn]',
+        ],
+        [
+            'npsn' => [
+                'is_unique' => 'NPSN sudah digunakan oleh sekolah lain.',
+            ],
+            ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -74,7 +80,7 @@ class SekolahController extends BaseController
             'foto'          => $fotoName,
         ]);
 
-        // Ambil ID sekolah yang baru saja dibuat ✅
+        // Ambil ID sekolah yang baru saja dibuat
         $newSekolahId = $this->SekolahModel->getInsertID();
 
         // Buat akun otomatis
@@ -128,6 +134,11 @@ class SekolahController extends BaseController
             'longitude'     => 'required|decimal',
             'geojson_id'    => 'required',
             'foto'          => 'max_size[foto,2048]|is_image[foto]',
+            'npsn'          => "permit_empty|is_unique[sekolah.npsn,id,{$id}]",
+        ],[
+            'npsn' => [
+                'is_unique' => 'NPSN sudah digunakan oleh sekolah lain.',
+            ],
         ])) {
             return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
         }

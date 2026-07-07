@@ -35,25 +35,25 @@
                         <div class="dt-toolbar">
                             <div class="dt-search">
                                 <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                                <input type="search" id="dt-search-input" placeholder="Search any column…" aria-label="Search">
+                                <input type="search" id="dt-search-input" placeholder="Search any column…" aria-label="Search" style="height:38px; min-height:38px; padding:0 12px; font-size:12.5px; box-sizing:border-box;">
                             </div>
 
-                            <div class="dt-filter" style="display:flex; gap:8px;">
-                                <select id="dt-filter-type" class="form-select" style="height:38px; font-size:12.5px;">
+                            <div class="dt-filter" style="display:flex; gap:8px; align-items:center; flex-wrap:nowrap;">
+                                <select id="dt-filter-type" class="form-select" style="height:38px; min-height:38px; min-width:140px; width:140px; font-size:12.5px; box-sizing:border-box;">
                                     <option value="kecamatan">Kecamatan</option>
                                     <option value="tingkatan">Tingkatan</option>
                                     <option value="akreditasi">Akreditasi</option>
                                 </select>
 
-                                <select id="dt-filter-value" class="form-select" style="height:38px; font-size:12.5px;">
+                                <select id="dt-filter-value" class="form-select" style="height:38px; min-height:38px; min-width:160px; width:160px; font-size:12.5px; box-sizing:border-box;">
                                     <option value="">Semua</option>
                                 </select>
                             </div>
 
-                            <div style="display:flex; gap:8px; align-items:center;">
-                                <label style="font-size:12.5px; color:var(--m-text-muted); display:inline-flex; align-items:center; gap:8px;">
+                            <div style="display:flex; gap:8px; align-items:center; flex-wrap:nowrap;">
+                                <label style="font-size:12.5px; color:var(--m-text-muted); display:inline-flex; align-items:center; gap:8px; white-space:nowrap;">
                                     Show
-                                    <select id="dt-page-size" class="form-select" style="width:80px; height:32px; padding:0 24px 0 10px; font-size:12.5px;">
+                                    <select id="dt-page-size" class="form-select" style="width:80px; min-width:80px; height:32px; min-height:32px; padding:0 24px 0 10px; font-size:12.5px; box-sizing:border-box;">
                                         <option>5</option>
                                         <option selected>10</option>
                                         <option>20</option>
@@ -80,7 +80,7 @@
                             <tbody id="dt-body">
                                 <?php if (!empty($sekolah)): ?>
                                     <?php foreach ($sekolah as $i => $s): ?>
-                                        <tr data-tingkatan="<?= esc($s['tingkatan']) ?>" data-kecamatan="<?= esc($s['kecamatan']) ?>" data-akreditasi="<?= esc($s['akreditasi']) ?>">
+                                        <tr data-tingkatan="<?= esc($s['tingkatan']) ?>" data-kecamatan="<?= esc($s['kecamatan']) ?>" data-akreditasi="<?= esc($s['akreditasi']) ?>" data-npsn="<?= esc($s['npsn']) ?>">
                                             <td class="text-center"><?= $i + 1 ?></td>
 
                                             <td class="text-center"><?= esc($s['nama_sekolah']) ?></td>
@@ -173,8 +173,30 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url('assets/js/sekolah/list.js') ?>"></script>
     <style>
-        .theme-switcher {
-            display: none !important;
+
+        .dt-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dt-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 240px;
+            flex: 1 1 240px;
+        }
+
+        .dt-search input {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .dt-filter {
+            flex: 0 0 auto;
         }
 
         .dt-table th {
