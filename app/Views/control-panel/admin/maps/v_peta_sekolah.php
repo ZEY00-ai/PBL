@@ -18,7 +18,8 @@
                     </div>
 
                     <div class="m-card" style="padding:0; overflow:hidden;">
-                        <div id="map" style="height:550px; width:100%;"></div>
+                        <!-- FIX: height dinaikkan jadi 650px karena map ini full width (beda dgn dashboard yg cuma col-lg-8), biar rasio visual proporsional -->
+                        <div id="map" style="height:650px; width:100%;"></div>
                     </div>
 
                     <!-- Legenda -->
@@ -93,9 +94,10 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // ── Base URL untuk foto sekolah (FIX: sebelumnya hardcode "/uploads/sekolah/") ──
+        // ── Base URL untuk foto sekolah ──
         const FOTO_BASE_URL = '<?= base_url('uploads/sekolah') ?>';
 
+        // FIX: setView di sini cuma jadi initial view sementara, nanti di-override fitBounds()
         const map = L.map('map').setView([-0.4558, 100.6162], 11);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -138,6 +140,7 @@
 
         // ── Marker Sekolah ────────────────────────────────────────
         const sekolah = <?= json_encode($sekolah) ?>;
+        const bounds = []; // FIX: tampung koordinat sekolah untuk auto-zoom
 
         function getMarkerColor(tingkatan) {
             switch (tingkatan) {
@@ -169,16 +172,16 @@
             return L.divIcon({
                 className: '',
                 html: `<div style="
-                    width:24px; height:24px;
-                    background:${color};
-                    border-radius:50% 50% 50% 0;
-                    transform:rotate(-45deg);
-                    border:3px solid #fff;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.3);
-                "></div>`,
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
-                popupAnchor: [0, -28],
+                width:20px; height:20px;
+                background:${color};
+                border-radius:50% 50% 50% 0;
+                transform:rotate(-45deg);
+                border:3px solid #fff;
+                box-shadow:0 2px 8px rgba(0,0,0,0.3);
+            "></div>`,
+                iconSize: [20, 20],
+                iconAnchor: [10, 20],
+                popupAnchor: [0, -24],
             });
         }
 
@@ -192,28 +195,37 @@
                         icon: createIcon(color)
                     })
                     .bindPopup(`
-                        <div style="min-width:190px;">
-                            ${s.foto
-                                ? `<img src="${FOTO_BASE_URL}/${s.foto}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom:8px;">`
-                                : ''
-                            }
-                            <strong style="font-size:13px;">🏫 ${s.nama_sekolah}</strong><br>
-                            ${s.npsn ? `<small style="color:#888;">NPSN: ${s.npsn}</small><br>` : ''}
-                            <small>📍 ${s.kecamatan}</small><br>
-                            <small>${s.alamat}</small><br>
-                            <div style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;">
-                                <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${color}; color:#fff;">
-                                    ${s.tingkatan ?? '-'}
-                                </span>
-                                <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${akrColor}; color:#fff;">
-                                    Akreditasi ${akrLabel}
-                                </span>
-                            </div>
+                    <div style="min-width:190px;">
+                        ${s.foto
+                            ? `<img src="${FOTO_BASE_URL}/${s.foto}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom:8px;">`
+                            : ''
+                        }
+                        <strong style="font-size:13px;">🏫 ${s.nama_sekolah}</strong><br>
+                        ${s.npsn ? `<small style="color:#888;">NPSN: ${s.npsn}</small><br>` : ''}
+                        <small>📍 ${s.kecamatan}</small><br>
+                        <small>${s.alamat}</small><br>
+                        <div style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;">
+                            <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${color}; color:#fff;">
+                                ${s.tingkatan ?? '-'}
+                            </span>
+                            <span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:${akrColor}; color:#fff;">
+                                Akreditasi ${akrLabel}
+                            </span>
                         </div>
-                    `)
+                    </div>
+                `)
                     .addTo(map);
+
+                bounds.push([s.latitude, s.longitude]); // FIX: simpan koordinat ke bounds
             }
         });
+
+        // FIX: auto zoom & center ke area sebaran sekolah (sebelumnya fixed setView zoom 11)
+        if (bounds.length) {
+            map.fitBounds(bounds, {
+                padding: [40, 40]
+            });
+        }
     </script>
 
     <?php echo view('components/footer'); ?>

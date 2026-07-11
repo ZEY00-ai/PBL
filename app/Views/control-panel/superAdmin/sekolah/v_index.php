@@ -35,7 +35,7 @@
                         <div class="dt-toolbar">
                             <div class="dt-search">
                                 <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                                <input type="search" id="dt-search-input" placeholder="Search any column…" aria-label="Search" style="height:38px; min-height:38px; padding:0 12px; font-size:12.5px; box-sizing:border-box;">
+                                <input type="search" id="dt-search-input" placeholder="Search any column…" aria-label="Search">
                             </div>
 
                             <div class="dt-filter" style="display:flex; gap:8px; align-items:center; flex-wrap:nowrap;">

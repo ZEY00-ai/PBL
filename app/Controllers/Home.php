@@ -51,7 +51,9 @@ class Home extends BaseController
         // tentukan url tombol kembali
         if ($from === 'superAdmin') {
             $backUrl = base_url('superAdmin/sekolah'); // ganti sesuai route halaman super admin lo
-        } else {
+        }elseif ($from === 'fullmap') {
+            $backUrl = base_url('peta');
+        }else {
             $backUrl = base_url('/'); // default balik ke beranda
         }
 

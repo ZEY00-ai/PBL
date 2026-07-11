@@ -46,7 +46,7 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mb-2 mb-lg-0 flex-row flex-wrap justify-content-center gap-2 gap-lg-4">
+                <ul class="navbar-nav mb-2 mb-lg-0 flex-row flex-wrap justify-content-center ">
                     <li class="nav-item"><a class="nav-link px-3 text-center" href="#beranda">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link px-3 text-center" href="#statistik">Statistik</a></li>
                     <li class="nav-item"><a class="nav-link px-3 text-center" href="#pencarian">Pencarian</a></li>
@@ -195,7 +195,14 @@
                                 <option value="">Semua Akreditasi</option>
                                 <?php
                                 $daftarAkreditasi = array_unique(array_column(array_filter($sekolah ?? [], fn($s) => !empty($s['akreditasi'])), 'akreditasi'));
-                                sort($daftarAkreditasi);
+
+                                // Custom sort: A, B, C, ... urut alfabetis dulu,
+                                // baru "Belum Terakreditasi" dipaksa selalu di paling akhir
+                                usort($daftarAkreditasi, function ($a, $b) {
+                                    if ($a === 'Belum Terakreditasi') return 1;
+                                    if ($b === 'Belum Terakreditasi') return -1;
+                                    return strcmp($a, $b);
+                                });
                                 ?>
                                 <?php foreach ($daftarAkreditasi as $akred): ?>
                                     <?php if ($akred): ?>

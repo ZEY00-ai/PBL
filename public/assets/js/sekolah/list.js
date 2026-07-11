@@ -104,6 +104,25 @@
             if (info) info.textContent = 'Showing ' + (start + 1) + '–' + Math.min(end, total) + ' of ' + total;
         }
 
+        //kalau mau fulter mulai dari 1
+        // if (total === 0) {
+        //     if (empty) empty.style.display = 'flex';
+        //     if (info) info.textContent = 'No results';
+        // } else {
+        //     if (empty) empty.style.display = 'none';
+        //     let nomorUrut = start + 1;
+        //     filtered.forEach((r, i) => {
+        //         if (i >= start && i < end) {
+        //             r.style.display = '';
+        //             // Update kolom "No" biar urut ulang (1, 2, 3, ...) sesuai hasil filter/halaman
+        //             const firstTd = r.querySelector('td');
+        //             if (firstTd) firstTd.textContent = nomorUrut;
+        //             nomorUrut++;
+        //         }
+        //     });
+        //     if (info) info.textContent = 'Showing ' + (start + 1) + '–' + Math.min(end, total) + ' of ' + total;
+        // }
+
         // Simpan state
         saveState();
 

@@ -61,7 +61,14 @@
                     <option value="">Semua Akreditasi</option>
                     <?php
                     $daftarAkreditasi = array_unique(array_column(array_filter($sekolah ?? [], fn($s) => !empty($s['akreditasi'])), 'akreditasi'));
-                    sort($daftarAkreditasi);
+
+                    // Custom sort: A, B, C, ... urut alfabetis dulu,
+                    // baru "Belum Terakreditasi" dipaksa selalu di paling akhir
+                    usort($daftarAkreditasi, function ($a, $b) {
+                        if ($a === 'Belum Terakreditasi') return 1;
+                        if ($b === 'Belum Terakreditasi') return -1;
+                        return strcmp($a, $b);
+                    });
                     ?>
                     <?php foreach ($daftarAkreditasi as $akred): ?>
                         <?php if ($akred): ?>

@@ -35,6 +35,7 @@ class SekolahController extends BaseController
 
     public function store()
     {
+        //validasi input
         if (!$this->validate([
             'nama_sekolah'  => 'required',
             'alamat'        => 'required',
@@ -45,6 +46,7 @@ class SekolahController extends BaseController
             'npsn'          => 'permit_empty|is_unique[sekolah.npsn]',
         ],
         [
+            //kalau npsn sama
             'npsn' => [
                 'is_unique' => 'NPSN sudah digunakan oleh sekolah lain.',
             ],
@@ -52,16 +54,20 @@ class SekolahController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        // Upload foto sekolah
         $fotoName = null;
         $foto = $this->request->getFile('foto');
+        // Cek apakah ada file yang diunggah pinadhin ke bagian itu atau database
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
         }
-
+ 
+        // ambil data geojson untuk input kecamatan ke sekolah
         $geojsonId = $this->request->getPost('geojson_id');
         $geo       = (new GeoJsonModel())->find($geojsonId);
 
+        // Simpan data ke database
         $this->SekolahModel->insert([
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
             'tingkatan'     => $this->request->getPost('tingkatan'),
@@ -86,6 +92,7 @@ class SekolahController extends BaseController
         // Buat akun otomatis
         $npsn = $this->request->getPost('npsn');
 
+        // untuk buat akun baru, jika npsn tidak kosong, maka buat akun baru dengan email
         if ($npsn) {
             $emailAkun = $npsn . '@op.sekolah';
             $this->UserModel->insert([
@@ -127,6 +134,7 @@ class SekolahController extends BaseController
             return redirect()->to('superAdmin/sekolah')->with('error', 'Data sekolah tidak ditemukan');
         }
 
+        // Validasi input uptade
         if (!$this->validate([
             'nama_sekolah'  => 'required',
             'alamat'        => 'required',
@@ -143,8 +151,10 @@ class SekolahController extends BaseController
             return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
         }
 
+        // Upload foto sekolah
         $fotoName = $sekolah['foto'];
         $foto = $this->request->getFile('foto');
+        // Cek apakah ada file yang diunggah, jika ada maka hapus foto lama dan simpan foto baru
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             if ($fotoName) {
                 $fotoLama = ROOTPATH . 'public/uploads/sekolah/' . $fotoName;
@@ -159,6 +169,7 @@ class SekolahController extends BaseController
         $geojsonId = $this->request->getPost('geojson_id');
         $geo       = (new GeoJsonModel())->find($geojsonId);
 
+        // Simpan data ke database
         $this->SekolahModel->update($id, [
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
             'kepala_sekolah' => $this->request->getPost('kepala_sekolah') ?: null,
@@ -196,6 +207,7 @@ class SekolahController extends BaseController
     {
         $sekolah = $this->SekolahModel->find($id);
 
+        // Cek apakah sekolah ditemukan
         if ($sekolah && ! empty($sekolah['foto'])) {
             $fotoPath = ROOTPATH . 'public/uploads/sekolah/' . $sekolah['foto'];
             if (file_exists($fotoPath)) {
@@ -203,6 +215,7 @@ class SekolahController extends BaseController
             }
         }
 
+        // Hapus akun terkait sekolah
         $this->UserModel->where('sekolah_id', $id)->delete();
         $this->SekolahModel->delete($id);
         return redirect()->to('superAdmin/sekolah')->with('success', 'Data sekolah berhasil dihapus');

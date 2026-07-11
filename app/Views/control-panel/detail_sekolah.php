@@ -10,408 +10,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link href="<?= base_url('CoolAdmin-master/vendor/fontawesome-7.2.0/css/all.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.min.css') ?>" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --primary-light: #eff6ff;
-            --accent: #06b6d4;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e5e9f0;
-            --bg: #f4f7fb;
-        }
-
-        body {
-            background: var(--bg);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--text-main);
-        }
-
-        /* ===== Top bar ===== */
-        .topbar {
-            padding: 18px 0;
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13.5px;
-            font-weight: 500;
-            transition: color .2s ease;
-        }
-
-        .back-btn:hover {
-            color: var(--primary);
-        }
-
-        /* ===== Cards (base) ===== */
-        .card-box {
-            background: #fff;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            padding: 24px;
-            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
-        }
-
-        .card-box h5 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card-box h5 i {
-            color: var(--primary);
-            font-size: 13px;
-        }
-
-        /* ===== Header Sekolah (judul + alamat singkat) ===== */
-        .school-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-
-        .school-header h1 {
-            font-size: 1.55rem;
-            font-weight: 800;
-            margin: 0 0 6px;
-            color: var(--text-main);
-        }
-
-        .school-header .lokasi {
-            font-size: 13.5px;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        .btn-aksi {
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid #dbe6fb;
-            border-radius: 10px;
-            padding: 9px 18px;
-            font-size: 13.5px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-
-        .btn-aksi:hover {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-
-        /* ===== Baris atas: foto besar (kiri) + kartu info (kanan) ===== */
-        .top-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 18px;
-            margin-bottom: 18px;
-            align-items: stretch;
-        }
-
-        @media (max-width: 860px) {
-            .top-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .photo-box {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: #fff;
-            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
-            min-height: 300px;
-        }
-
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            min-height: 300px;
-            object-fit: cover;
-            display: block;
-            transition: transform .4s ease;
-        }
-
-        .photo-box:hover .profile-photo {
-            transform: scale(1.04);
-        }
-
-        .profile-photo-placeholder {
-            width: 100%;
-            height: 100%;
-            min-height: 300px;
-            background: linear-gradient(135deg, var(--primary-light), #e0ecff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--primary);
-        }
-
-        .photo-badge {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            z-index: 1;
-        }
-
-        .badge-tingkatan {
-            display: inline-block;
-            padding: 4px 13px;
-            border-radius: 20px;
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: .3px;
-            background: var(--primary);
-            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.18);
-        }
-
-        /* ===== Kartu info grid (mirip referensi) ===== */
-        .info-card {
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            background: #fff;
-            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
-            padding: 22px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px 16px;
-            align-content: start;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .info-item .icon-box {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        .info-item .info-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: .3px;
-            margin-bottom: 3px;
-        }
-
-        .info-item .info-value {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            display: block;
-            word-break: break-word;
-        }
-
-        .info-item a.info-value:hover {
-            color: var(--primary);
-        }
-
-        .info-item .info-value.empty {
-            font-weight: 400;
-            font-style: italic;
-            color: #94a3b8;
-        }
-
-        /* ===== Kotak info & kontak — seragam ===== */
-        .stat-box {
-            background: #fff;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            padding: 15px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            height: 100%;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .stat-box:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.07);
-            border-color: var(--primary);
-        }
-
-        .stat-box .icon-box {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .stat-box .stat-text {
-            min-width: 0;
-        }
-
-        .stat-box .stat-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: .3px;
-            margin-bottom: 2px;
-        }
-
-        .stat-box .stat-value {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-            text-decoration: none;
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .stat-box a.stat-value:hover {
-            color: var(--primary);
-        }
-
-        .stat-box .stat-value.empty {
-            font-weight: 400;
-            font-style: italic;
-            color: #94a3b8;
-        }
-
-        /* ===== Map ===== */
-        #map {
-            height: 300px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        /* ===== Lokasi detail (di bawah peta) ===== */
-        .lokasi-detail {
-            display: flex;
-            gap: 14px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-
-        .lokasi-item {
-            flex: 1;
-            min-width: 220px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 13.5px;
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 12px 14px;
-        }
-
-        .lokasi-item .icon-box {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            background: #fff;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
-        }
-
-        .lokasi-item .lokasi-label {
-            font-size: 11.5px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: .3px;
-            margin-bottom: 2px;
-        }
-
-        .lokasi-item .lokasi-value {
-            color: var(--text-main);
-            font-weight: 500;
-            line-height: 1.5;
-        }
-
-        /* ===== Visi Misi ===== */
-        .visi-misi {
-            line-height: 1.8;
-            color: var(--text-muted);
-            font-size: 13.5px;
-            text-align: justify;
-            margin: 0;
-        }
-
-        .btn-outline-primary {
-            --bs-btn-color: var(--primary);
-            --bs-btn-border-color: var(--primary);
-            --bs-btn-hover-bg: var(--primary);
-            --bs-btn-hover-border-color: var(--primary);
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        .section-gap {
-            margin-bottom: 18px;
-        }
-
-        @media (max-width: 576px) {
-            .school-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .btn-aksi {
-                justify-content: center;
-            }
-
-            .info-card {
-                grid-template-columns: 1fr;
-            }
-
-            .photo-box,
-            .profile-photo,
-            .profile-photo-placeholder {
-                min-height: 220px;
-            }
-        }
-    </style>
+    <link rel="icon" type="image/png" href="<?= base_url('logo/logo.ico') ?>" sizes="32x32" />
+    <link rel="stylesheet" href="<?= base_url('assets/css/detailsekolah/style.css') ?>" />
+    
 </head>
 
 <body>
@@ -446,10 +47,18 @@
                         'SMP' => '#1e3a8a',
                         default => '#475569',
                     };
+                    $isNurulUmmah = ($sekolah['nama_sekolah'] === 'SD ISLAM TERPADU NURUL UMMAH TIGO JANGKO');
                     ?>
                     <span class="badge-tingkatan" style="background:<?= $tingkatanColor ?>;"><?= esc($sekolah['tingkatan'] ?? '-') ?></span>
+
                     <?php if (!empty($sekolah['akreditasi'])): ?>
                         <span class="badge-tingkatan">Akreditasi <?= esc($sekolah['akreditasi']) ?></span>
+                    <?php endif; ?>
+
+                    <?php if ($isNurulUmmah): ?>
+                        <span class="badge-tingkatan" style="background:#0891b2;">Swasta</span>
+                    <?php else: ?>
+                        <span class="badge-tingkatan" style="background:#0891b2;">Negeri</span>
                     <?php endif; ?>
                 </div>
 
@@ -472,6 +81,14 @@
                     <div>
                         <div class="info-label">Akreditasi</div>
                         <span class="info-value<?= empty($sekolah['akreditasi']) ? ' empty' : '' ?>"><?= esc($sekolah['akreditasi'] ?? 'Belum Terisi') ?></span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="icon-box"><i class="fa-solid fa-building"></i></span>
+                    <div>
+                        <div class="info-label">Status</div>
+                        <span class="info-value"><?= $isNurulUmmah ? 'Swasta' : 'Negeri' ?></span>
                     </div>
                 </div>
 
@@ -614,57 +231,57 @@
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script>
-    const GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
-    const SEKOLAH_KECAMATAN = <?= json_encode($sekolah['kecamatan'] ?? '') ?>;
+        const GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
+        const SEKOLAH_KECAMATAN = <?= json_encode($sekolah['kecamatan'] ?? '') ?>;
 
-    <?php if ($sekolah['latitude'] && $sekolah['longitude']): ?>
-        const lat = <?= $sekolah['latitude'] ?>;
-        const lng = <?= $sekolah['longitude'] ?>;
+        <?php if ($sekolah['latitude'] && $sekolah['longitude']): ?>
+            const lat = <?= $sekolah['latitude'] ?>;
+            const lng = <?= $sekolah['longitude'] ?>;
 
-        const map = L.map('map').setView([lat, lng], 16);
+            const map = L.map('map').setView([lat, lng], 16);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
 
-        // ── Render HANYA batas wilayah kecamatan sekolah ini ───────
-        const geoKecamatan = GEOJSON_DATA.find(function (item) {
-            return item.nama_kecamatan === SEKOLAH_KECAMATAN;
-        });
+            // ── Render HANYA batas wilayah kecamatan sekolah ini ───────
+            const geoKecamatan = GEOJSON_DATA.find(function(item) {
+                return item.nama_kecamatan === SEKOLAH_KECAMATAN;
+            });
 
-        if (geoKecamatan) {
-            try {
-                const geoData = typeof geoKecamatan.geojson === 'string'
-                    ? JSON.parse(geoKecamatan.geojson)
-                    : geoKecamatan.geojson;
+            if (geoKecamatan) {
+                try {
+                    const geoData = typeof geoKecamatan.geojson === 'string' ?
+                        JSON.parse(geoKecamatan.geojson) :
+                        geoKecamatan.geojson;
 
-                L.geoJSON(geoData, {
-                    style: {
-                        color: geoKecamatan.warna,
-                        weight: 2,
-                        fillColor: geoKecamatan.warna,
-                        fillOpacity: 0.25,
-                    },
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup('<strong>📍 ' + geoKecamatan.nama_kecamatan + '</strong>');
-                    }
-                }).addTo(map);
-            } catch (e) {
-                console.error('GeoJSON tidak valid: ' + geoKecamatan.nama_kecamatan);
+                    L.geoJSON(geoData, {
+                        style: {
+                            color: geoKecamatan.warna,
+                            weight: 2,
+                            fillColor: geoKecamatan.warna,
+                            fillOpacity: 0.25,
+                        },
+                        onEachFeature: function(feature, layer) {
+                            layer.bindPopup('<strong>📍 ' + geoKecamatan.nama_kecamatan + '</strong>');
+                        }
+                    }).addTo(map);
+                } catch (e) {
+                    console.error('GeoJSON tidak valid: ' + geoKecamatan.nama_kecamatan);
+                }
             }
-        }
 
-        // ── Marker sekolah ──────────────────────────────────────────
-        const marker = L.marker([lat, lng]).addTo(map);
-        marker.bindPopup(`
+            // ── Marker sekolah ──────────────────────────────────────────
+            const marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(`
             <div style="min-width:160px;">
                 <strong><?= esc($sekolah['nama_sekolah']) ?></strong><br>
                 <small><?= esc($sekolah['kecamatan'] ?? '') ?></small><br>
                 <small><?= esc($sekolah['alamat'] ?? '') ?></small>
             </div>
         `).openPopup();
-    <?php endif; ?>
-</script>
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>

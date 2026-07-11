@@ -116,7 +116,7 @@ function popupSekolah(s, markerColor) {
                 ${s.akreditasi ? `<span style="padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; background:#475569; color:#fff;">Akreditasi ${s.akreditasi}</span>` : ''}
             </div>
                 <div style="margin-top:10px; padding-top:8px; border-top:1px solid #e2e8f0;">
-            <a href="${sekolahDetailUrl}${s.id}" target="_blank"
+            <a href="${sekolahDetailUrl}${s.id}" 
                 style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#4272d7; text-decoration:none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 Lihat profil sekolah
@@ -184,12 +184,11 @@ function filterSekolah() {
     // Render marker dulu
     renderMarkers(hasil);
 
-    // Zoom berdasarkan jumlah hasil
-    if (hasil.length === 0) {
-        map.setView([-0.2733009989610224, 100.48442111207578], 11);
-    } else if (hasil.length === 1) {
+    // Zoom hanya diubah kalau ada hasil.
+    // Kalau hasil kosong, posisi & zoom map dibiarkan tetap seperti sebelumnya.
+    if (hasil.length === 1) {
         map.setView([hasil[0].lat, hasil[0].lng], 16);
-    } else {
+    } else if (hasil.length > 1) {
         map.fitBounds(hasil.map(m => [m.lat, m.lng]), { padding: [40, 40], maxZoom: 14 });
     }
 
