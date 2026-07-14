@@ -152,7 +152,7 @@ class UserController extends BaseController
             // Hapus password untuk keamanan
             unset($user['password']);
             return $this->response->setJSON($user);
-        } else {
+        } else { 
             return $this->response->setJSON([
                 'error' => 'User not found'
             ])->setStatusCode(404);

@@ -12,7 +12,7 @@
     <link href="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.min.css') ?>" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?= base_url('logo/logo.ico') ?>" sizes="32x32" />
     <link rel="stylesheet" href="<?= base_url('assets/css/detailsekolah/style.css') ?>" />
-    
+
 </head>
 
 <body>
@@ -163,6 +163,50 @@
             </div>
         </div>
 
+        <!-- Visi & Misi -->
+        <div class="row g-3 section-gap">
+
+            <!-- Visi -->
+            <div class="col-md-6">
+                <div class="card-box h-100">
+                    <h5><i class="fa-solid fa-eye"></i> Visi</h5>
+                    <?php if (!empty($sekolah['visi'])): ?>
+                        <p class="visi-misi"><?= nl2br(esc($sekolah['visi'])) ?></p>
+                    <?php else: ?>
+                        <p class="visi-misi empty">Belum Terisi</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Misi -->
+            <div class="col-md-6">
+                <div class="card-box h-100">
+                    <h5><i class="fa-solid fa-bullseye"></i> Misi</h5>
+                    <?php if (!empty($sekolah['misi'])): ?>
+                        <?php
+                        // Pecah misi jadi array per baris/poin, buang baris kosong
+                        $misiItems = preg_split('/\r\n|\r|\n/', trim($sekolah['misi']));
+                        $misiItems = array_filter(array_map('trim', $misiItems), function ($item) {
+                            return $item !== '';
+                        });
+                        ?>
+                        <?php if (count($misiItems) > 1): ?>
+                            <ol class="misi-list">
+                                <?php foreach ($misiItems as $item): ?>
+                                    <li><?= esc(preg_replace('/^\d+[\.\)]\s*/', '', $item)) ?></li>
+                                <?php endforeach; ?>
+                            </ol>
+                        <?php else: ?>
+                            <p class="visi-misi"><?= nl2br(esc($sekolah['misi'])) ?></p>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <p class="visi-misi empty">Belum Terisi</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+        </div>
+
         <!-- Lokasi Sekolah — full width -->
         <div class="card-box section-gap">
             <h5><i class="fa-solid fa-map-location-dot"></i> Lokasi Sekolah</h5>
@@ -186,29 +230,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Visi & Misi -->
-        <?php if (!empty($sekolah['visi']) || !empty($sekolah['misi'])): ?>
-            <div class="row g-3 section-gap">
-                <?php if (!empty($sekolah['visi'])): ?>
-                    <div class="col-md-6">
-                        <div class="card-box h-100">
-                            <h5><i class="fa-solid fa-eye"></i> Visi</h5>
-                            <p class="visi-misi"><?= nl2br(esc($sekolah['visi'])) ?></p>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (!empty($sekolah['misi'])): ?>
-                    <div class="col-md-6">
-                        <div class="card-box h-100">
-                            <h5><i class="fa-solid fa-bullseye"></i> Misi</h5>
-                            <p class="visi-misi"><?= nl2br(esc($sekolah['misi'])) ?></p>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
 
     </div>
 
