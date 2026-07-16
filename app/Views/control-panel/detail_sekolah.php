@@ -21,7 +21,7 @@
 
         <!-- Top bar -->
         <div class="topbar">
-            <a href="<?= esc($backUrl ?? base_url('/')) ?>" class="back-btn">
+            <a href="<?= esc($backUrl ?? base_url('/')) ?>" class="btn btn-outline-primary btn-sm mb-3">
                 <i class="fa-solid fa-arrow-left"></i> Kembali
             </a>
         </div>
@@ -234,21 +234,18 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-2">
+    <!-- <footer class="site-footer mt-2">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0 fw-bold">
+            <div class="row align-items-center g-2">
+                <div class="col-12 col-md-6">
+                    <p class="mb-0 fw-semibold footer-title">
                         <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
                         SIG Pemetaan Sekolah Kabupaten Tanah Datar
                     </p>
                 </div>
-                <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                    <small class="text-muted">&copy; <?= date('Y') ?> Dinas Pendidikan Kabupaten Tanah Datar</small>
-                </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script>

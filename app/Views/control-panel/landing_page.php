@@ -45,13 +45,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mb-2 mb-lg-0 flex-row flex-wrap justify-content-center ">
-                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#beranda">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#statistik">Statistik</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#pencarian">Pencarian</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 text-center" href="#tentang-kami">Tentang</a></li>
-                </ul>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav mb-0 mb-lg-0 flex-row flex-wrap justify-content-end gap-1 gap-lg-2">
+                    <li class="nav-item"><a class="nav-link px-2 px-lg-3 text-center" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link px-2 px-lg-3 text-center" href="#statistik">Statistik</a></li>
+                    <li class="nav-item"><a class="nav-link px-2 px-lg-3 text-center" href="#pencarian">Pencarian</a></li>
             </div>
         </div>
     </nav>
@@ -275,36 +273,36 @@
         </div>
 
         <!--  Tentang  -->
-        <section id="tentang-kami" class="py-5" style="background:#f9f9f9;">
+        <!-- <section id="tentang-kami" class="py-5" style="background:#f9f9f9;">
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-12 text-center">
                         <h2 class="fw-bold mb-4">Tentang Kami</h2>
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            <!-- Anggota Kelompok -->
-                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#anggotaModal">
+                            Anggota Kelompok -->
+        <!-- <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#anggotaModal">
                                 👥 Anggota Kelompok → Lihat Anggota
-                            </button>
-                            <!-- GitHub Project -->
-                            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#githubModal">
+                            </button> -->
+        <!-- GitHub Project -->
+        <!-- <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#githubModal">
                                 🐙 GitHub Project → Lihat Project
-                            </button>
-                            <!-- Email Kami -->
-                            <!-- <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#emailModal">
+                            </button> -->
+        <!-- Email Kami -->
+        <!-- <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#emailModal">
                                 ✉️ Email Kami → Lihat Email
                             </button> -->
-                            <!-- Instagram Kami -->
-                            <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#instagramModal">
+        <!-- Instagram Kami -->
+        <!-- <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#instagramModal">
                                 📸 Instagram Kami → Lihat Instagram
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Modal Anggota -->
-        <div class="modal fade" id="anggotaModal" tabindex="-1">
+        <!-- <div class="modal fade" id="anggotaModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -321,10 +319,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Modal GitHub -->
-        <div class="modal fade" id="githubModal" tabindex="-1">
+        <!-- <div class="modal fade" id="githubModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -335,7 +333,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Modal Email -->
         <!-- <div class="modal fade" id="emailModal" tabindex="-1">
@@ -356,7 +354,7 @@
         </div> -->
 
         <!-- Modal Instagram -->
-        <div class="modal fade" id="instagramModal" tabindex="-1">
+        <!-- <div class="modal fade" id="instagramModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -371,28 +369,24 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
     </main>
 
     <!-- ══ FOOTER ══ -->
-    <footer class="bg-dark text-white py-4">
+    <!-- <footer class="site-footer">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-1 fw-bold">
+            <div class="row align-items-center g-2">
+                <div class="col-12">
+                    <p class="mb-1 fw-semibold footer-title">
                         <i class="fa-solid fa-map-location-dot me-2 text-primary"></i>
                         SIG Pemetaan Sekolah Kabupaten Tanah Datar
                     </p>
-                    <small class="text-muted">Sistem Informasi Geografis untuk manajemen data spasial sekolah</small>
-                </div>
-                <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                    <small class="text-muted">&copy; 2026 Dinas Pendidikan Kabupaten Tanah Datar. All rights reserved.</small>
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="<?= base_url('CoolAdmin-master/vendor/bootstrap-5.3.8.bundle.min.js') ?>"></script>
     <script src="<?= base_url('CoolAdmin-master/js/main.js') ?>"></script>

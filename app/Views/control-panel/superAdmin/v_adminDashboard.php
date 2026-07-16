@@ -113,9 +113,7 @@
                                 </ul>
                             </section>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </main>
@@ -250,9 +248,4 @@
         }
     </script>
     <?php echo view('components/footer'); ?>
-    <style>
-        .theme-switcher {
-            display: none !important;
-        }
-    </style>
-</body> 
+</body>
