@@ -19,6 +19,7 @@ class SekolahController extends BaseController
 
     public function index()
     {
+        //mengambil data sekolah berdasarkan id sekolah yang tersimpan di session
         $sekolahId = session()->get('sekolah_id');
 
         if (!$sekolahId) {
@@ -38,8 +39,10 @@ class SekolahController extends BaseController
 
     public function edit()
     {
+        //mengambil data sekolah berdasarkan id sekolah yang tersimpan di session
         $id = session()->get('sekolah_id');
 
+        // Pastikan operator cuma bisa mengedit sekolahnya sendiri
         if (!$id) {
             return redirect()->to('/login')->with('error', 'Sesi sekolah tidak ditemukan, silakan login ulang.');
         }

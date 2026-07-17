@@ -9,6 +9,17 @@ class Home extends BaseController
 {
     public function index()
     {
+        // Cek kalau user sudah login → redirect sesuai role, gak usah lanjut query
+        if (session()->get('logged_in')) {
+            switch (session()->get('user_role')) {
+                case 'super_admin':
+                    return redirect()->to('/dashboard');
+
+                case 'admin':
+                    return redirect()->to('/admin/profileSekolah');
+            }
+        }
+
         $sekolahModel = new SekolahModel();
         $geoJsonModel = new GeoJsonModel();
 
@@ -20,7 +31,11 @@ class Home extends BaseController
         $data['totalSD']      = $sekolahModel->where('tingkatan', 'SD')->countAllResults();
         $data['totalSMP']     = $sekolahModel->where('tingkatan', 'SMP')->countAllResults();
 
-        return view('control-panel/landing_page', $data);
+        return $this->response
+            ->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', '0')
+            ->setBody(view('control-panel/landing_page', $data));
     }
 
     public function petaFull()
@@ -51,9 +66,9 @@ class Home extends BaseController
         // tentukan url tombol kembali
         if ($from === 'superAdmin') {
             $backUrl = base_url('superAdmin/sekolah'); // ganti sesuai route halaman super admin lo
-        }elseif ($from === 'fullmap') {
+        } elseif ($from === 'fullmap') {
             $backUrl = base_url('peta');
-        }else {
+        } else {
             $backUrl = base_url('/'); // default balik ke beranda
         }
 

@@ -29,6 +29,7 @@ class SekolahController extends BaseController
 
     public function create()
     {
+        // ambil semua data geojson untuk ditampilkan di form create sekolah
         $data['geojson'] = (new GeoJsonModel())->findAll();
         return view('control-panel/superAdmin/sekolah/v_create', $data);
     }
@@ -43,11 +44,12 @@ class SekolahController extends BaseController
             'longitude'     => 'required|decimal',
             'geojson_id'    => 'required',
             'foto'          => 'max_size[foto,2048]|is_image[foto]',
-            'npsn'          => 'permit_empty|is_unique[sekolah.npsn]',
+            'npsn'          => 'required|is_unique[sekolah.npsn]',
         ],
         [
-            //kalau npsn sama
+            //kalau npsn sama/kosong
             'npsn' => [
+                'required' => 'NPSN harus diisi.',
                 'is_unique' => 'NPSN sudah digunakan oleh sekolah lain.',
             ],
             ])) {
@@ -57,7 +59,7 @@ class SekolahController extends BaseController
         // Upload foto sekolah
         $fotoName = null;
         $foto = $this->request->getFile('foto');
-        // Cek apakah ada file yang diunggah pinadhin ke bagian itu atau database
+        // Cek kevalitan foto, jika valid maka simpan foto ke folder uploads/sekolah dan dataase
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             $fotoName = $foto->getRandomName();
             $foto->move(ROOTPATH . 'public/uploads/sekolah', $fotoName);
@@ -72,7 +74,7 @@ class SekolahController extends BaseController
             'nama_sekolah'  => $this->request->getPost('nama_sekolah'),
             'tingkatan'     => $this->request->getPost('tingkatan'),
             'akreditasi'    => $this->request->getPost('akreditasi') ?: null,
-            'npsn'          => $this->request->getPost('npsn') ?: null,
+            'npsn'          => $this->request->getPost('npsn'),
             'nomor_sekolah' => $this->request->getPost('nomor_sekolah') ?: null,
             'email'         => $this->request->getPost('email') ?: null,
             'visi'          => $this->request->getPost('visi') ?: null,
@@ -92,7 +94,12 @@ class SekolahController extends BaseController
         // Buat akun otomatis
         $npsn = $this->request->getPost('npsn');
 
-        // untuk buat akun baru, jika npsn tidak kosong, maka buat akun baru dengan email
+        if (!$npsn) {
+            return redirect()->back()
+            ->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // untuk buat akun baru
         if ($npsn) {
             $emailAkun = $npsn . '@op.sekolah';
             $this->UserModel->insert([
@@ -154,7 +161,6 @@ class SekolahController extends BaseController
         // Upload foto sekolah
         $fotoName = $sekolah['foto'];
         $foto = $this->request->getFile('foto');
-        // Cek apakah ada file yang diunggah, jika ada maka hapus foto lama dan simpan foto baru
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             if ($fotoName) {
                 $fotoLama = ROOTPATH . 'public/uploads/sekolah/' . $fotoName;

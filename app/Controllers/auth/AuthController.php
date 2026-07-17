@@ -23,16 +23,18 @@ class AuthController extends BaseController
 
     public function loginProcess()
     {
+        //membaca validasi input
         $rules = [
             'login_id' => 'required',
             'password' => 'required',
         ];
-
+        //kalau validasinya gagal dia akan kembali ke halaman login
         if (!$this->validate($rules)) {
             return redirect()->back()
                 ->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
+
 
         $loginId  = $this->request->getPost('login_id');
         $password = $this->request->getPost('password');
@@ -44,12 +46,14 @@ class AuthController extends BaseController
             $user = $this->userModel->where('nama', $loginId)->first();
         }
 
+        //jika user atau password tidak sesuai maka akan kembali ke halaman login
         if (!$user || !password_verify($password, $user['password'])) {
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Email/Nama atau password salah.');
         }
 
+        //jika user dan password sesuai maka akan membuat session
         session()->set([
             'logged_in'   => true,
             'user_id'     => $user['id'],
@@ -58,7 +62,7 @@ class AuthController extends BaseController
             'user_role'   => $user['role'],
             'user_foto'   => $user['foto_profil'],
             'foto_profil' => $user['foto_profil'],
-            'sekolah_id'  => $user['sekolah_id'] ?? null,
+            'sekolah_id'  => $user['sekolah_id'] ?? null,//ini null karena super admin tidak punya sekolah_id, jadi kita kasih null
         ]);
 
         // Redirect berdasarkan role
@@ -70,7 +74,7 @@ class AuthController extends BaseController
                 return redirect()->to('/admin/profileSekolah')->with('success', 'Login berhasil.');
 
             default:
-                return redirect()->to('/dashboard')->with('success', 'Login berhasil.');
+                return redirect()->back()->with('error', 'Login tidak sah.');
         }
     }
 

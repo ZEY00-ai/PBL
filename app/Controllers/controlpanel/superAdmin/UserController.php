@@ -142,7 +142,6 @@ class UserController extends BaseController
         return redirect()->to('superAdmin/user/list')->with('success', 'Akun berhasil dihapus.');
     }
 
-    // API untuk mengambil data user (AJAX)
     public function getUserData()
     {
         $user_id = $this->request->getGet('id') ?? session()->get('user_id');

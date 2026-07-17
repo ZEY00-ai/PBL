@@ -69,8 +69,8 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama Sekolah</th>
-                                    <th class="text-center">Akreditasi</th>
                                     <th class="text-center">Tingkatan</th>
+                                    <th class="text-center">Akreditasi</th>
                                     <th class="text-center">Kecamatan</th>
                                     <!-- <th class="text-center">Alamat</th> -->
                                     <th class="text-center">Aksi</th>
@@ -99,7 +99,7 @@
                                                 <?php if ($s['akreditasi']): ?>
                                                     <?php
                                                     $badgeColor = match ($s['akreditasi']) {
-                                                        'A'    => '#ff0000',
+                                                        'A'    => '#a31616',
                                                         'B'    => '#2563eb',
                                                         'C'    => '#d97706',
                                                         default => '#6b7280',

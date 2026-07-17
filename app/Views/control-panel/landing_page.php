@@ -30,7 +30,7 @@
 </head>
 
 <body class="app">
-
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
         <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand fw-bold text-primary me-0" href="#beranda">
@@ -265,6 +265,7 @@
                             window.MAPTILER_KEY = '<?= esc($maptilerKey ?? '') ?>';
                             window.FOTO_SEKOLAH_URL = '<?= base_url('uploads/sekolah') ?>';
                             window.SEKOLAH_DETAIL_URL = '<?= base_url('sekolah/') ?>';
+                            window.MARKER_BASE_URL = '<?= base_url('assets/markers') ?>';
                         </script>
                         <script src="<?= base_url('assets/js/landing/script.js') ?>"></script>
                     </div>

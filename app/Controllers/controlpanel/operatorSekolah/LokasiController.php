@@ -17,8 +17,10 @@ class LokasiController extends BaseController
 
     public function index()
     {
+        //mengambil data sekolah berdasarkan id sekolah yang tersimpan di session
         $sekolahId = session()->get('sekolah_id');
 
+        // Pastikan operator cuma bisa melihat sekolahnya sendiri
         if (!$sekolahId) {
             return redirect()->to('/login')->with('error', 'Sesi sekolah tidak ditemukan, silakan login ulang.');
         }

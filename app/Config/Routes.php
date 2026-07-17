@@ -3,7 +3,7 @@
     use CodeIgniter\Router\RouteCollection;
 
     /** @var RouteCollection $routes */
-    $routes->get('/', 'Home::index');
+    $routes->get('/', 'Home::index', ['filter' => 'nocache']);
     $routes->get('peta', 'Home::petaFull');
 
 
@@ -15,13 +15,13 @@
     $routes->get('/logout', 'Auth\AuthController::logout');
 
     //dashboard
-    $routes->get('/dashboard', 'Controlpanel\DashboardController::index');
+    $routes->get('/dashboard', 'Controlpanel\DashboardController::index',['filter' => 'auth','nocache']);
 
     //maps
     $routes->get('maps/index', 'Controlpanel\MapsController::index');
 
     // Profile / Account & Settings
-    $routes->get('profile', 'Controlpanel\ProfileController::index');
+    $routes->get('profile', 'Controlpanel\ProfileController::index',['filter' => 'nocache']);
     $routes->post('profile/update', 'Controlpanel\ProfileController::update');
     $routes->post('profile/foto', 'Controlpanel\ProfileController::foto');
     $routes->post('profile/password', 'Controlpanel\ProfileController::password');
@@ -35,7 +35,7 @@
     // SUPER ADMIN     =
     // =================
 
-    $routes->group('superAdmin', ['filter' => 'role:super_admin'], function ($routes) {
+    $routes->group('superAdmin', ['filter' => 'role:super_admin', 'nocache'], function ($routes) {
 
         // =================
         // Sekolah         =
@@ -108,7 +108,7 @@
     // ADMIN           =
     // =================
 
-    $routes->group('admin', ['filter' => 'auth'], function ($routes) {
+    $routes->group('admin', ['filter' => 'auth', 'nocache'], function ($routes) {
 
         // =================
         // Profile sekolah =

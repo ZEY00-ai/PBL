@@ -252,9 +252,49 @@
         const GEOJSON_DATA = <?= json_encode($geojson ?? []) ?>;
         const SEKOLAH_KECAMATAN = <?= json_encode($sekolah['kecamatan'] ?? '') ?>;
 
+        // ═══════════════════════════════════════════════════
+        // 🔧 SWITCH MODE MARKER: ganti true/false buat pindah mode
+        // true  = pakai marker gambar PNG
+        // false = pakai marker default Leaflet (pin biru bawaan)
+        // ═══════════════════════════════════════════════════
+        const USE_IMAGE_MARKER = true;
+
+        // MARKER GAMBAR: base URL folder file PNG marker
+        const MARKER_BASE_URL = '<?= base_url('assets/markers') ?>';
+
+        // MARKER GAMBAR: pilih file PNG sesuai tingkatan sekolah
+        function getMarkerIconUrl(tingkatan) {
+            switch (tingkatan) {
+                case 'TK':
+                    return `${MARKER_BASE_URL}/1.png`;
+                case 'SD':
+                    return `${MARKER_BASE_URL}/1.png`;
+                case 'SMP':
+                    return `${MARKER_BASE_URL}/marker-smp.png`;
+                default:
+                    return `${MARKER_BASE_URL}/marker-default.png`;
+            }
+        }
+
+        // createIcon otomatis pilih mode sesuai USE_IMAGE_MARKER di atas
+        // kalau false, return null → biar L.marker() pakai icon default bawaan Leaflet
+        function createIcon(tingkatan) {
+            if (USE_IMAGE_MARKER) {
+                return L.icon({
+                    iconUrl: getMarkerIconUrl(tingkatan),
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32],
+                });
+            } else {
+                return null; // null = pakai default marker Leaflet
+            }
+        }
+
         <?php if ($sekolah['latitude'] && $sekolah['longitude']): ?>
             const lat = <?= $sekolah['latitude'] ?>;
             const lng = <?= $sekolah['longitude'] ?>;
+            const tingkatanSekolah = <?= json_encode($sekolah['tingkatan'] ?? '') ?>; // MARKER GAMBAR: dipakai buat pilih PNG
 
             const map = L.map('map').setView([lat, lng], 16);
 
@@ -290,16 +330,24 @@
             }
 
             // ── Marker sekolah ──────────────────────────────────────────
-            const marker = L.marker([lat, lng]).addTo(map);
+            const markerIcon = createIcon(tingkatanSekolah); // MARKER GAMBAR: otomatis ikut USE_IMAGE_MARKER
+
+            const marker = markerIcon ?
+                L.marker([lat, lng], {
+                    icon: markerIcon
+                }).addTo(map) // mode gambar
+                :
+                L.marker([lat, lng]).addTo(map); // mode default Leaflet
+
             marker.bindPopup(`
-            <div style="min-width:160px;">
-                <strong><?= esc($sekolah['nama_sekolah']) ?></strong><br>
-                <small><?= esc($sekolah['kecamatan'] ?? '') ?></small><br>
-                <small><?= esc($sekolah['alamat'] ?? '') ?></small>
-            </div>
-        `).openPopup();
+        <div style="min-width:160px;">
+            <strong><?= esc($sekolah['nama_sekolah']) ?></strong><br>
+            <small><?= esc($sekolah['kecamatan'] ?? '') ?></small><br>
+            <small><?= esc($sekolah['alamat'] ?? '') ?></small>
+        </div>
+    `).openPopup();
         <?php endif; ?>
-    </script>
+    </script>   
 </body>
 
 </html>
